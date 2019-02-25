@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/navigation_header_image"
+        android:layout_width="match_parent"
+        android:layout_height="280dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/colourback_1"
+
+        />
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentRight="true"
+        android:layout_margin="@dimen/stander_margin_x2"
+        android:src="@drawable/hmdlogo"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:text="wasiy.kakar2017@gmail.com"
+        android:textColor="@color/white_color"
+        android:textSize="15sp"
+        android:gravity="right"
+        android:layout_marginBottom="@dimen/stander_margin_x2"
+        android:layout_alignBottom="@id/navigation_header_image"
+
+        />
+
+
+
+</RelativeLayout>

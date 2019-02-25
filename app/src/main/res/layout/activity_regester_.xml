@@ -1,0 +1,732 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:layoutDirection="rtl">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include layout="@layout/toolbar" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/nested_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:scrollbars="none"
+        android:scrollingCache="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:gravity="center_horizontal"
+            android:layoutDirection="rtl"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_mlarge"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="visible">
+
+                <com.mikhaellopez.circularimageview.CircularImageView
+                    android:id="@+id/image"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/photo_female_5"
+                    app:civ_border="true"
+                    app:civ_border_color="@color/purple_500"
+                    app:civ_border_width="2dp"
+                    app:civ_shadow="true"
+                    app:civ_shadow_radius="0" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/spacing_large"
+                android:background="@color/grey_10" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="مشخصات شخص :"
+                    style="@style/default_text_view_setting" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:visibility="visible">
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <android.support.design.widget.TextInputEditText
+                            android:id="@+id/ed_f_name"
+                            style="@style/default_edit_text_setting"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="نام و تخلص را وارد کنید"
+                            android:maxLines="1" />
+                    </android.support.design.widget.TextInputLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <android.support.design.widget.TextInputEditText
+                            android:id="@+id/ed_job"
+                            style="@style/default_edit_text_setting"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="وظیفه را وارد کنید"
+                            android:maxLines="1" />
+                    </android.support.design.widget.TextInputLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <android.support.design.widget.TextInputEditText
+                            android:id="@+id/ed_phone"
+                            style="@style/default_edit_text_setting"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="شماره تماس را وارد کنید"
+                            android:inputType="phone"
+
+                            />
+                    </android.support.design.widget.TextInputLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="@dimen/spacing_large"
+                    android:background="@color/grey_10" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="مشخصات لباس: "
+                style="@style/default_text_view_setting"
+                />
+
+            <!--<View-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="1dp"-->
+                <!--android:layout_marginTop="@dimen/spacing_large"-->
+                <!--android:background="@color/grey_10" />-->
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/ed_qad"
+                        style="@style/default_edit_text_setting"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="اندازه قد را وارد کنید "
+                        android:inputType="number" />
+                </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/ed_shana"
+                        style="@style/default_edit_text_setting"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="اندازه شانه را وارد کنید "
+                        android:inputType="number" />
+                </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/ed_astin"
+                        style="@style/default_edit_text_setting"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="اندازه آستین را وارد کنید "
+                        android:inputType="number" />
+                </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/ed_dm_astin"
+                        style="@style/default_edit_text_setting"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="اندازه دم آستین را وارد کنید "
+                        android:inputType="number" />
+                </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/ed_yakhan"
+                        style="@style/default_edit_text_setting"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="اندازه یخن را وارد کنید "
+                        android:inputType="number" />
+                </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <android.support.design.widget.TextInputLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/ed_baqal"
+                        style="@style/default_edit_text_setting"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="اندازه بغل را وارد کنید "
+                        android:inputType="number" />
+                </android.support.design.widget.TextInputLayout>
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/ed_daman"
+                        style="@style/default_edit_text_setting"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="اندازه دامن را وارد کنید "
+                        android:inputType="number" />
+                </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/ed_shalwar"
+                        style="@style/default_edit_text_setting"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="اندازه شلوار را وارد کنید "
+                        android:inputType="number" />
+                </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                android:orientation="vertical">
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/ed_pacha"
+                        style="@style/default_edit_text_setting"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="اندازه پارچه را وارد کنید "
+                        android:inputType="number" />
+                </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/ed_bar_shalwar"
+                        style="@style/default_edit_text_setting"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="اندازه بر شلوار را وارد کنید "
+                        android:inputType="number" />
+                </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="@dimen/spacing_large"
+                    android:background="@color/grey_10" />
+
+                <TextView
+                    android:layout_width="match_parent"
+
+                    android:layout_height="wrap_content"
+                    android:text="مدل لباس"
+                    style="@style/default_text_view_setting" />
+                <!--<View-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="1dp"-->
+                    <!--android:layout_marginTop="@dimen/spacing_large"-->
+                    <!--android:background="@color/grey_10" />-->
+
+                <RadioGroup
+                    android:id="@+id/cloth_model_rg"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <RadioButton
+
+                        android:id="@+id/rb_model_sada"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="ساده"
+                        style="@style/default_radio_setting"/>
+
+                    <RadioButton
+                        android:id="@+id/rb_model_shabazi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="شهبازی"
+                        style="@style/default_radio_setting"/>
+
+                    <RadioButton
+                        android:id="@+id/rb_model_pakistani"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="پاکستانی"
+                        style="@style/default_radio_setting"/>
+
+                    <RadioButton
+                        android:id="@+id/rb_model_chapayakhan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="چپه یخن"
+                        style="@style/default_radio_setting"
+                        android:checked="true"/>
+
+                    <RadioButton
+                        android:id="@+id/rb_model_khamak"
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="خامک"
+                        style="@style/default_radio_setting"/>
+
+                    <RadioButton
+                        android:id="@+id/rb_model_another"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="دیگر ..."
+                        style="@style/default_radio_setting"/>
+                </RadioGroup>
+
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/spacing_large"
+                android:background="@color/grey_10" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:layout_width="match_parent"
+
+                    android:layout_height="wrap_content"
+                    android:text="مدل دم آستین"
+                    style="@style/default_text_view_setting" />
+
+                <RadioGroup
+                    android:id="@+id/model_dam_astin_rg"
+                    android:layout_width="match_parent"
+
+                    android:layout_height="match_parent">
+
+                    <RadioButton
+                        android:id="@+id/rb_model_dam_astin_sada"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="ساده "
+                        style="@style/default_radio_setting"
+                        />
+
+                    <RadioButton
+                        android:id="@+id/rb_model_dam_astin_mehrabi"
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="مرابی "
+                        style="@style/default_radio_setting"/>
+
+                    <RadioButton
+                        android:id="@+id/rb_model_dam_astin_kaphak"
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="کفک دار"
+                        style="@style/default_radio_setting"
+                        android:checked="true"/>
+
+                    <RadioButton
+                        android:id="@+id/rb_model_dam_astin_another"
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="دیگر ..."
+                        style="@style/default_radio_setting"/>
+                </RadioGroup>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="@dimen/spacing_large"
+                    android:background="@color/grey_10" />
+
+                <TextView
+                    android:layout_width="match_parent"
+
+                    android:layout_height="wrap_content"
+                    android:text="مدل آستین"
+                    style="@style/default_text_view_setting" />
+
+                <RadioGroup
+                    android:id="@+id/model_astin_rg"
+                    android:layout_width="match_parent"
+
+                    android:layout_height="match_parent">
+
+                    <RadioButton
+                        android:id="@+id/rb_model_astin_sada"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="ساده "
+                        style="@style/default_radio_setting"/>
+
+
+                    <RadioButton
+                        android:id="@+id/rb_model_astin_kaf"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="کف"
+                        style="@style/default_radio_setting"
+                        android:checked="true"/>
+
+                </RadioGroup>
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="@dimen/spacing_large"
+                    android:background="@color/grey_10" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+
+                    <TextView
+
+
+                        android:layout_width="match_parent"
+
+                        android:layout_height="wrap_content"
+                        android:text="قوت  آستین"
+                        style="@style/default_text_view_setting" />
+
+                    <RadioGroup
+
+                        android:id="@+id/qot_astin_rg"
+                        android:layout_width="match_parent"
+
+                        android:layout_height="match_parent">
+
+                        <RadioButton
+                            android:id="@+id/rb_qot_astin_andami"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="اندامی "
+                            style="@style/default_radio_setting"
+                            android:checked="true"/>
+
+                        <RadioButton
+                            android:id="@+id/rb_qot_astin_midim"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="متوسط"
+                            style="@style/default_radio_setting"/>
+
+
+                    </RadioGroup>
+
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="@dimen/spacing_large"
+                    android:background="@color/grey_10" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+
+                        android:layout_height="wrap_content"
+                        android:text="مدل یقه"
+                        style="@style/default_text_view_setting" />
+
+                    <RadioGroup
+
+                        android:id="@+id/model_yaqa_rg"
+                        android:layout_width="match_parent"
+
+                        android:layout_height="match_parent">
+
+                        <RadioButton
+                            android:id="@+id/rb_model_yaqa_khamak"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="یق خامک"
+                            style="@style/default_radio_setting"
+                            android:checked="true"/>
+
+                        <RadioButton
+                            android:id="@+id/rb_model_yaqa_pak"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="یقه پاکستانی "
+                            style="@style/default_radio_setting"/>
+
+
+                        <RadioButton
+                            android:id="@+id/rb_model_yaqa_another"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="دیگر ..."
+                            style="@style/default_radio_setting"/>
+                    </RadioGroup>
+
+
+                </LinearLayout>
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="@dimen/spacing_large"
+                    android:background="@color/grey_10" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+
+                        android:layout_height="wrap_content"
+                        android:text="قد پتی"
+                        style="@style/default_text_view_setting" />
+
+                    <RadioGroup
+
+                        android:id="@+id/qad_paty_rg"
+                        android:layout_width="match_parent"
+
+                        android:layout_height="match_parent">
+
+                        <RadioButton
+                            android:id="@+id/rb_qad_paty_baland"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="قد پتی بلند"
+                            style="@style/default_radio_setting"
+                            android:checked="true"
+                            />
+
+                        <RadioButton
+                            android:id="@+id/rb_qad_paty_kota"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="قد پتی کوتا "
+                            style="@style/default_radio_setting"/>
+
+
+                        <RadioButton
+                            android:id="@+id/rb_qad_paty_another"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="دیگر ..."
+                            style="@style/default_radio_setting"/>
+                    </RadioGroup>
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_insert"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end|right"
+        android:layout_margin="@dimen/spacing_smlarge"
+        android:clickable="true"
+
+
+        app:backgroundTint="@color/green_100"
+        app:fabSize="auto"
+        app:srcCompat="@drawable/ok" />
+
+</android.support.design.widget.CoordinatorLayout>

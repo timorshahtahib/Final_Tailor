@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/background_light"
+    android:backgroundTint="@android:color/background_light"
+    android:backgroundTintMode="src_over"
+    android:layoutDirection="ltr"
+    android:baselineAligned="false"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="240dp"
+        app:srcCompat="@drawable/hmd" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layoutDirection="rtl"
+        android:layout_alignParentTop="true">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:onClick="back"
+            android:layoutDirection="rtl"
+            app:srcCompat="@drawable/ic_arrow_back" />
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/gmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="182dp"
+        android:layout_marginLeft="33dp"
+        android:layout_marginStart="33dp"
+        app:srcCompat="@drawable/gmail" />
+
+    <ImageView
+        android:id="@+id/fone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/gmail"
+        android:layout_alignStart="@+id/gmail"
+        android:layout_alignTop="@+id/gmail"
+        android:layout_marginTop="62dp"
+        app:srcCompat="@drawable/call" />
+
+    <ImageView
+        android:id="@+id/facebook"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/fone"
+        android:layout_alignRight="@+id/fone"
+        android:layout_below="@+id/fone"
+        android:layout_marginTop="13dp"
+        app:srcCompat="@drawable/face" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/gmail"
+        android:layout_marginLeft="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="12dp"
+        android:layout_toEndOf="@+id/gmail"
+        android:layout_toRightOf="@+id/gmail"
+        android:text="HMDICTAPP@gmail.com"
+        android:textColor="@color/cyan_900" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView2"
+        android:layout_alignStart="@+id/textView2"
+        android:layout_alignTop="@+id/fone"
+        android:layout_marginLeft="7dp"
+        android:layout_marginStart="7dp"
+        android:layout_marginTop="6dp"
+        android:text="0730986136 - 0744188489"
+        android:textColor="@color/cyan_900"  />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView4"
+        android:layout_alignStart="@+id/textView4"
+        android:layout_alignTop="@+id/facebook"
+        android:layout_marginTop="10dp"
+        android:text="Herat Mobile Developers"
+        android:textColor="@color/cyan_900" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView5"
+        android:layout_alignStart="@+id/textView5"
+        android:layout_alignTop="@+id/imageView13"
+        android:layout_marginTop="8dp"
+        android:text="HeratMobileDevelopers.com"
+        android:textColor="@color/cyan_900"  />
+
+    <ImageView
+        android:id="@+id/imageView13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/gmail"
+        android:layout_alignLeft="@+id/facebook"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/gmail"
+        android:layout_alignStart="@+id/facebook"
+        android:layout_marginBottom="6dp"
+        app:srcCompat="@drawable/weeb" />
+
+</RelativeLayout>

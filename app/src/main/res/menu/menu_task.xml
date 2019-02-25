@@ -1,0 +1,19 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <item
+        android:id="@+id/action_pay_task"
+        android:icon="@drawable/ic_payment"
+        android:orderInCategory="101"
+        android:title="Cart"
+        app:showAsAction="always" />
+
+
+    <item
+        android:id="@+id/action_Delete_task"
+        android:orderInCategory="101"
+        android:icon="@drawable/ic_delete"
+        android:title="Delete "
+        app:showAsAction="always" />
+</menu>

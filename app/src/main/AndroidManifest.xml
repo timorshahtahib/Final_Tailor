@@ -9,13 +9,29 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".Activity.TotalReportPaymentCustomerActivity"></activity>
+        <activity android:name=".Activity.EveryRemainderActivity" />
+        <activity android:name=".Activity.RemainderActivity" />
+        <activity android:name=".Activity.DisplayReportActivity" />
+        <activity android:name=".Activity.ReportActivity" />
+        <activity
+            android:name=".Activity.DashboradReportActivity"
+            android:parentActivityName=".Activity.MainActivity" />
+        <activity
+            android:name=".Activity.PaymentActivity"
+            android:parentActivityName=".Activity.Tasks_Activity" />
+        <activity android:name=".Activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Activity.Person_Activity" />
+        <activity android:name=".Activity.ContactActivity" />
+        <activity android:name=".Activity.Profile_Activity" />
+        <activity android:name=".Activity.Regester_Activity" />
+        <activity android:name=".Activity.Tasks_Activity" />
     </application>
 
 </manifest>

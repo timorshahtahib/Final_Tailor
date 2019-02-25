@@ -1,0 +1,485 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    >
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar_display_report"
+            android:layoutDirection="ltr"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/purple_500"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:contentInsetStartWithNavigation="0dp"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layoutDirection="rtl"
+        android:id="@+id/nested_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:scrollbars="none"
+        android:scrollingCache="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/task_customer_name_display_report_top"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_xlarge"
+                android:text="یونیس شانس"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
+                android:textColor="@color/grey_90"
+                android:visibility="visible" />
+
+            <TextView
+                android:id="@+id/job_display_report"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_medium"
+                android:text="عکاس"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                android:textColor="@color/grey_60"
+                android:visibility="visible" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_mlarge"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="visible">
+
+                <ImageButton
+                    android:layout_width="?attr/actionBarSize"
+                    android:layout_height="?attr/actionBarSize"
+                    android:layout_margin="@dimen/spacing_middle"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:tint="@color/light_green_600"
+                    app:srcCompat="@drawable/ic_chat"
+                    tools:ignore="VectorDrawableCompat" />
+
+                <com.mikhaellopez.circularimageview.CircularImageView
+                    android:id="@+id/image_display_report"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/photo_female_5"
+                    app:civ_border="true"
+                    app:civ_border_color="@color/purple_500"
+                    app:civ_border_width="2dp"
+                    app:civ_shadow="true"
+                    app:civ_shadow_radius="0" />
+
+                <ImageButton
+                    android:layout_width="?attr/actionBarSize"
+                    android:layout_height="?attr/actionBarSize"
+                    android:layout_margin="@dimen/spacing_middle"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:tint="@color/light_green_600"
+                    app:srcCompat="@drawable/ic_call"
+                    tools:ignore="VectorDrawableCompat" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/spacing_xlarge"
+                android:layout_marginTop="@dimen/spacing_large"
+                android:layout_marginRight="@dimen/spacing_xlarge"
+                android:gravity="center"
+                android:lineSpacingExtra="2dp"
+                android:text="زنده گی زیباست"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
+                android:textColor="@color/grey_90"
+                android:visibility="visible" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/spacing_large"
+                android:background="@color/grey_10"
+                android:visibility="visible" />
+
+            <android.support.constraint.ConstraintLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:layout_editor_absoluteY="25dp">
+
+                <LinearLayout
+                    android:id="@+id/lyt_parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="1dp"
+                    android:layout_marginLeft="1dp"
+                    android:layout_marginEnd="1dp"
+                    android:layout_marginRight="1dp"
+
+                    android:layoutDirection="rtl"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.51"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <LinearLayout
+                        android:layout_width="200dp"
+                        android:layout_height="match_parent"
+                        android:layout_margin="5dp"
+                        android:orientation="vertical">
+
+                        <TextView
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="وضعیت"
+                            android:layout_marginRight="@dimen/stander_margin"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            tools:layout_editor_absoluteX="282dp"
+                            tools:layout_editor_absoluteY="26dp" />
+
+                        <TextView
+
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="تاریخ تحویل"
+                            android:layout_marginRight="@dimen/stander_margin"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="200dp"
+                        android:layout_height="match_parent"
+                        android:layout_margin="5dp"
+                        android:orientation="vertical">
+
+
+                        <CheckBox
+                            android:id="@+id/check_state_display_report"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="16sp"
+                            tools:layout_editor_absoluteX="172dp"
+                            tools:layout_editor_absoluteY="28dp"
+                            android:layout_marginRight="@dimen/stander_margin_x4"
+                            />
+
+                        <TextView
+                            android:id="@+id/deliver_date_display_report"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="234"
+                            tools:layout_editor_absoluteX="172dp"
+                            tools:layout_editor_absoluteY="28dp"
+                            android:layout_marginRight="@dimen/stander_margin_x4" />
+
+                    </LinearLayout>
+
+
+
+
+                </LinearLayout>
+
+            </android.support.constraint.ConstraintLayout>
+            <android.support.constraint.ConstraintLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:layout_editor_absoluteY="25dp">
+
+                <LinearLayout
+                    android:id="@+id/lyt_parent_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="1dp"
+                    android:layout_marginLeft="1dp"
+                    android:layout_marginEnd="1dp"
+                    android:layout_marginRight="1dp"
+
+                    android:layoutDirection="rtl"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.51"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <LinearLayout
+                        android:layout_width="200dp"
+                        android:layout_height="match_parent"
+                        android:layout_margin="5dp"
+                        android:orientation="vertical">
+
+                        <TextView
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="رنگ"
+                            android:layout_marginRight="@dimen/stander_margin"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            tools:layout_editor_absoluteX="282dp"
+                            tools:layout_editor_absoluteY="26dp" />
+
+                        <TextView
+
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="تعداد"
+                            android:layout_marginRight="@dimen/stander_margin"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+
+
+                    <LinearLayout
+                        android:layout_width="200dp"
+                        android:layout_height="match_parent"
+                        android:layout_margin="5dp"
+                        android:orientation="vertical">
+
+
+                        <TextView
+                            android:id="@+id/color_display_report"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="16sp"
+                            android:text="سبز"
+                            tools:layout_editor_absoluteX="172dp"
+                            tools:layout_editor_absoluteY="28dp"
+                            android:layout_marginRight="@dimen/stander_margin_x4"
+                            />
+
+
+                        <TextView
+                            android:id="@+id/count_display_report"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="16sp"
+                            android:text="234"
+                            tools:layout_editor_absoluteX="172dp"
+                            tools:layout_editor_absoluteY="28dp"
+                            android:layout_marginRight="@dimen/stander_margin_x4"
+                            />
+
+                    </LinearLayout>
+
+
+
+                </LinearLayout>
+
+
+            </android.support.constraint.ConstraintLayout>
+            <android.support.constraint.ConstraintLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:layout_editor_absoluteY="25dp">
+
+                <LinearLayout
+                    android:id="@+id/lyt_parent_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="1dp"
+                    android:layout_marginLeft="1dp"
+                    android:layout_marginEnd="1dp"
+                    android:layout_marginRight="1dp"
+
+                    android:layoutDirection="rtl"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.51"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <LinearLayout
+                        android:layout_width="200dp"
+                        android:layout_height="match_parent"
+                        android:layout_margin="5dp"
+                        android:orientation="vertical">
+
+                        <TextView
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="@dimen/stander_margin"
+                            android:text="قیمت"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            tools:layout_editor_absoluteX="282dp"
+                            tools:layout_editor_absoluteY="26dp" />
+
+                        <TextView
+
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="پیش پرداخت"
+                            android:layout_marginRight="@dimen/stander_margin"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+
+
+                    <LinearLayout
+                        android:layout_width="200dp"
+                        android:layout_height="match_parent"
+                        android:layout_margin="5dp"
+                        android:orientation="vertical">
+
+
+                        <TextView
+                            android:id="@+id/price_state_display_report"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="16sp"
+                            android:text="234"
+                            tools:layout_editor_absoluteX="172dp"
+                            tools:layout_editor_absoluteY="28dp"
+                              android:layout_marginRight="@dimen/stander_margin_x4"
+                            />
+
+                        <TextView
+                            android:id="@+id/payment_display_report"
+                            android:layout_width="wrap_content"
+                                                                                                                                                         android:layout_height="wrap_content"
+                            android:text="400"
+                            tools:layout_editor_absoluteX="172dp"
+                            tools:layout_editor_absoluteY="28dp"
+                            android:layout_marginRight="@dimen/stander_margin_x4"/>
+
+                    </LinearLayout>
+
+
+
+                </LinearLayout>
+
+
+            </android.support.constraint.ConstraintLayout>
+            <android.support.constraint.ConstraintLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:layout_editor_absoluteY="25dp">
+
+                <LinearLayout
+                    android:id="@+id/lyt_parent_23"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="1dp"
+                    android:layout_marginLeft="1dp"
+                    android:layout_marginEnd="1dp"
+                    android:layout_marginRight="1dp"
+
+                    android:layoutDirection="rtl"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.51"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <LinearLayout
+                        android:layout_width="200dp"
+                        android:layout_height="match_parent"
+                        android:layout_margin="5dp"
+                        android:orientation="vertical">
+
+                        <TextView
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="باقی مانده"
+                            android:layout_marginRight="@dimen/stander_margin"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            tools:layout_editor_absoluteX="282dp"
+                            tools:layout_editor_absoluteY="26dp" />
+
+                        <TextView
+
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="تاریخ ثبت"
+                            android:layout_marginRight="@dimen/stander_margin"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="200dp"
+                        android:layout_height="match_parent"
+                        android:layout_margin="5dp"
+                        android:orientation="vertical">
+
+
+                        <TextView
+                            android:id="@+id/remainder_display_report"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="16sp"
+                            android:text="300"
+                            tools:layout_editor_absoluteX="172dp"
+                            tools:layout_editor_absoluteY="28dp"
+                            android:layout_marginRight="@dimen/stander_margin_x4"
+                            />
+
+                        <TextView
+                            android:id="@+id/reg_date_display_report"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="۱۳۹۷-۱۰-۱۲"
+                            tools:layout_editor_absoluteX="172dp"
+                            tools:layout_editor_absoluteY="28dp"
+                            android:layout_marginRight="@dimen/stander_margin_x4" />
+
+                    </LinearLayout>
+
+
+
+                </LinearLayout>
+
+
+            </android.support.constraint.ConstraintLayout>
+
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+
+
+</android.support.design.widget.CoordinatorLayout>

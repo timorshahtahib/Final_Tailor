@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <group>
+
+        <item
+            android:id="@+id/setting"
+            android:title="تنظیمات"
+            android:icon="@drawable/ic_settings_black_24dp"
+            />
+        <item
+            android:id="@+id/customer_item"
+            android:title="مشتریان"
+            android:icon="@drawable/ic_person"
+            />
+        <item
+            android:id="@+id/task_item"
+            android:title="کار ها"
+            android:icon="@drawable/ic_shopping_basket"
+            />
+        <item
+            android:id="@+id/report_item"
+            android:title="گزارش ها"
+            android:icon="@drawable/ic_description"
+            />
+
+
+
+    </group>
+
+    <item android:title="ارتباطات">
+        <menu>
+            <item
+                android:id="@+id/contact_us"
+                android:title="تماس با ما"
+                android:icon="@drawable/ic_contact_phone_black_24dp"
+                />
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_menu_share"
+                android:title="اشتراک گزاری در" />
+            <item
+                android:id="@+id/nav_send"
+                android:icon="@drawable/ic_menu_send"
+                android:title="ارسال برنامه " />
+
+            <item
+                android:id="@+id/nav_about"
+                android:icon="@drawable/ic_info"
+                android:title="درباره"
+                />
+            <item
+                android:id="@+id/nav_facebook"
+                android:icon="@drawable/ic_facebook"
+                android:title="صفحه فیس بوک"
+                />
+            <item
+                android:id="@+id/nav_gmail"
+                android:icon="@drawable/ic_email"
+                android:title="جمیل آدرس"
+                />
+
+            <item
+                android:id="@+id/close_the_app"
+                android:title="خارج شدن از برنامه"
+                android:icon="@drawable/ic_exit_to_app_black_24dp"
+                />
+        </menu>
+    </item>
+</menu>

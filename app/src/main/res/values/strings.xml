@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">Final Tailor</string>
+    <string name="app_name">خیاط</string>
+    <string name="middle_lorem_ipsum">محصل  وبیکار</string>
+    <string name="جستجو">Search</string>
 </resources>
