@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layoutDirection="rtl"
+    tools:context=".Seting_Activity"
+    tools:layout_editor_absoluteY="25dp">
+
+    <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/toolbar_s"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:layoutDirection="ltr"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:contentInsetStartWithNavigation="0dp"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include">
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:padding="5dp">
+
+            <Switch
+                android:id="@+id/switch1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="پاسخگوی اتومات برای مشتریان" />
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/card_reply"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp">
+
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                android:orientation="vertical"
+                android:padding="9dp">
+
+                <CheckBox
+                    android:id="@+id/ch_send_roshan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Roshan" />
+
+                <CheckBox
+                    android:id="@+id/ch_send_etisalat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Etisalat" />
+
+                <CheckBox
+                    android:id="@+id/ch_send_salam"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Salam" />
+
+                <CheckBox
+                    android:id="@+id/ch_send_awc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="AWC" />
+
+                <CheckBox
+                    android:id="@+id/ch_send_mtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="MTN" />
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp">
+
+            <Switch
+                android:id="@+id/switch2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ارسال پیام برای مشتریان در ختم تسک" />
+        </android.support.v7.widget.CardView>
+
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/card_send"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp">
+
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="9dp">
+
+                <CheckBox
+
+                    android:id="@+id/ch_send_end_roshan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Roshan" />
+
+                <CheckBox
+                    android:id="@+id/ch_send_end_etisalt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Etisalat" />
+
+                <CheckBox
+                    android:id="@+id/ch_send_end_sala"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Salam" />
+
+                <CheckBox
+                    android:id="@+id/ch_send_end_awc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="AWC" />
+
+                <CheckBox
+                    android:id="@+id/ch_send_end_mtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="MTN" />
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

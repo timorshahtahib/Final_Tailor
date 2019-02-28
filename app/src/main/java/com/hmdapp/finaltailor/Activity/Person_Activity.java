@@ -3,7 +3,6 @@ package com.hmdapp.finaltailor.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,12 +13,11 @@ import android.view.View;
 import android.widget.Toast;
 
 
+import com.hmdapp.finaltailor.Activity.Customer.Profile_Activity;
+import com.hmdapp.finaltailor.Activity.Customer.Regester_Customer;
 import com.hmdapp.finaltailor.Adapter.AdapterListBasic;
 import com.hmdapp.finaltailor.Models.Customer;
-import com.hmdapp.finaltailor.Models.Payment;
-import com.hmdapp.finaltailor.Models.Task;
 import com.hmdapp.finaltailor.R;
-import com.hmdapp.finaltailor.Utlity.Tools;
 import com.hmdapp.finaltailor.database.DB_Acsess;
 
 import java.util.List;
@@ -43,7 +41,7 @@ public class Person_Activity extends AppCompatActivity {
         fb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), Regester_Activity.class));
+                startActivity(new Intent(getApplicationContext(), Regester_Customer.class));
         }
         });
 
@@ -79,7 +77,7 @@ public class Person_Activity extends AppCompatActivity {
             @Override
             public void onItemClick(View view, Customer obj, int position) {
                 Intent intent = new Intent(getApplicationContext(), Profile_Activity.class);
-                intent.putExtra("id", obj.getCl_id());
+
                 intent.putExtra("id_cu", obj.getId());
                 intent.putExtra("name", obj.getName());
                 intent.putExtra("job", obj.getJob());

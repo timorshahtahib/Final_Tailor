@@ -32,126 +32,38 @@
             android:orientation="vertical"
             android:padding="10dp">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacing_mlarge"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:visibility="visible">
-
-                <com.mikhaellopez.circularimageview.CircularImageView
-                    android:id="@+id/image"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:src="@drawable/photo_female_5"
-                    app:civ_border="true"
-                    app:civ_border_color="@color/purple_500"
-                    app:civ_border_width="2dp"
-                    app:civ_shadow="true"
-                    app:civ_shadow_radius="0" />
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="@dimen/spacing_large"
-                android:background="@color/grey_10" />
 
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:visibility="visible">
+                android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/textView"
+                <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="مشخصات شخص :"
-                    style="@style/default_text_view_setting" />
+                    android:layout_height="match_parent">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:visibility="visible">
-
-                    <android.support.design.widget.TextInputLayout
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/ed_dec"
+                        style="@style/default_edit_text_setting"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <android.support.design.widget.TextInputEditText
-                            android:id="@+id/ed_f_name"
-                            style="@style/default_edit_text_setting"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="نام و تخلص را وارد کنید"
-                            android:maxLines="1" />
-                    </android.support.design.widget.TextInputLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <android.support.design.widget.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <android.support.design.widget.TextInputEditText
-                            android:id="@+id/ed_job"
-                            style="@style/default_edit_text_setting"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="وظیفه را وارد کنید"
-                            android:maxLines="1" />
-                    </android.support.design.widget.TextInputLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <android.support.design.widget.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <android.support.design.widget.TextInputEditText
-                            android:id="@+id/ed_phone"
-                            style="@style/default_edit_text_setting"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="شماره تماس را وارد کنید"
-                            android:inputType="phone"
-
-                            />
-                    </android.support.design.widget.TextInputLayout>
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="@dimen/spacing_large"
-                    android:background="@color/grey_10" />
+                        android:layout_height="wrap_content"
+                        android:hint="نام مدل را وارد کنید "
+                        android:inputType="text" />
+                </android.support.design.widget.TextInputLayout>
             </LinearLayout>
 
             <TextView
+                style="@style/default_text_view_setting"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="مشخصات لباس: "
-                style="@style/default_text_view_setting"
-                />
+                android:text="مشخصات لباس: " />
 
             <!--<View-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="1dp"-->
-                <!--android:layout_marginTop="@dimen/spacing_large"-->
-                <!--android:background="@color/grey_10" />-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="1dp"-->
+            <!--android:layout_marginTop="@dimen/spacing_large"-->
+            <!--android:background="@color/grey_10" />-->
 
 
             <LinearLayout
@@ -357,6 +269,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
@@ -364,16 +277,16 @@
                     android:background="@color/grey_10" />
 
                 <TextView
-                    android:layout_width="match_parent"
+                    style="@style/default_text_view_setting"
 
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="مدل لباس"
-                    style="@style/default_text_view_setting" />
+                    android:text="مدل لباس" />
                 <!--<View-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="1dp"-->
-                    <!--android:layout_marginTop="@dimen/spacing_large"-->
-                    <!--android:background="@color/grey_10" />-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="1dp"-->
+                <!--android:layout_marginTop="@dimen/spacing_large"-->
+                <!--android:background="@color/grey_10" />-->
 
                 <RadioGroup
                     android:id="@+id/cloth_model_rg"
@@ -384,53 +297,53 @@
                     <RadioButton
 
                         android:id="@+id/rb_model_sada"
+                        style="@style/default_radio_setting"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="ساده"
-                        style="@style/default_radio_setting"/>
+                        android:text="ساده" />
 
                     <RadioButton
                         android:id="@+id/rb_model_shabazi"
+                        style="@style/default_radio_setting"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="شهبازی"
-                        style="@style/default_radio_setting"/>
+                        android:text="شهبازی" />
 
                     <RadioButton
                         android:id="@+id/rb_model_pakistani"
+                        style="@style/default_radio_setting"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="پاکستانی"
-                        style="@style/default_radio_setting"/>
+                        android:text="پاکستانی" />
 
                     <RadioButton
                         android:id="@+id/rb_model_chapayakhan"
+                        style="@style/default_radio_setting"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="چپه یخن"
-                        style="@style/default_radio_setting"
-                        android:checked="true"/>
+                        android:checked="true"
+                        android:text="چپه یخن" />
 
                     <RadioButton
                         android:id="@+id/rb_model_khamak"
 
+                        style="@style/default_radio_setting"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="خامک"
-                        style="@style/default_radio_setting"/>
+                        android:text="خامک" />
 
                     <RadioButton
                         android:id="@+id/rb_model_another"
+                        style="@style/default_radio_setting"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="دیگر ..."
-                        style="@style/default_radio_setting"/>
+                        android:text="دیگر ..." />
                 </RadioGroup>
 
 
@@ -450,11 +363,11 @@
 
 
                 <TextView
-                    android:layout_width="match_parent"
+                    style="@style/default_text_view_setting"
 
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="مدل دم آستین"
-                    style="@style/default_text_view_setting" />
+                    android:text="مدل دم آستین" />
 
                 <RadioGroup
                     android:id="@+id/model_dam_astin_rg"
@@ -464,40 +377,39 @@
 
                     <RadioButton
                         android:id="@+id/rb_model_dam_astin_sada"
+                        style="@style/default_radio_setting"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="ساده "
-                        style="@style/default_radio_setting"
-                        />
+                        android:text="ساده " />
 
                     <RadioButton
                         android:id="@+id/rb_model_dam_astin_mehrabi"
 
+                        style="@style/default_radio_setting"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="مرابی "
-                        style="@style/default_radio_setting"/>
+                        android:text="مرابی " />
 
                     <RadioButton
                         android:id="@+id/rb_model_dam_astin_kaphak"
 
+                        style="@style/default_radio_setting"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="کفک دار"
-                        style="@style/default_radio_setting"
-                        android:checked="true"/>
+                        android:checked="true"
+                        android:text="کفک دار" />
 
                     <RadioButton
                         android:id="@+id/rb_model_dam_astin_another"
 
+                        style="@style/default_radio_setting"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="دیگر ..."
-                        style="@style/default_radio_setting"/>
+                        android:text="دیگر ..." />
                 </RadioGroup>
 
                 <View
@@ -507,11 +419,11 @@
                     android:background="@color/grey_10" />
 
                 <TextView
-                    android:layout_width="match_parent"
+                    style="@style/default_text_view_setting"
 
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="مدل آستین"
-                    style="@style/default_text_view_setting" />
+                    android:text="مدل آستین" />
 
                 <RadioGroup
                     android:id="@+id/model_astin_rg"
@@ -521,21 +433,21 @@
 
                     <RadioButton
                         android:id="@+id/rb_model_astin_sada"
+                        style="@style/default_radio_setting"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="ساده "
-                        style="@style/default_radio_setting"/>
+                        android:text="ساده " />
 
 
                     <RadioButton
                         android:id="@+id/rb_model_astin_kaf"
+                        style="@style/default_radio_setting"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="کف"
-                        style="@style/default_radio_setting"
-                        android:checked="true"/>
+                        android:checked="true"
+                        android:text="کف" />
 
                 </RadioGroup>
 
@@ -556,11 +468,11 @@
                     <TextView
 
 
-                        android:layout_width="match_parent"
+                        style="@style/default_text_view_setting"
 
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="قوت  آستین"
-                        style="@style/default_text_view_setting" />
+                        android:text="قوت  آستین" />
 
                     <RadioGroup
 
@@ -571,20 +483,20 @@
 
                         <RadioButton
                             android:id="@+id/rb_qot_astin_andami"
+                            style="@style/default_radio_setting"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="اندامی "
-                            style="@style/default_radio_setting"
-                            android:checked="true"/>
+                            android:checked="true"
+                            android:text="اندامی " />
 
                         <RadioButton
                             android:id="@+id/rb_qot_astin_midim"
+                            style="@style/default_radio_setting"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="متوسط"
-                            style="@style/default_radio_setting"/>
+                            android:text="متوسط" />
 
 
                     </RadioGroup>
@@ -606,11 +518,11 @@
 
 
                     <TextView
-                        android:layout_width="match_parent"
+                        style="@style/default_text_view_setting"
 
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="مدل یقه"
-                        style="@style/default_text_view_setting" />
+                        android:text="مدل یقه" />
 
                     <RadioGroup
 
@@ -621,29 +533,29 @@
 
                         <RadioButton
                             android:id="@+id/rb_model_yaqa_khamak"
+                            style="@style/default_radio_setting"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="یق خامک"
-                            style="@style/default_radio_setting"
-                            android:checked="true"/>
+                            android:checked="true"
+                            android:text="یق خامک" />
 
                         <RadioButton
                             android:id="@+id/rb_model_yaqa_pak"
+                            style="@style/default_radio_setting"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="یقه پاکستانی "
-                            style="@style/default_radio_setting"/>
+                            android:text="یقه پاکستانی " />
 
 
                         <RadioButton
                             android:id="@+id/rb_model_yaqa_another"
+                            style="@style/default_radio_setting"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="دیگر ..."
-                            style="@style/default_radio_setting"/>
+                            android:text="دیگر ..." />
                     </RadioGroup>
 
 
@@ -664,11 +576,11 @@
 
 
                     <TextView
-                        android:layout_width="match_parent"
+                        style="@style/default_text_view_setting"
 
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="قد پتی"
-                        style="@style/default_text_view_setting" />
+                        android:text="قد پتی" />
 
                     <RadioGroup
 
@@ -679,30 +591,29 @@
 
                         <RadioButton
                             android:id="@+id/rb_qad_paty_baland"
+                            style="@style/default_radio_setting"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="قد پتی بلند"
-                            style="@style/default_radio_setting"
                             android:checked="true"
-                            />
+                            android:text="قد پتی بلند" />
 
                         <RadioButton
                             android:id="@+id/rb_qad_paty_kota"
+                            style="@style/default_radio_setting"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="قد پتی کوتا "
-                            style="@style/default_radio_setting"/>
+                            android:text="قد پتی کوتا " />
 
 
                         <RadioButton
                             android:id="@+id/rb_qad_paty_another"
+                            style="@style/default_radio_setting"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="دیگر ..."
-                            style="@style/default_radio_setting"/>
+                            android:text="دیگر ..." />
                     </RadioGroup>
 
 
@@ -711,22 +622,22 @@
 
             </LinearLayout>
 
+            <Button
+                android:id="@+id/fab_insert_cloth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
 
+                android:layout_margin="@dimen/spacing_smlarge"
+                android:clickable="true"
+                android:text="ذخیره"
+
+                app:backgroundTint="@color/green_100"
+
+                app:srcCompat="@drawable/ok" />
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_insert"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end|right"
-        android:layout_margin="@dimen/spacing_smlarge"
-        android:clickable="true"
 
-
-        app:backgroundTint="@color/green_100"
-        app:fabSize="auto"
-        app:srcCompat="@drawable/ok" />
 
 </android.support.design.widget.CoordinatorLayout>

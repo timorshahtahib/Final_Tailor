@@ -2,4 +2,14 @@
     <string name="app_name">خیاط</string>
     <string name="middle_lorem_ipsum">محصل  وبیکار</string>
     <string name="جستجو">Search</string>
+
+
+    <string name="exporterenToast">Exporter</string>
+    <string name="portError">Error</string>
+    <string name="importerenToast">Imported</string>
+
+
+    <string name="dummy_button">تماس باما</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="intro">اپلیکشن خیاطی مخصوص به مشتریان ما میباشد و اگر میخواهید از این اپلیکشن استفاده با ما تماس شود    </string>
 </resources>

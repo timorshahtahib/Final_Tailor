@@ -7,6 +7,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.content.ContextCompat;
@@ -15,6 +16,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,6 +26,9 @@ import android.widget.Toast;
 import com.hmdapp.finaltailor.R;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.nio.channels.FileChannel;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
@@ -158,5 +163,46 @@ public class MainActivity extends AppCompatActivity {
         drawerToggle.syncState();
     }
 
+
+    public void exportDatabase() {
+
+        try {
+            File sd = Environment.getExternalStorageDirectory();
+            File data = Environment.getDataDirectory();
+            String currentDBPath = "//data//com.hmd.tailor//databases//db.db";
+            String backupDBPath = "MY_DATABASE_FILE.db";
+            File currentDB = new File(data, currentDBPath);
+            File backupDB = new File(sd, backupDBPath);
+            FileChannel src = new FileInputStream(currentDB).getChannel();
+            FileChannel dst = new FileOutputStream(backupDB).getChannel();
+            dst.transferFrom(src, 0, src.size());
+            src.close();
+            dst.close();
+            Toast.makeText(this, this.getResources().getString(R.string.exporterenToast), Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            Toast.makeText(this, this.getResources().getString(R.string.portError), Toast.LENGTH_SHORT).show();
+            Log.d("Main", e.toString());
+        }
+    }
+
+    public void importDatabase() {
+        try {
+            File sd = Environment.getExternalStorageDirectory();
+            File data = Environment.getDataDirectory();
+            String currentDBPath = "//data//" + "com.hmd.tailor" + "//databases//" + "db.db";
+            String backupDBPath = "MY_DATABASE_FILE.db";
+            File backupDB = new File(data, currentDBPath);
+            File currentDB = new File(sd, backupDBPath);
+            FileChannel src = new FileInputStream(currentDB).getChannel();
+            FileChannel dst = new FileOutputStream(backupDB).getChannel();
+            dst.transferFrom(src, 0, src.size());
+            src.close();
+            dst.close();
+            Toast.makeText(this, this.getResources().getString(R.string.importerenToast), Toast.LENGTH_LONG).show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(this, this.getResources().getString(R.string.portError), Toast.LENGTH_SHORT).show();
+        }
+    }
 
 }

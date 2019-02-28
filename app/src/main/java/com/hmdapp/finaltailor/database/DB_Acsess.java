@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.hmdapp.finaltailor.Models.Cloth;
 import com.hmdapp.finaltailor.Models.Customer;
+import com.hmdapp.finaltailor.Models.Model;
 import com.hmdapp.finaltailor.Models.Payment;
 import com.hmdapp.finaltailor.Models.Task;
 
@@ -63,7 +64,7 @@ public class DB_Acsess {
             con.setName(c.getString(1));
             con.setPhone(c.getString(2));
             con.setJob(c.getString(3));
-            con.setCl_id(c.getInt(4));
+
             list.add(con);
             Log.d("idddddddddddddddddd", con.getCl_id() + "");
         }
@@ -87,6 +88,7 @@ public class DB_Acsess {
         }
         return list;
     }
+
     public List<Task> getAllTask() {
 
         ArrayList<Task> list = new ArrayList<>();
@@ -119,7 +121,7 @@ public class DB_Acsess {
         return list;
     }
 
-    public List<Payment> getListOfRemainderReport( Context context,int id) {
+    public List<Payment> getListOfRemainderReport(Context context, int id) {
 
         ArrayList<Payment> list = new ArrayList<>();
 
@@ -211,7 +213,7 @@ public class DB_Acsess {
                 break;
         }
 
-       //Toast.makeText(context, "Get All Task : size : " + c.getCount(), Toast.LENGTH_LONG).show();
+        //Toast.makeText(context, "Get All Task : size : " + c.getCount(), Toast.LENGTH_LONG).show();
         Log.d("Get All Payment : size", c.getCount() + "");
         Log.i("Get All payment : size", c.getCount() + "");
         System.out.println("Get All payment : size : " + c.getCount() + "");
@@ -263,6 +265,7 @@ public class DB_Acsess {
         c.moveToFirst();
         return c.getInt(c.getColumnIndex("Total"));
     }
+
     public int getRemainderPayment() {
         c = db.rawQuery("select SUM(remainder) as Total from payment where ts_state = 1 AND ( DATE(deliver_date ) between date('now','start of year','+1 month','-31 day') and date('now','start of year','+12 month','-1 day')) ", new String[]{});
         c.moveToFirst();
@@ -280,7 +283,7 @@ public class DB_Acsess {
         con.setName(c.getString(1));
         con.setPhone(c.getString(2));
         con.setJob(c.getString(3));
-        con.setCl_id(c.getInt(4));
+       // con.setCl_id(c.getInt(4));
 
         return con;
     }
@@ -347,15 +350,15 @@ public class DB_Acsess {
 //        return list;
 //    }
 //
-    public Cloth getCloth(int id) {
+    public Cloth getCloth(int id,int idcl) {
 
 
-        c = db.rawQuery("select * from cloth where id='" + id + "'", new String[]{});
+        c = db.rawQuery("select * from cu_cl_info where fk_customer='" + id + "'  and id ='" +idcl + "'", new String[]{});
         c.moveToNext();
         Cloth con = new Cloth();
 
-        con.setId(c.getInt(1));
-        con.setAstin(c.getInt(0));
+        con.setId(c.getInt(0));
+        con.setAstin(c.getInt(1));
         con.setQad(c.getInt(2));
         con.setShana(c.getInt(3));
         con.setBaqal(c.getInt(4));
@@ -374,6 +377,9 @@ public class DB_Acsess {
 
 
         con.setModel_yaqa(c.getString(16));
+
+        con.setFk_customer(c.getInt(17));
+        con.setDes(c.getString(18));
 
         Log.d("inter", id + "");
 
@@ -424,37 +430,7 @@ public class DB_Acsess {
 //        return list;
 //    }
 
-    //
-//    public ArrayList<Tables> getFavoriteCatgory() {
-//        String q = "SELECT distinct   table_name,tables.id FROM tables INNER JOIN `contacts` ON contacts.fk_catgory = tables .id where isfaov=1";
-//
-//        ArrayList<Tables> arrayList = new ArrayList<>();
-//
-//        c = db.rawQuery(q, new String[]{});
-//        // looping through all rows and adding to list
-//
-//
-//        // looping through all rows and adding to list
-//        if (c.moveToFirst()) {
-//            do {
-//                Tables category = new Tables();
-//                category.setTitle(c.getString(0));
-//
-//                category.setId(c.getInt(1));
-//
-//                //   Log.d("category", getcontacct_by_cat(Integer.parseInt(c.getString(1))).size() + "oooooo");
-//
-//                // category.setSize(getcontacct_by_cat(Integer.parseInt(c.getString(1))).size());
-//                // Adding contact to list
-//
-//                arrayList.add(category);
-//            } while (c.moveToNext());
-//        }
-//        return arrayList;
-//    }
-//
-//
-    // code to update the forite culum contact
+
     public int updateCloth(Cloth cloth) {
 
 
@@ -476,8 +452,11 @@ public class DB_Acsess {
         val_cloth.put("cl_astin", cloth.getAstin());
         val_cloth.put("cl_dam_astin", cloth.getDam_astin());
 
+        val_cloth.put("fk_customer",cloth.getFk_customer());
+        val_cloth.put("desc",cloth.getDes());
 
-        int r = db.update("cloth", val_cloth, "id" + " = ?",
+
+        int r = db.update("cu_cl_info", val_cloth, "id" + " = ?",
                 new String[]{cloth.getId() + ""});
         Log.d("update cloth ", "tag " + r);
         // updating row
@@ -486,26 +465,13 @@ public class DB_Acsess {
 
     public int updatePerson(Customer customer) {
         ContentValues val_customer = new ContentValues();
-        ContentValues valPayment = new ContentValues();
-        ContentValues valTask = new ContentValues();
+
 
         val_customer.put("full_name", customer.getName()); // Contact Phone
         val_customer.put("phon", customer.getPhone()); // Contact Phone
         val_customer.put("job", customer.getJob()); // Contact Phone
-        val_customer.put("cl_id", getLastId()); // Contact Phone
-
-        valPayment.put("cu_name",customer.getName());
-        valTask.put("cu_name",customer.getName());
-
         int r = db.update("customer", val_customer, "id" + " = ?",
                 new String[]{customer.getId() + ""});
-
-        db.update("payment", valPayment, "cu_id" + " = ?",
-                new String[]{customer.getId() + ""});
-
-        db.update("tasks", valTask, "ts_cu_id" + " = ?",
-                new String[]{customer.getId() + ""});
-        // updating row
 
 
         Log.d("update customer", "tag " + r);
@@ -513,9 +479,9 @@ public class DB_Acsess {
     }
 
 
-    public long insert(Customer contact, Cloth cloth) {
+    public long insert_cloth(Cloth cloth) {
 
-        ContentValues val_customer = new ContentValues();
+
 
 
         ContentValues val_cloth = new ContentValues();
@@ -536,13 +502,26 @@ public class DB_Acsess {
         val_cloth.put("cl_astin", cloth.getAstin());
         val_cloth.put("cl_dam_astin", cloth.getDam_astin());
 
-        long b2 = db.insert("cloth", null, val_cloth);
+        val_cloth.put("fk_customer", cloth.getFk_customer());
+        val_cloth.put("desc", cloth.getDes());
 
 
+        long b2 = db.insert("cu_cl_info", null, val_cloth);
+
+
+
+        db.close(); // Closing database connection
+        return b2;
+
+    }
+
+    public long insert_customer(Customer contact){
+
+        ContentValues val_customer = new ContentValues();
         val_customer.put("full_name", contact.getName()); // Contact Phone
         val_customer.put("phon", contact.getPhone()); // Contact Phone
         val_customer.put("job", contact.getJob()); // Contact Phone
-        val_customer.put("cl_id", getLastId()); // Contact Phone
+
         // Inserting Row
         long b1 = db.insert("customer", null, val_customer);
 
@@ -609,15 +588,20 @@ public class DB_Acsess {
         c = db.rawQuery("select id from tasks", new String[]{});
 
         c.moveToLast();
+        try {
+            return c.getInt(0);
 
-        return c.getInt(0);
+        } catch (Exception e) {
+            return 1;
+
+        }
     }
 
 
     public boolean delete_cloth(int id) {
 
 
-        int b = db.delete("cloth", "id" + " = ?",
+        int b = db.delete("cu_cl_info", "id" + " = ?",
                 new String[]{id + ""});
 
 
@@ -664,18 +648,18 @@ public class DB_Acsess {
         int result = 0;
         switch (type) {
             case "Daily":
-               // c = db.rawQuery("select * from payment where deliver_date = date('now') and ts_state =1 ORDER BY deliver_date DESC ", new String[]{});
+                // c = db.rawQuery("select * from payment where deliver_date = date('now') and ts_state =1 ORDER BY deliver_date DESC ", new String[]{});
 
                 result = db.delete("payment", "deliver_date = date('now') AND ts_state =1 ", null);
                 break;
             case "Weekly":
 
-               // c = db.rawQuery("select * from payment  where ts_state = 1 AND ( DATE(deliver_date ) between DATE('now', 'weekday 0', '-7 days') AND DATE('now', 'weekday 0', '-1 days')) ORDER BY deliver_date DESC ", new String[]{});
+                // c = db.rawQuery("select * from payment  where ts_state = 1 AND ( DATE(deliver_date ) between DATE('now', 'weekday 0', '-7 days') AND DATE('now', 'weekday 0', '-1 days')) ORDER BY deliver_date DESC ", new String[]{});
                 result = db.delete("payment", "ts_state = 1  AND ( DATE(deliver_date ) between DATE('now', 'weekday 0', '-7 days') AND DATE('now', 'weekday 0', '-1 days')) ", null);
                 break;
             case "Monthly":
 
-               // c = db.rawQuery("select * from payment  where ts_state = 1 AND ( DATE(deliver_date ) between  date('now','start of month','+1 month','-31 day') and date('now','start of month','+1 month','-1 day')) ORDER BY deliver_date DESC ", new String[]{});
+                // c = db.rawQuery("select * from payment  where ts_state = 1 AND ( DATE(deliver_date ) between  date('now','start of month','+1 month','-31 day') and date('now','start of month','+1 month','-1 day')) ORDER BY deliver_date DESC ", new String[]{});
                 result = db.delete("payment", "ts_state = 1 AND ( DATE(deliver_date ) between  date('now','start of month','+1 month','-31 day') and date('now','start of month','+1 month','-1 day')) ", null);
                 break;
             case "Yearly":
@@ -694,7 +678,7 @@ public class DB_Acsess {
 
     }
 
-    public int updateTask(Context context, Task task,Payment payment) {
+    public int updateTask(Context context, Task task, Payment payment) {
         ContentValues taskValues = new ContentValues();
         taskValues.put("ts_state", task.getState());
 
@@ -704,7 +688,7 @@ public class DB_Acsess {
 
         int result = db.update("tasks", taskValues, "id" + " = ?", new String[]{task.getId() + ""});
         int result2 = db.update("payment", paymentValues, "py_ts_id" + " = ?", new String[]{payment.getTaskID() + ""});
-      //  Toast.makeText(context, "ID : " + payment.getTaskID(), Toast.LENGTH_LONG).show();
+        //  Toast.makeText(context, "ID : " + payment.getTaskID(), Toast.LENGTH_LONG).show();
         Log.d("update tasks", "tag " + result);
         return result;
     }
@@ -731,9 +715,9 @@ public class DB_Acsess {
 
         int result = db.update("tasks", taskValues, "id" + " = ?", new String[]{task.getId() + ""});
         int result2 = db.update("payment", paymentValues, "py_ts_id" + " = ?", new String[]{payment.getTaskID() + ""});
-       //Toast.makeText(context, "ID Task : " + task.getId(), Toast.LENGTH_LONG).show();
+        //Toast.makeText(context, "ID Task : " + task.getId(), Toast.LENGTH_LONG).show();
 
-     //   Toast.makeText(context, "ID Payment : " + payment.getTaskID(), Toast.LENGTH_LONG).show();
+        //   Toast.makeText(context, "ID Payment : " + payment.getTaskID(), Toast.LENGTH_LONG).show();
         Log.d("update tasks", "tag " + result);
         Log.d("update payment", "tag " + result2);
         return result2;
@@ -750,11 +734,25 @@ public class DB_Acsess {
 
         int result = db.update("tasks", taskValues, "id" + " = ?", new String[]{task.getId() + ""});
         int result2 = db.update("payment", paymentValues, "id" + " = ?", new String[]{payment.getId() + ""});
-      //  Toast.makeText(context, "ID Task : " + task.getId(), Toast.LENGTH_LONG).show();
+        //  Toast.makeText(context, "ID Task : " + task.getId(), Toast.LENGTH_LONG).show();
 
-       // Toast.makeText(context, "ID Payment : " + payment.getId(), Toast.LENGTH_LONG).show();
+        // Toast.makeText(context, "ID Payment : " + payment.getId(), Toast.LENGTH_LONG).show();
         Log.d("update tasks", "tag " + result);
         Log.d("update payment", "tag " + result2);
         return result2;
+    }
+
+    public ArrayList<Model> get_Model_cloth(int id) {
+
+        ArrayList<Model> list = new ArrayList<>();
+        c = db.rawQuery("select id,desc from cu_cl_info where fk_customer='" +id+ "'", new String[]{});
+        Log.d("size", c.getCount() + "");
+        while (c.moveToNext()) {
+            Model con = new Model();
+            con.setId(c.getInt(0));
+            con.setName(c.getString(1));
+            list.add(con);
+        }
+        return list;
     }
 }

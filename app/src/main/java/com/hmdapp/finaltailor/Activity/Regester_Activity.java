@@ -9,36 +9,35 @@ import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-
-import com.hmdapp.finaltailor.Adapter.AdapterGridSingleLine;
 import com.hmdapp.finaltailor.Models.Cloth;
 import com.hmdapp.finaltailor.Models.Customer;
-import com.hmdapp.finaltailor.Models.Payment;
-import com.hmdapp.finaltailor.Models.Task;
 import com.hmdapp.finaltailor.R;
-import com.hmdapp.finaltailor.Utlity.SpacingItemDecoration;
-import com.hmdapp.finaltailor.Utlity.Tools;
 import com.hmdapp.finaltailor.database.DB_Acsess;
-import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 public class Regester_Activity extends AppCompatActivity {
 
 
-    FloatingActionButton fb_insert;
+    Button fb_insert;
     Customer customer;
     Cloth cloth;
     /// for profile
-    private EditText ed_f_name, ed_job, ed_phone;
+    // private EditText ed_f_name, ed_job, ed_phone;
     // for cloth
     private EditText ed_qad, ed_shana, ed_baqal, ed_daman, ed_shalwar, ed_pacha, ed_bar_shalwar, ed_yakhan, ed_astin, ed_dam_astin;
     private RadioGroup rg_model, rg_model_astin, rg_qot_astin, rg_model_yaqa, rg_qad_paty, rg_model_dam_astin;
-    private String full_name, job, phone;
+    //    private String full_name, job, phone;
     private int qad, shana, baghal, daman, shalwar, pacha, bar_shalwar, yakhan, astin, dam_astin;
     private String model, model_astin, qot_astin, model_yaqa, qad_paty, model_dam_astn;
+
+    private EditText ed_desc;
+    String des;
+    int id_cl;
+    int id_per;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,10 +48,7 @@ public class Regester_Activity extends AppCompatActivity {
         //   int checkedRadioButtonId = rd_cl_moldel.getCheckedRadioButtonId();
         final int state = getIntent().getIntExtra("state", 0);
 
-
-        ed_f_name = findViewById(R.id.ed_f_name);
-        ed_job = findViewById(R.id.ed_job);
-        ed_phone = findViewById(R.id.ed_phone);
+        ed_desc = findViewById(R.id.ed_dec);
 
 
         ed_qad = findViewById(R.id.ed_qad);
@@ -72,8 +68,11 @@ public class Regester_Activity extends AppCompatActivity {
         rg_qot_astin = findViewById(R.id.qot_astin_rg);
         rg_model_yaqa = findViewById(R.id.model_yaqa_rg);
         rg_qad_paty = findViewById(R.id.qad_paty_rg);
-        fb_insert = findViewById(R.id.fab_insert);
+        fb_insert = findViewById(R.id.fab_insert_cloth);
 
+
+        id_cl = getIntent().getIntExtra("id_cl", 1);
+        id_per = getIntent().getIntExtra("id_cu", 1);
         fb_insert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -83,15 +82,12 @@ public class Regester_Activity extends AppCompatActivity {
                     setproperty();
 
                     if (state == 1) {
-
-                        int id_cl = getIntent().getIntExtra("id_cl", 1);
-                        int id_per = getIntent().getIntExtra("id_cu", 1);
                         cloth.setId(id_cl);
-                        customer.setId(id_per);
-                        update(cloth, customer);
+
+                        update(cloth);
                         finish();
                     } else {
-                        if (insert(customer, cloth)) {
+                        if (insert(cloth)) {
                             Toast.makeText(Regester_Activity.this, "added ", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(getApplicationContext(), Person_Activity.class));
                             finish();
@@ -121,11 +117,9 @@ public class Regester_Activity extends AppCompatActivity {
         db_acsess.open();
         int id_cl = getIntent().getIntExtra("id_cl", 1);
         int id_per = getIntent().getIntExtra("id_cu", 1);
-        Cloth cl = db_acsess.getCloth(id_cl);
-        Customer cu = db_acsess.getCustomer(id_per);
-        ed_f_name.setText(cu.getName() + "");
-        ed_phone.setText(cu.getPhone() + "");
-        ed_job.setText(cu.getJob() + "");
+        Cloth cl = db_acsess.getCloth(id_per, id_cl);
+
+
         ed_qad.setText(cl.getQad() + "");
         ed_shana.setText(cl.getShana() + "");
         ed_shalwar.setText(cl.getShalwar() + "");
@@ -136,6 +130,8 @@ public class Regester_Activity extends AppCompatActivity {
         ed_yakhan.setText(cl.getYakhan() + "");
         ed_daman.setText(cl.getDaman() + "");
         ed_pacha.setText(cl.getPacha() + "");
+
+        ed_desc.setText(cl.getDes() + "");
         setChekedRG(cl);
 
 
@@ -176,10 +172,6 @@ public class Regester_Activity extends AppCompatActivity {
 
     public boolean setproperty() {
 
-        customer.setName(full_name);
-        customer.setPhone(phone);
-        customer.setJob(job);
-
 
         cloth.setQad(qad);
         cloth.setBaqal(baghal);
@@ -198,15 +190,14 @@ public class Regester_Activity extends AppCompatActivity {
         cloth.setModel_dam_astin(model_dam_astn);
         cloth.setModel_qot_astin(qot_astin);
         cloth.setModel_yaqa(model_yaqa);
-
+        cloth.setDes(des);
+        cloth.setFk_customer(id_per);
         return true;
     }
 
     public boolean Validate() {
 
-        full_name = ed_f_name.getText().toString();
-        job = ed_job.getText().toString();
-        phone = ed_phone.getText().toString();
+        des = ed_desc.getText().toString();
 
         qad = getText(ed_qad);
         shana = getText(ed_shana);
@@ -229,17 +220,9 @@ public class Regester_Activity extends AppCompatActivity {
 
         boolean s = true;
 
+        if (TextUtils.isEmpty(des)) {
+            Toast.makeText(this, " نام مدل را وارد کنید !", Toast.LENGTH_SHORT).show();
 
-        if (TextUtils.isEmpty(full_name.trim())) {
-            Toast.makeText(this, " نام وتخلص را وارد کنید !", Toast.LENGTH_SHORT).show();
-            s = false;
-        }
-        if (TextUtils.isEmpty(job.trim())) {
-            Toast.makeText(this, " وظیفه  را وارد کنید !", Toast.LENGTH_SHORT).show();
-            s = false;
-        }
-        if (TextUtils.isEmpty(phone)) {
-            Toast.makeText(this, " شماره   را وارد کنید !", Toast.LENGTH_SHORT).show();
             s = false;
         }
         if (qad == -1) {
@@ -407,10 +390,10 @@ public class Regester_Activity extends AppCompatActivity {
 
     }
 
-    public boolean insert(Customer cu, Cloth cl) {
+    public boolean insert(Cloth cl) {
         DB_Acsess db_acsess = DB_Acsess.getInstans(getApplicationContext());
         db_acsess.open();
-        long t = db_acsess.insert(cu, cl);
+        long t = db_acsess.insert_cloth(cl);
 
         if (t > 0) {
             return true;
@@ -422,7 +405,7 @@ public class Regester_Activity extends AppCompatActivity {
     private void initToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("اضافه کردن مشتری");
+        getSupportActionBar().setTitle("اضافه کردن مدل لباس");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
     }
@@ -443,7 +426,7 @@ public class Regester_Activity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void update(Cloth cl, Customer cu) {
+    private void update(Cloth cl) {
         DB_Acsess db_acsess = DB_Acsess.getInstans(this);
         db_acsess.open();
         if (db_acsess.updateCloth(cl) > 0)
@@ -451,14 +434,7 @@ public class Regester_Activity extends AppCompatActivity {
         else {
             Toast.makeText(this, "ویرایش نشد", Toast.LENGTH_SHORT).show();
         }
-        if (db_acsess.updatePerson(cu) > 0) {
-            //Toast.makeText(this, "person updated", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(this,Person_Activity.class));
-            finish();
-        } else {
-           // Toast.makeText(this, " not person updated", Toast.LENGTH_SHORT).show();
-            finish();
-        }
+
 
     }
 

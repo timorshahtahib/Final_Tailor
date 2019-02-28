@@ -1,16 +1,16 @@
-package com.hmdapp.finaltailor.Activity;
+package com.hmdapp.finaltailor.Activity.Customer;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,7 +20,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
+import com.hmdapp.finaltailor.Activity.Person_Activity;
+import com.hmdapp.finaltailor.Activity.Regester_Activity;
 import com.hmdapp.finaltailor.Adapter.AdapterGridSingleLine;
 import com.hmdapp.finaltailor.Models.Cloth;
 import com.hmdapp.finaltailor.Models.Customer;
@@ -32,44 +33,23 @@ import com.hmdapp.finaltailor.Utlity.Tools;
 import com.hmdapp.finaltailor.database.DB_Acsess;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
-
 import java.util.Calendar;
 
-public class Profile_Activity extends AppCompatActivity {
+public class Show_Model_Activity extends AppCompatActivity {
 
-    private TextView tx_f_name, tx_job, tx_phone;
-
-    private TextView tx_qad, tx_shana, tx_baqal, tx_daman, tx_shalwar,
-            tx_pacha, tx_bar_shalwar, tx_model, tx_model_dam_astin,
-            tx_model_qot_astin, tx_qad_paty, tx_astin, tx_yakhan,
-            tx_model_yaqa, tx_dam_astin, tx_model_astin;
     String dliverDate;
     TextView txt_show_date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile_test);
-        initToolbar();
-        initComponent_t();
+        setContentView(R.layout.activity_show__model_);
 
-
-    }
-
-    private void initComponent_t() {
         DB_Acsess db_acsess = DB_Acsess.getInstans(this);
         db_acsess.open();
-        int id = getIntent().getIntExtra("id", 1);
-        String name = getIntent().getStringExtra("name");
-        String phon = getIntent().getStringExtra("phone");
-        String job = getIntent().getStringExtra("job");
-        tx_f_name = findViewById(R.id.tx_f_name);
-        tx_job = findViewById(R.id.tx_job);
-        tx_f_name.setText(name);
-        tx_job.setText(job);
-
-
-        Cloth cl = db_acsess.getCloth(id);
+        final int id_cl = getIntent().getIntExtra("id_cl", 0);
+        final int id_cu = getIntent().getIntExtra("id_cu", 0);
+        Cloth cl = db_acsess.getCloth(id_cu, id_cl);
 
         String[] names = {"قد", "شانه", "بغل ", "شلوار", "برشلوار", "دم پاچه ", "آستین ", "دم آستین ",
                 "مودل آستین", "یخن", "مودل دم آستین ", "قد پتی", "مودل", "دامن", "قوت آستین", "مودل یقه"};
@@ -78,22 +58,21 @@ public class Profile_Activity extends AppCompatActivity {
                 cl.getPacha(), cl.getAstin(), cl.getDam_astin(), cl.getModel_astin(),
                 cl.getYakhan(), cl.getModel_dam_astin(), cl.getQad_paty(), cl.getModel(),
                 cl.getDaman(), cl.getModel_qot_astin(), cl.getModel_yaqa()};
-
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
+//
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView2);
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 4));
         recyclerView.addItemDecoration(new SpacingItemDecoration(3, Tools.dpToPx(this, 3), true));
         recyclerView.setHasFixedSize(true);
 
-        AdapterGridSingleLine mAdapter = new AdapterGridSingleLine(this, names, value);
-        recyclerView.setAdapter(mAdapter);
+        AdapterGridSingleLine adapterGridSingleLine = new AdapterGridSingleLine(this, names, value);
 
-        // on item list clicked
+        recyclerView.setAdapter(adapterGridSingleLine);
 
-
+        initToolbar();
     }
 
     private void initToolbar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.include);
         String name = getIntent().getStringExtra("name");
 
         setSupportActionBar(toolbar);
@@ -102,57 +81,6 @@ public class Profile_Activity extends AppCompatActivity {
         Tools.setSystemBarColor(this, R.color.purple_600);
     }
 
-    private void initComponent() {
-        DB_Acsess db_acsess = DB_Acsess.getInstans(this);
-        db_acsess.open();
-        int id = getIntent().getIntExtra("id", 1);
-        String name = getIntent().getStringExtra("name");
-        String phon = getIntent().getStringExtra("phone");
-        String job = getIntent().getStringExtra("job");
-        tx_f_name = findViewById(R.id.tx_f_name);
-        tx_job = findViewById(R.id.tx_job);
-        tx_f_name.setText(name);
-        tx_job.setText(job);
-
-
-        tx_qad = findViewById(R.id.tx_qad);
-        tx_shana = findViewById(R.id.tx_shana);
-        tx_baqal = findViewById(R.id.tx_baqal);
-        tx_shalwar = findViewById(R.id.tx_shalwar);
-        tx_bar_shalwar = findViewById(R.id.tx_bar_shalwar);
-        tx_pacha = findViewById(R.id.tx_dam_pacha);
-        tx_astin = findViewById(R.id.tx_astin);
-        tx_dam_astin = findViewById(R.id.tx_dam_astin);
-        tx_model_astin = findViewById(R.id.tx_astin_model);
-        tx_model_dam_astin = findViewById(R.id.tx_model_dam_astin);
-        tx_yakhan = findViewById(R.id.tx_yakhan);
-        tx_qad_paty = findViewById(R.id.tx_qad_paty);
-        tx_model = findViewById(R.id.tx_model);
-        tx_daman = findViewById(R.id.tx_daman);
-        tx_model_qot_astin = findViewById(R.id.tx_qot_astin);
-        tx_model_yaqa = findViewById(R.id.tx_model_yaqa);
-
-
-        Cloth cl = db_acsess.getCloth(id);
-        tx_qad.setText(cl.getQad() + "  cm");
-        tx_shana.setText(cl.getShana() + "  cm");
-        tx_baqal.setText(cl.getBaqal() + "  cm");
-        tx_shalwar.setText(cl.getShalwar() + "  cm");
-        tx_bar_shalwar.setText(cl.getBar_shalwar() + "  cm");
-        tx_pacha.setText(cl.getPacha() + "  cm");
-        tx_astin.setText(cl.getAstin() + "  cm");
-        tx_dam_astin.setText(cl.getDam_astin() + "  cm");
-        tx_model_astin.setText(cl.getModel_astin());
-        tx_model_dam_astin.setText(cl.getModel_dam_astin());
-        tx_yakhan.setText(cl.getYakhan() + "  cm");
-        tx_qad_paty.setText(cl.getQad_paty());
-        tx_model.setText(cl.getModel());
-        tx_daman.setText(cl.getDaman() + "  cm");
-        tx_model_qot_astin.setText(cl.getModel_qot_astin());
-        tx_model_yaqa.setText(cl.getModel_yaqa());
-
-
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -164,47 +92,43 @@ public class Profile_Activity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             finish();
-
         } else if (item.getItemId() == R.id.action_edit) {
-            int id = getIntent().getIntExtra("id", 1);
-            int id_cu = getIntent().getIntExtra("id_cu", 1);
+            int id_cu = getIntent().getIntExtra("id_cu", 0);
+            int id_cl = getIntent().getIntExtra("id_cl", 0);
             Intent intent = new Intent(getApplicationContext(), Regester_Activity.class);
-            intent.putExtra("id_cl", id);
             intent.putExtra("id_cu", id_cu);
+            intent.putExtra("id_cl", id_cl);
             intent.putExtra("state", 1);
             startActivity(intent);
             finish();
-
-           // Toast.makeText(getApplicationContext(), item.getTitle(), Toast.LENGTH_SHORT).show();
+            // Toast.makeText(getApplicationContext(), item.getTitle(), Toast.LENGTH_SHORT).show();
         } else if (item.getItemId() == R.id.action_Delete) {
             showAlertDialog();
-          //  Toast.makeText(getApplicationContext(), item.getTitle(), Toast.LENGTH_SHORT).show();
-
+            //  Toast.makeText(getApplicationContext(), item.getTitle(), Toast.LENGTH_SHORT).show();
         } else if (item.getItemId() == R.id.action_cart) {
             showCustomDialog_to_cart();
         }
-
         return super.onOptionsItemSelected(item);
     }
 
 
     private void showAlertDialog() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("آیا میخواهید مشتری را پاک کنید ؟");
+        builder.setTitle("آیا میخواهید لباس را پاک کنید ؟");
         builder.setPositiveButton("بلی", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
-                int id_cl = getIntent().getIntExtra("id", 1);
-                int id_cu = getIntent().getIntExtra("id_cu", 1);
-                delete(id_cl, id_cu);
+                int id_cl = getIntent().getIntExtra("id_cl", 0);
+
+                delete(id_cl);
                 //Toast.makeText(Profile_Activity.this, "بلی", Toast.LENGTH_SHORT).show();
             }
         });
         builder.setNegativeButton("نخیر", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-               // Toast.makeText(Profile_Activity.this, "نخیر", Toast.LENGTH_SHORT).show();
+                // Toast.makeText(Profile_Activity.this, "نخیر", Toast.LENGTH_SHORT).show();
                 dialogInterface.dismiss();
 
             }
@@ -212,14 +136,14 @@ public class Profile_Activity extends AppCompatActivity {
         builder.show();
     }
 
-    private void delete(int cl, int cu) {
+    private void delete(int cl) {
         DB_Acsess db_acsess = DB_Acsess.getInstans(getApplicationContext());
         boolean t = db_acsess.delete_cloth(cl);
-        boolean r = db_acsess.delete_Cutomer(cu);
-        if (t && r) {
+
+        if (t) {
             Toast.makeText(this, "حذف شد", Toast.LENGTH_SHORT).show();
 
-            startActivity(new Intent(this, Person_Activity.class));
+            startActivity(new Intent(this, Profile_Activity.class));
             finish();
         } else {
             Toast.makeText(this, "حذف نشد", Toast.LENGTH_SHORT).show();
@@ -236,7 +160,7 @@ public class Profile_Activity extends AppCompatActivity {
         lp.copyFrom(dialog.getWindow().getAttributes());
         lp.width = WindowManager.LayoutParams.WRAP_CONTENT;
         lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
-        final EditText ed_mony, ed_payment,edColor,edCount;
+        final EditText ed_mony, ed_payment, edColor, edCount;
 
         ed_mony = dialog.findViewById(R.id.txt_mony);
         ed_payment = dialog.findViewById(R.id.txt_pay);
@@ -263,7 +187,7 @@ public class Profile_Activity extends AppCompatActivity {
         ((AppCompatButton) dialog.findViewById(R.id.bt_submit)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DB_Acsess db_acsess = DB_Acsess.getInstans(Profile_Activity.this);
+                DB_Acsess db_acsess = DB_Acsess.getInstans(getApplicationContext());
                 db_acsess.open();
 
                 String cuName = getIntent().getStringExtra("name");
@@ -288,13 +212,10 @@ public class Profile_Activity extends AppCompatActivity {
                 } else if (color.trim().isEmpty()) {
                     Toast.makeText(getApplicationContext(), "لطفا رنگ را وارد کنید", Toast.LENGTH_SHORT).show();
 
-                }
-                else if (count <= 0) {
+                } else if (count <= 0) {
                     Toast.makeText(getApplicationContext(), "لطفا تعداد جوره لباس را وارد کنید", Toast.LENGTH_SHORT).show();
 
-                }
-
-                else {
+                } else {
 
                     int id_cu = getIntent().getIntExtra("id_cu", 1);
                     Task task = new Task();
@@ -326,7 +247,7 @@ public class Profile_Activity extends AppCompatActivity {
                     payment_.setRegDate(regDate);
                     payment_.setDeliverDate(dliverDate);
                     payment_.setCustomer(customer);
-                    payment_.setTaskID(db_acsess.getLastId_task()+1);
+                    payment_.setTaskID(db_acsess.getLastId_task() + 1);
                     payment_.setTask(task);
                     //Toast.makeText(getApplicationContext(), "Hi "+regDate, Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
@@ -371,7 +292,7 @@ public class Profile_Activity extends AppCompatActivity {
                         dliverDate = Tools.getFormattedDateSimple(date_ship_millis) + "";
                         txt_show_date.setText(dliverDate);
 
-                       // Toast.makeText(Profile_Activity.this, date, Toast.LENGTH_SHORT).show();
+                        // Toast.makeText(Profile_Activity.this, date, Toast.LENGTH_SHORT).show();
 
                     }
                 },
@@ -390,4 +311,5 @@ public class Profile_Activity extends AppCompatActivity {
 
 
     }
+
 }
