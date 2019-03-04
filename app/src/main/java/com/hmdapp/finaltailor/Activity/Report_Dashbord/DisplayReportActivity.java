@@ -1,9 +1,10 @@
-package com.hmdapp.finaltailor.Activity;
+package com.hmdapp.finaltailor.Activity.Report_Dashbord;
 
 import android.app.Dialog;
-import android.content.Intent;
-import android.os.Bundle;
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -18,63 +19,61 @@ import android.widget.Toast;
 
 import com.hmdapp.finaltailor.Models.Customer;
 import com.hmdapp.finaltailor.Models.Payment;
-import com.hmdapp.finaltailor.Models.Task;
+import com.hmdapp.finaltailor.Models.Order;
 import com.hmdapp.finaltailor.R;
 import com.hmdapp.finaltailor.Utlity.Tools;
 import com.hmdapp.finaltailor.database.DB_Acsess;
 
-public class TotalReportPaymentCustomerActivity extends AppCompatActivity {
 
-    private TextView customerName, customerJob, deliveryDate, tvColor,
-            tvCount, tvPrice, tvPayment, tvRemainder, tvRegDate;
+public class DisplayReportActivity extends AppCompatActivity {
+
+    private TextView customerName, customerJob, deliveryDate,tvColor,
+            tvCount,tvPrice,tvPayment,tvRemainder,tvRegDate;
     private CheckBox checkState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_total_report_payment_customer);
+        setContentView(R.layout.activity_display_report);
         initToolbar();
         setUpViews();
         initViews();
     }
-
     private void initToolbar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_display_report_total);
-       // String name = getIntent().getStringExtra("name");
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_display_report);
+        String name = getIntent().getStringExtra("date");
 
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("گزارش پرداخت فردی");
+        getSupportActionBar().setTitle(name);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Tools.setSystemBarColor(this, R.color.purple_600);
-
-
     }
 
-    private void initViews() {
+    private void initViews(){
         DB_Acsess db_acsess = DB_Acsess.getInstans(this);
         db_acsess.open();
         int id = getIntent().getIntExtra("id", 1);
         int customerId = getIntent().getIntExtra("cu_id", 1);
         String deliverCuDate = getIntent().getStringExtra("deliver_date");
-        int state = getIntent().getIntExtra("state", 0);
+        int state = getIntent().getIntExtra("state",0);
 
         Customer customer = db_acsess.getCustomer(customerId);
 
         customerName.setText(customer.getName());
         customerJob.setText(customer.getJob());
-        //Toast.makeText(PaymentActivity.this,""+customer.getPhone(),Toast.LENGTH_LONG).show();
+        //Toast.makeText(show_Order_Info.this,""+customer.getPhone(),Toast.LENGTH_LONG).show();
 
         deliveryDate.setText(deliverCuDate);
         tvColor.setText(getIntent().getStringExtra("color"));
-        tvCount.setText(getIntent().getIntExtra("count", 1) + "");
-        tvPrice.setText((int) getIntent().getFloatExtra("price", 1) + "");
-        tvPayment.setText((int) getIntent().getFloatExtra("payment", 1) + "");
-        tvRemainder.setText((int) getIntent().getFloatExtra("remainder", 1) + "");
+        tvCount.setText(getIntent().getIntExtra("count",1)+"");
+        tvPrice.setText((int) getIntent().getFloatExtra("price",1)+"");
+        tvPayment.setText((int) getIntent().getFloatExtra("payment", 1)+"");
+        tvRemainder.setText((int) getIntent().getFloatExtra("remainder", 1)+"");
         tvRegDate.setText(getIntent().getStringExtra("reg_date"));
 
-        if (state == 0) {
+        if (state == 0){
             checkState.setChecked(false);
-        } else {
+        }else{
             checkState.setChecked(true);
         }
 //        checkState.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -83,7 +82,7 @@ public class TotalReportPaymentCustomerActivity extends AppCompatActivity {
 //                DB_Acsess db_acsess = DB_Acsess.getInstans(DisplayReportActivity.this);
 //                db_acsess.open();
 //                int id = getIntent().getIntExtra("id", 1);
-//                Task task = new Task();
+//                Order task = new Order();
 //                Payment  payment = new Payment();
 //
 //                task.setId(id);
@@ -92,38 +91,38 @@ public class TotalReportPaymentCustomerActivity extends AppCompatActivity {
 //                    task.setState(1);
 //                    payment.setState(1);
 //                    db_acsess.updateTask(DisplayReportActivity.this,task,payment);
-//                    // Toast.makeText(PaymentActivity.this, "True = 1", Toast.LENGTH_LONG).show();
+//                    // Toast.makeText(show_Order_Info.this, "True = 1", Toast.LENGTH_LONG).show();
 //                    finish();
 //                }else {
 //                    task.setState(0);
 //                    payment.setState(0);
 //                    db_acsess.updateTask(DisplayReportActivity.this,task,payment);
 //                    finish();
-//                    //  Toast.makeText(PaymentActivity.this,"false = 0", Toast.LENGTH_LONG).show();
+//                    //  Toast.makeText(show_Order_Info.this,"false = 0", Toast.LENGTH_LONG).show();
 //                }
 //
 //            }
 //        });
 
 
+
     }
 
-    private void setUpViews() {
-        customerName = findViewById(R.id.task_customer_name_display_report_top_total);
-        customerJob = findViewById(R.id.job_display_report_total);
-        deliveryDate = findViewById(R.id.deliver_date_display_report_total);
-        tvColor = findViewById(R.id.color_display_report_total);
-        tvCount = findViewById(R.id.count_display_report_total);
-        tvPrice = findViewById(R.id.price_state_display_report_total);
-        tvPayment = findViewById(R.id.payment_display_report_total);
-        tvRemainder = findViewById(R.id.remainder_display_report_total);
-        tvRegDate = findViewById(R.id.reg_date_display_report_total);
-        checkState = findViewById(R.id.check_state_display_report_total);
+    private void setUpViews(){
+        customerName = findViewById(R.id.task_customer_name_display_report_top);
+        customerJob = findViewById(R.id.job_display_report);
+        deliveryDate = findViewById(R.id.deliver_date_display_report);
+        tvColor = findViewById(R.id.color_display_report);
+        tvCount = findViewById(R.id.count_display_report);
+        tvPrice = findViewById(R.id.price_state_display_report);
+        tvPayment = findViewById(R.id.payment_display_report);
+        tvRemainder = findViewById(R.id.remainder_display_report);
+        tvRegDate = findViewById(R.id.reg_date_display_report);
+        checkState =  findViewById(R.id.check_state_display_report);
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_total_payment, menu);
+        getMenuInflater().inflate(R.menu.menu_task, menu);
         return true;
     }
 
@@ -132,16 +131,52 @@ public class TotalReportPaymentCustomerActivity extends AppCompatActivity {
         if (item.getItemId() == android.R.id.home) {
             finish();
 
-        } else if (item.getItemId() == R.id.action_pay_total){
+        } else if (item.getItemId() == R.id.action_pay_task) {
 
             customerPayment();
 
             // Toast.makeText(getApplicationContext(), item.getTitle(), Toast.LENGTH_SHORT).show();
+        } else if (item.getItemId() == R.id.action_Delete_task) {
+            showAlertDialog();
+            //  Toast.makeText(getApplicationContext(), item.getTitle(), Toast.LENGTH_SHORT).show();
+
         }
 
         return super.onOptionsItemSelected(item);
     }
 
+
+    private void showAlertDialog() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("آیا میخواهید گزارش را پاک کنید ؟");
+        builder.setPositiveButton("بلی", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                DB_Acsess db_acsess = DB_Acsess.getInstans(DisplayReportActivity.this);
+                db_acsess.open();
+                int idPayment = getIntent().getIntExtra("id", 1);
+                //Toast.makeText(show_Order_Info.this, "ID : "+taskId, Toast.LENGTH_SHORT).show();
+
+
+                if(db_acsess.deletePayment(idPayment) == true){
+                    Toast.makeText(DisplayReportActivity.this, "گزارش موفقانه حذف شد", Toast.LENGTH_SHORT).show();
+
+                   // startActivity(new Intent(DisplayReportActivity.this,ReportActivity.class));
+                    finish();
+                }else{
+                    Toast.makeText(DisplayReportActivity.this, "گزارش حذف نشد", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        builder.setNegativeButton("نخیر", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+
+            }
+        });
+        builder.show();
+    }
 
     private void customerPayment() {
         final Dialog dialog = new Dialog(this);
@@ -158,6 +193,8 @@ public class TotalReportPaymentCustomerActivity extends AppCompatActivity {
         edPayment = dialog.findViewById(R.id.txt_payment_after_work);
 
 
+
+
         ((AppCompatButton) dialog.findViewById(R.id.bt_cancel)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -169,10 +206,10 @@ public class TotalReportPaymentCustomerActivity extends AppCompatActivity {
         ((AppCompatButton) dialog.findViewById(R.id.bt_submit)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DB_Acsess db_acsess = DB_Acsess.getInstans(TotalReportPaymentCustomerActivity.this);
+                DB_Acsess db_acsess = DB_Acsess.getInstans(DisplayReportActivity.this);
                 db_acsess.open();
 
-                // String cuName = getIntent().getStringExtra("name");
+                // String cuName = getIntent().getStringExtra("date");
 
                 float remainder = Float.parseFloat(tvRemainder.getText().toString());
                 float price = Float.parseFloat(tvPrice.getText().toString());
@@ -187,30 +224,31 @@ public class TotalReportPaymentCustomerActivity extends AppCompatActivity {
 
                     int payId = getIntent().getIntExtra("id", 1);
                     int taskId = getIntent().getIntExtra("task_id", 1);
-                    Task task = new Task();
+                    Order order = new Order();
                     Payment payment_ = new Payment();
-                    // Customer customer = new Customer();
-                    task.setId(taskId);
-                    task.setRemainder(0);
-                    task.setPayment(valuePayment);
+                   // Customer customer = new Customer();
+                    order.setId(taskId);
+
 
                     payment_.setId(payId);
-                    payment_.setRemainder(0);
-                    payment_.setPayment(valuePayment);
 
-                    db_acsess.updateTaskPaymentReport(TotalReportPaymentCustomerActivity.this, task, payment_);
+
+                    db_acsess.updateTaskPaymentReport(DisplayReportActivity.this, order,payment_);
 
                     //  Toast.makeText(getApplicationContext(), "Hi "+regDate, Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
 
-                    startActivity(new Intent(TotalReportPaymentCustomerActivity.this, EveryRemainderActivity.class));
+                   //  startActivity(new Intent(DisplayReportActivity.this,ReportActivity.class));
                     finish();
 
-                } else if (remainder == 0) {
-                    Toast.makeText(getApplicationContext(), "پرداخت از قبل تکمیل شده است " + "\n   دکمه لغو را فشار دهید   ", Toast.LENGTH_SHORT).show();
-                } else {
 
-                    //Toast.makeText(PaymentActivity.this,"Remainder : "+tvRemainder.getText().toString() + " Price : "+tvPrice.getText().toString(),Toast.LENGTH_LONG).show();
+                }else if(remainder == 0 ){
+                    Toast.makeText(getApplicationContext(), "پرداخت از قبل تکمیل شده است "+"\n   دکمه لغو را فشار دهید   ", Toast.LENGTH_SHORT).show();
+                }
+
+                else {
+
+                    //Toast.makeText(show_Order_Info.this,"Remainder : "+tvRemainder.getText().toString() + " Price : "+tvPrice.getText().toString(),Toast.LENGTH_LONG).show();
 
                     // float price = Float.parseFloat(tvPrice.getText().toString());
                     Toast.makeText(getApplicationContext(), "مقدار پول باقی مانده را اشتباه وارد نمودید ", Toast.LENGTH_SHORT).show();
@@ -223,7 +261,5 @@ public class TotalReportPaymentCustomerActivity extends AppCompatActivity {
         dialog.show();
         dialog.getWindow().setAttributes(lp);
     }
-
-
 }
 

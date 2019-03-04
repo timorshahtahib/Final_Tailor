@@ -8,8 +8,6 @@ public class DBMS extends SQLiteAssetHelper {
 
     final static String dbname= "newdb.db";
     public DBMS(Context context) {
-
-
         super(context, dbname,null, 1);
     }
 }

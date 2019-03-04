@@ -97,7 +97,7 @@
                                 android:id="@+id/count_daily"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="92776"
+                                android:text="0"
                                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
                                 android:textColor="@color/grey_60"
                                 android:textStyle="bold" />
@@ -173,7 +173,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="0dp"
                                 android:layout_weight="1"
-                                android:text="52791"
+                                android:text="0"
                                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
                                 android:textColor="@color/grey_60"
                                 android:textStyle="bold" />
@@ -259,7 +259,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
 
-                                android:text="4000+"
+                                android:text="0"
                                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
                                 android:textColor="@color/grey_60"
                                 android:textStyle="bold" />
@@ -335,7 +335,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="0dp"
                                 android:layout_weight="1"
-                                android:text="4429"
+                                android:text="0"
                                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
                                 android:textColor="@color/grey_60"
                                 android:textStyle="bold" />
@@ -425,7 +425,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="0dp"
                                 android:layout_weight="1"
-                                android:text="4429"
+                                android:text="0"
                                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
                                 android:textColor="@color/grey_60"
                                 android:textStyle="bold" />
@@ -514,7 +514,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="0dp"
                                 android:layout_weight="1"
-                                android:text="4429"
+                                android:text="0"
                                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
                                 android:textColor="@color/grey_60"
                                 android:textStyle="bold" />

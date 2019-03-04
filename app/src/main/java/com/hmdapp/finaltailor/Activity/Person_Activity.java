@@ -79,7 +79,7 @@ public class Person_Activity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), Profile_Activity.class);
 
                 intent.putExtra("id_cu", obj.getId());
-                intent.putExtra("name", obj.getName());
+                intent.putExtra("date", obj.getName());
                 intent.putExtra("job", obj.getJob());
                 intent.putExtra("phone", obj.getPhone());
                 intent.putExtra("state",0);
@@ -100,7 +100,10 @@ public class Person_Activity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
+
+            startActivity(new Intent(this,MainActivity.class));
             finish();
+
         }else if(item.getItemId() ==  R.id.app_bar_search){
             Toast.makeText(getApplicationContext(), "Search clicked!", Toast.LENGTH_LONG).show();
         }

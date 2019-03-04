@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.hmdapp.finaltailor.Models.Task;
+import com.hmdapp.finaltailor.Models.Order;
 import com.hmdapp.finaltailor.R;
 import com.hmdapp.finaltailor.Utlity.Tools;
 
@@ -17,20 +17,20 @@ import java.util.List;
 
 public class AdapterList_Tasks extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<Task> items = new ArrayList<>();
+    private List<Order> items = new ArrayList<>();
 
     private Context ctx;
     private OnItemClickListener mOnItemClickListener;
 
     public interface OnItemClickListener {
-        void onItemClick(View view, Task obj, int position);
+        void onItemClick(View view, Order obj, int position);
     }
 
     public void setOnItemClickListener(final OnItemClickListener mItemClickListener) {
         this.mOnItemClickListener = mItemClickListener;
     }
 
-    public AdapterList_Tasks(Context context, List<Task> items) {
+    public AdapterList_Tasks(Context context, List<Order> items) {
         this.items = items;
         ctx = context;
     }
@@ -39,6 +39,7 @@ public class AdapterList_Tasks extends RecyclerView.Adapter<RecyclerView.ViewHol
         public ImageView image;
         public TextView name;
         public TextView date;
+        public TextView model;
         public View lyt_parent;
 
         public OriginalViewHolder(View v) {
@@ -46,6 +47,7 @@ public class AdapterList_Tasks extends RecyclerView.Adapter<RecyclerView.ViewHol
             image = (ImageView) v.findViewById(R.id.img_status);
             name = (TextView) v.findViewById(R.id.txt_namee);
             date = (TextView) v.findViewById(R.id.txt_date);
+            model = (TextView) v.findViewById(R.id.txt_model);
             lyt_parent = (View) v.findViewById(R.id.lyt_parent);
         }
     }
@@ -53,7 +55,7 @@ public class AdapterList_Tasks extends RecyclerView.Adapter<RecyclerView.ViewHol
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         RecyclerView.ViewHolder vh;
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.task_item, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.task_item_2, parent, false);
         vh = new OriginalViewHolder(v);
         return vh;
     }
@@ -64,12 +66,13 @@ public class AdapterList_Tasks extends RecyclerView.Adapter<RecyclerView.ViewHol
         if (holder instanceof OriginalViewHolder) {
             OriginalViewHolder view = (OriginalViewHolder) holder;
 
-            Task task = items.get(position);
-            view.name.setText(task.getCustomer().getName()+"   ");
-            view.date.setText(task.getDeliverDate());
-            if(task.getState() == 0){
+            Order order = items.get(position);
+            view.name.setText(order.getCloth().getCustomer().getName() + "   ");
+            view.date.setText(order.getDeliverDate());
+            view.model.setText(order.getCloth().getDes());
+            if (order.getCom_state() == 0) {
                 Tools.displayImageRound(ctx, view.image, R.drawable.delet);
-            }else{
+            } else {
                 Tools.displayImageRound(ctx, view.image, R.drawable.ok);
             }
 

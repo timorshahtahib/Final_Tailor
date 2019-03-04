@@ -1,32 +1,26 @@
-package com.hmdapp.finaltailor.Activity;
+package com.hmdapp.finaltailor.Activity.Order;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
 
-
-import com.hmdapp.finaltailor.Adapter.AdapterGridSingleLine;
+import com.hmdapp.finaltailor.Activity.MainActivity;
 import com.hmdapp.finaltailor.Adapter.AdapterList_Tasks;
-import com.hmdapp.finaltailor.Models.Cloth;
-import com.hmdapp.finaltailor.Models.Customer;
-import com.hmdapp.finaltailor.Models.Payment;
-import com.hmdapp.finaltailor.Models.Task;
+import com.hmdapp.finaltailor.Models.Order;
 import com.hmdapp.finaltailor.R;
 import com.hmdapp.finaltailor.Utlity.SpacingItemDecoration;
 import com.hmdapp.finaltailor.Utlity.Tools;
 import com.hmdapp.finaltailor.database.DB_Acsess;
-import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Tasks_Activity extends AppCompatActivity {
@@ -46,12 +40,13 @@ public class Tasks_Activity extends AppCompatActivity {
         recyclerView = findViewById(R.id.task_recy);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
-        recyclerView.addItemDecoration(new SpacingItemDecoration(3, Tools.dpToPx(this, 3), true));
 
 
         DB_Acsess db_acsess = DB_Acsess.getInstans(this);
         db_acsess.open();
-        List<Task> items = db_acsess.getAllTask();
+        List<Order> items = db_acsess.getAllTask();
+
+        Log.d("order_siz_task_activity",items.size()+"");
 
         adapterList_tasks = new AdapterList_Tasks(this, items);
         recyclerView.setAdapter(adapterList_tasks);
@@ -60,22 +55,9 @@ public class Tasks_Activity extends AppCompatActivity {
         // on item list clicked
         adapterList_tasks.setOnItemClickListener(new AdapterList_Tasks.OnItemClickListener() {
             @Override
-            public void onItemClick(View view, Task obj, int position) {
-                Intent intent = new Intent(getApplicationContext(),PaymentActivity.class);
+            public void onItemClick(View view, Order obj, int position) {
+                Intent intent = new Intent(getApplicationContext(), show_Order_Info.class);
                 intent.putExtra("id", obj.getId());
-                intent.putExtra("cu_id", obj.getCustomerId());
-                intent.putExtra("state",obj.getState());
-                intent.putExtra("is_exist",obj.getIsExist());
-                intent.putExtra("deliver_date", obj.getDeliverDate());
-                intent.putExtra("color", obj.getColor());
-                intent.putExtra("count", obj.getCount());
-                intent.putExtra("price", obj.getPrice());
-                intent.putExtra("payment", obj.getPayment());
-                intent.putExtra("remainder", obj.getRemainder());
-                intent.putExtra("reg_date", obj.getRegDate());
-
-
-
                 startActivity(intent);
                // Snackbar.make(parent_view, "Item " + obj.getCustomer().getPhone() + " clicked", Snackbar.LENGTH_SHORT).show();
             }
@@ -99,9 +81,9 @@ public class Tasks_Activity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            finish();
-            // startActivity(new Intent(this,MainActivity.class));
 
+            startActivity(new Intent(this, MainActivity.class));
+            finish();
         } else {
             Toast.makeText(getApplicationContext(), item.getTitle(), Toast.LENGTH_SHORT).show();
         }

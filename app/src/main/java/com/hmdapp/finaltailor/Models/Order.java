@@ -1,19 +1,41 @@
 package com.hmdapp.finaltailor.Models;
 
-public class Task {
+public class Order {
 
     private int id;
+    private float price;
+    private int count;
     private int customerId;
-    private Customer customer;
-    private String regDate;
-    private String deliverDate;
     private String color;
-    private int state ;
-    private float price ;
-    private float payment ;
-    private float remainder ;
-    private int count ;
-    private int isExist ;
+    private String order_Date;
+    private String deliverDate;
+private Cloth cloth;
+    private int isExist;
+    private int com_state;
+
+    public String getOrder_Date() {
+        return order_Date;
+    }
+
+    public void setOrder_Date(String order_Date) {
+        this.order_Date = order_Date;
+    }
+
+    public int getCom_state() {
+        return com_state;
+    }
+
+    public void setCom_state(int com_state) {
+        this.com_state = com_state;
+    }
+
+    public Cloth getCloth() {
+        return cloth;
+    }
+
+    public void setCloth(Cloth cloth) {
+        this.cloth = cloth;
+    }
 
     public int getId() {
         return id;
@@ -31,21 +53,6 @@ public class Task {
         this.customerId = customerId;
     }
 
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
-
-    public String getRegDate() {
-        return regDate;
-    }
-
-    public void setRegDate(String regDate) {
-        this.regDate = regDate;
-    }
 
     public String getDeliverDate() {
         return deliverDate;
@@ -63,13 +70,6 @@ public class Task {
         this.color = color;
     }
 
-    public int getState() {
-        return state;
-    }
-
-    public void setState(int state) {
-        this.state = state;
-    }
 
     public float getPrice() {
         return price;
@@ -79,21 +79,6 @@ public class Task {
         this.price = price;
     }
 
-    public float getPayment() {
-        return payment;
-    }
-
-    public void setPayment(float payment) {
-        this.payment = payment;
-    }
-
-    public float getRemainder() {
-        return remainder;
-    }
-
-    public void setRemainder(float remainder) {
-        this.remainder = remainder;
-    }
 
     public int getCount() {
         return count;

@@ -4,7 +4,7 @@ import android.graphics.drawable.Drawable;
 
 public class Customer {
     private int id;
-    private int cl_id;
+
     private int image;
     private Drawable imageDrw;
     private String name;
@@ -19,13 +19,6 @@ public class Customer {
         this.id = id;
     }
 
-    public int getCl_id() {
-        return cl_id;
-    }
-
-    public void setCl_id(int cl_id) {
-        this.cl_id = cl_id;
-    }
 
     public int getImage() {
         return image;

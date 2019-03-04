@@ -3,7 +3,6 @@ package com.hmdapp.finaltailor.Activity.Customer;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.ColorSpace;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
@@ -13,7 +12,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,13 +25,11 @@ import android.widget.Toast;
 import com.hmdapp.finaltailor.Activity.Person_Activity;
 import com.hmdapp.finaltailor.Activity.Regester_Activity;
 import com.hmdapp.finaltailor.Adapter.Adaptar_model;
-import com.hmdapp.finaltailor.Models.Cloth;
 import com.hmdapp.finaltailor.Models.Customer;
 import com.hmdapp.finaltailor.Models.Model;
+import com.hmdapp.finaltailor.Models.Order;
 import com.hmdapp.finaltailor.Models.Payment;
-import com.hmdapp.finaltailor.Models.Task;
 import com.hmdapp.finaltailor.R;
-import com.hmdapp.finaltailor.Utlity.SpacingItemDecoration;
 import com.hmdapp.finaltailor.Utlity.Tools;
 import com.hmdapp.finaltailor.database.DB_Acsess;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
@@ -66,8 +62,8 @@ public class Profile_Activity extends AppCompatActivity {
     private void initComponent_t() {
         DB_Acsess db_acsess = DB_Acsess.getInstans(this);
         db_acsess.open();
-        final int id_cu= getIntent().getIntExtra("id_cu", 0);
-        String name = getIntent().getStringExtra("name");
+        final int id_cu = getIntent().getIntExtra("id_cu", 0);
+        String name = getIntent().getStringExtra("date");
         String phon = getIntent().getStringExtra("phone");
         String job = getIntent().getStringExtra("job");
         tx_f_name = findViewById(R.id.tx_f_name);
@@ -101,6 +97,7 @@ public class Profile_Activity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
 
 
+        Log.d("customer_id",id_cu+"");
         ArrayList<Model> arrayList = db_acsess.get_Model_cloth(id_cu);
         Adaptar_model mAdapter = new Adaptar_model(this, arrayList);
         recyclerView.setAdapter(mAdapter);
@@ -111,8 +108,8 @@ public class Profile_Activity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), Show_Model_Activity.class);
 
                 intent.putExtra("id_cl", obj.getId());
-                intent.putExtra("id_cu",id_cu);
-                intent.putExtra("name", obj.getName());
+                intent.putExtra("id_cu", id_cu);
+                intent.putExtra("date", obj.getName());
                 startActivity(intent);
                 finish();
             }
@@ -125,7 +122,7 @@ public class Profile_Activity extends AppCompatActivity {
 
     private void initToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        String name = getIntent().getStringExtra("name");
+        String name = getIntent().getStringExtra("date");
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(name);
@@ -160,7 +157,7 @@ public class Profile_Activity extends AppCompatActivity {
             showAlertDialog();
             //  Toast.makeText(getApplicationContext(), item.getTitle(), Toast.LENGTH_SHORT).show();
 
-        } else  {
+        } else {
 
         }
 
@@ -246,7 +243,7 @@ public class Profile_Activity extends AppCompatActivity {
                 DB_Acsess db_acsess = DB_Acsess.getInstans(Profile_Activity.this);
                 db_acsess.open();
 
-                String cuName = getIntent().getStringExtra("name");
+                String cuName = getIntent().getStringExtra("date");
 
 
                 String review = txt_show_date.getText().toString().trim();
@@ -274,7 +271,7 @@ public class Profile_Activity extends AppCompatActivity {
                 } else {
 
                     int id_cu = getIntent().getIntExtra("id_cu", 1);
-                    Task task = new Task();
+                    Order order = new Order();
                     Payment payment_ = new Payment();
                     float totalPrice = price * count;
 
@@ -283,31 +280,25 @@ public class Profile_Activity extends AppCompatActivity {
                     String regDate = Tools.getFormattedDateSimple(time);
                     customer.setId(id_cu);
                     customer.setName(cuName);
-                    task.setCustomer(customer);
-                    task.setCount(count);
-                    task.setColor(color);
-                    task.setState(0);
-                    task.setPrice(totalPrice);
-                    task.setPayment(payment);
-                    task.setRemainder(totalPrice - payment);
-                    task.setRegDate(regDate);
-                    task.setDeliverDate(dliverDate);
+                    order.setCustomerId(customer.getId());
+                    order.setCount(count);
+                    order.setColor(color);
+                    order.setCom_state(0);
+                    order.setPrice(totalPrice);
+
+                    order.setOrder_Date(regDate);
+                    order.setDeliverDate(dliverDate);
 
 
-                    payment_.setState(0);
-                    payment_.setCount(count);
-                    payment_.setColor(color);
-                    payment_.setPrice(totalPrice);
-                    payment_.setPayment(payment);
-                    payment_.setRemainder(totalPrice - payment);
-                    payment_.setRegDate(regDate);
-                    payment_.setDeliverDate(dliverDate);
-                    payment_.setCustomer(customer);
-                    payment_.setTaskID(db_acsess.getLastId_task() + 1);
-                    payment_.setTask(task);
+                    payment_.setAmount((int) payment);
+
+                    payment_.setDate(regDate);
+
+                    payment_.setOrder(order);
+
                     //Toast.makeText(getApplicationContext(), "Hi "+regDate, Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
-                    addTask(task, payment_);
+                    addTask(order, payment_);
                 }
 
             }
@@ -317,11 +308,11 @@ public class Profile_Activity extends AppCompatActivity {
         dialog.getWindow().setAttributes(lp);
     }
 
-    private void addTask(Task task, Payment payment_) {
+    private void addTask(Order order, Payment payment_) {
 
         DB_Acsess db_acsess = DB_Acsess.getInstans(this);
         db_acsess.open();
-        long s = db_acsess.add_task(task, payment_);
+        long s = db_acsess.add_task(order, payment_);
 
         if (s > 0) {
             Toast.makeText(this, "اضافه شد", Toast.LENGTH_SHORT).show();

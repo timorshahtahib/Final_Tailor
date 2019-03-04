@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.hmdapp.finaltailor" >
+    package="com.hmdapp.finaltailor">
 
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -15,19 +15,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activity.Customer.Show_Model_Activity"></activity>
+        <activity android:name=".Activity.Order.Show_Payment_of_order"></activity>
+        <activity android:name=".Activity.Customer.Show_Model_Activity" />
         <activity android:name=".Activity.Customer.Regester_Customer" />
-        <activity android:name=".Activity.TotalReportPaymentCustomerActivity" />
-        <activity android:name=".Activity.EveryRemainderActivity" />
+        <activity android:name=".Activity.Report_Dashbord.TotalReportPaymentCustomerActivity" />
+        <activity android:name=".Activity.Report_Dashbord.EveryRemainderActivity" />
         <activity android:name=".Activity.RemainderActivity" />
-        <activity android:name=".Activity.DisplayReportActivity" />
-        <activity android:name=".Activity.ReportActivity" />
+        <activity android:name=".Activity.Report_Dashbord.DisplayReportActivity" />
+        <activity android:name=".Activity.Report_Dashbord.ReportActivity" />
         <activity
-            android:name=".Activity.DashboradReportActivity"
+            android:name=".Activity.Report_Dashbord.DashboradReportActivity"
             android:parentActivityName=".Activity.MainActivity" />
         <activity
-            android:name=".Activity.PaymentActivity"
-            android:parentActivityName=".Activity.Tasks_Activity" />
+            android:name=".Activity.Order.show_Order_Info"
+            android:parentActivityName=".Activity.Order.Tasks_Activity" />
         <activity android:name=".Activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -46,7 +47,7 @@
         <activity android:name=".Activity.ContactActivity" />
         <activity android:name=".Activity.Customer.Profile_Activity" />
         <activity android:name=".Activity.Regester_Activity" />
-        <activity android:name=".Activity.Tasks_Activity" />
+        <activity android:name=".Activity.Order.Tasks_Activity" />
     </application>
 
 </manifest>

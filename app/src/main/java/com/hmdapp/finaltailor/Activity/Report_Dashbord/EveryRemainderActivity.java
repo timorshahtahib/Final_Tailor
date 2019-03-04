@@ -1,7 +1,6 @@
-package com.hmdapp.finaltailor.Activity;
+package com.hmdapp.finaltailor.Activity.Report_Dashbord;
 
 import android.content.Intent;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -63,16 +62,11 @@ public class EveryRemainderActivity extends AppCompatActivity {
             public void onItemClick(View view, Payment obj, int position) {
                 Intent intent = new Intent(getApplicationContext(), TotalReportPaymentCustomerActivity.class);
                 intent.putExtra("id", obj.getId());
-                intent.putExtra("cu_id", obj.getCustomerId());
-                intent.putExtra("task_id", obj.getTaskID());
-                intent.putExtra("state", obj.getState());
-                intent.putExtra("deliver_date", obj.getDeliverDate());
-                intent.putExtra("color", obj.getColor());
-                intent.putExtra("count", obj.getCount());
-                intent.putExtra("price", obj.getPrice());
-                intent.putExtra("payment", obj.getPayment());
-                intent.putExtra("remainder", obj.getRemainder());
-                intent.putExtra("reg_date", obj.getRegDate());
+
+                intent.putExtra("task_id", obj.getOrder().getId());
+
+                intent.putExtra("payment", obj.getAmount());
+
 
                 startActivity(intent);
                 //Snackbar.make(parent_view, "Item " + obj.getCustomer().getPhone() + " clicked", Snackbar.LENGTH_SHORT).show();

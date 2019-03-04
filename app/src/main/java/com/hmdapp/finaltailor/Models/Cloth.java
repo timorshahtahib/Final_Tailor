@@ -11,7 +11,16 @@ public class Cloth {
     private int pacha;
     private int bar_shalwar;
     private int astin;
-    private  int fk_customer;
+
+    private  Customer customer;
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
 
     private int yakhan;
     private  String model,model_dam_astin,model_qot_astin,qad_paty,model_astin,model_yaqa;
@@ -27,13 +36,8 @@ String des;
         this.des = des;
     }
 
-    public int getFk_customer() {
-        return fk_customer;
-    }
 
-    public void setFk_customer(int fk_customer) {
-        this.fk_customer = fk_customer;
-    }
+
 
     public int getAstin() {
         return astin;

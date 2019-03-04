@@ -38,13 +38,13 @@ public class AdapterListPayment extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     public class OriginalViewHolder extends RecyclerView.ViewHolder {
         public ImageView image;
-        public TextView name;
+        public TextView name, amount;
         public TextView date;
         public View lyt_parent;
 
         public OriginalViewHolder(View v) {
             super(v);
-            image = (ImageView) v.findViewById(R.id.img_status_payment);
+            amount = v.findViewById(R.id.payment_amount);
             name = (TextView) v.findViewById(R.id.txt_name_payment);
             date = (TextView) v.findViewById(R.id.txt_date_payment);
             lyt_parent = (View) v.findViewById(R.id.lyt_parent_payment_item);
@@ -66,15 +66,9 @@ public class AdapterListPayment extends RecyclerView.Adapter<RecyclerView.ViewHo
             OriginalViewHolder view = (OriginalViewHolder) holder;
 
             Payment payment = items.get(position);
-            view.name.setText(payment.getCustomer().getName()+"   ");
-            view.date.setText(payment.getDeliverDate());
-            if(payment.getState() == 0){
-                Tools.displayImageRound(ctx, view.image, R.drawable.delet);
-            }else{
-                Tools.displayImageRound(ctx, view.image, R.drawable.ok);
-            }
-
-
+            view.name.setText(payment.getOrder().getCloth().getCustomer().getName() + "   ");
+            view.date.setText(payment.getDate());
+            view.amount.setText(payment.getAmount()+"");
             view.lyt_parent.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

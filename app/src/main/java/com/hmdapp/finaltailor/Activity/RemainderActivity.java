@@ -1,7 +1,6 @@
 package com.hmdapp.finaltailor.Activity;
 
 import android.content.Intent;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,17 +12,13 @@ import android.view.View;
 import android.widget.Toast;
 
 
-import com.hmdapp.finaltailor.Adapter.AdapterGridSingleLine;
+import com.hmdapp.finaltailor.Activity.Report_Dashbord.EveryRemainderActivity;
 import com.hmdapp.finaltailor.Adapter.AdapterListRemainder;
-import com.hmdapp.finaltailor.Models.Cloth;
-import com.hmdapp.finaltailor.Models.Customer;
 import com.hmdapp.finaltailor.Models.Payment;
-import com.hmdapp.finaltailor.Models.Task;
 import com.hmdapp.finaltailor.R;
 import com.hmdapp.finaltailor.Utlity.SpacingItemDecoration;
 import com.hmdapp.finaltailor.Utlity.Tools;
 import com.hmdapp.finaltailor.database.DB_Acsess;
-import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.util.List;
 
@@ -63,7 +58,7 @@ public class RemainderActivity extends AppCompatActivity {
             public void onItemClick(View view, Payment obj, int position) {
                 Intent intent = new Intent(getApplicationContext(), EveryRemainderActivity.class);
                 intent.putExtra("id", obj.getId());
-                intent.putExtra("cu_id", obj.getCustomerId());
+
 
 
                 startActivity(intent);

@@ -1,21 +1,16 @@
-package com.hmdapp.finaltailor.Activity;
+package com.hmdapp.finaltailor.Activity.Report_Dashbord;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.hmdapp.finaltailor.Activity.RemainderActivity;
 import com.hmdapp.finaltailor.R;
-import com.hmdapp.finaltailor.Models.Customer;
-import com.hmdapp.finaltailor.Models.Payment;
-import com.hmdapp.finaltailor.Models.Task;
-import com.hmdapp.finaltailor.R;
-import com.hmdapp.finaltailor.Utlity.Tools;
 import com.hmdapp.finaltailor.database.DB_Acsess;
 
 public class DashboradReportActivity extends AppCompatActivity {
@@ -43,12 +38,12 @@ public class DashboradReportActivity extends AppCompatActivity {
         tvWeeklySum.setText(""+ db_acsess.getWeeklyPayment());
         tvMonthlySum.setText(""+ db_acsess.getMonthlyPayment());
         tvYearlySum.setText(""+ db_acsess.getYearlyPayment());
-        tvCashMoney.setText(""+ db_acsess.getYearlyPayment());
+        tvCashMoney.setText(""+ db_acsess.getAllPayment());
         tvRemainderSum.setText(""+ db_acsess.getRemainderPayment());
     }
 
     public void onDailyClick(View view) {
-        Intent intent = new Intent(this,ReportActivity.class);
+        Intent intent = new Intent(this, ReportActivity.class);
         intent.putExtra("myKey","Daily");
        startActivity(intent);
     }
@@ -71,7 +66,7 @@ public class DashboradReportActivity extends AppCompatActivity {
         startActivity(intent);
     }
     public void onRemainderClick(View view) {
-        Intent intent = new Intent(this,RemainderActivity.class);
+        Intent intent = new Intent(this, RemainderActivity.class);
         intent.putExtra("myKey","Yearly");
         startActivity(intent);
     }

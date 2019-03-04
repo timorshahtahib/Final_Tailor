@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -20,13 +19,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.hmdapp.finaltailor.Activity.Person_Activity;
 import com.hmdapp.finaltailor.Activity.Regester_Activity;
 import com.hmdapp.finaltailor.Adapter.AdapterGridSingleLine;
 import com.hmdapp.finaltailor.Models.Cloth;
 import com.hmdapp.finaltailor.Models.Customer;
+import com.hmdapp.finaltailor.Models.Order;
 import com.hmdapp.finaltailor.Models.Payment;
-import com.hmdapp.finaltailor.Models.Task;
 import com.hmdapp.finaltailor.R;
 import com.hmdapp.finaltailor.Utlity.SpacingItemDecoration;
 import com.hmdapp.finaltailor.Utlity.Tools;
@@ -73,7 +71,7 @@ public class Show_Model_Activity extends AppCompatActivity {
 
     private void initToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.include);
-        String name = getIntent().getStringExtra("name");
+        String name = getIntent().getStringExtra("date");
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(name);
@@ -190,7 +188,7 @@ public class Show_Model_Activity extends AppCompatActivity {
                 DB_Acsess db_acsess = DB_Acsess.getInstans(getApplicationContext());
                 db_acsess.open();
 
-                String cuName = getIntent().getStringExtra("name");
+                String cuName = getIntent().getStringExtra("date");
 
 
                 String review = txt_show_date.getText().toString().trim();
@@ -217,41 +215,30 @@ public class Show_Model_Activity extends AppCompatActivity {
 
                 } else {
 
-                    int id_cu = getIntent().getIntExtra("id_cu", 1);
-                    Task task = new Task();
-                    Payment payment_ = new Payment();
+                    Order order = new Order();
+                  Payment payment_ = new Payment();
                     float totalPrice = price * count;
-
-                    Customer customer = new Customer();
                     long time = System.currentTimeMillis();
                     String regDate = Tools.getFormattedDateSimple(time);
-                    customer.setId(id_cu);
-                    customer.setName(cuName);
-                    task.setCustomer(customer);
-                    task.setCount(count);
-                    task.setColor(color);
-                    task.setState(0);
-                    task.setPrice(totalPrice);
-                    task.setPayment(payment);
-                    task.setRemainder(totalPrice - payment);
-                    task.setRegDate(regDate);
-                    task.setDeliverDate(dliverDate);
+                    order.setCount(count);
+                    order.setColor(color);
+                    order.setCom_state(0);
+                    order.setPrice(totalPrice);
 
+                    order.setOrder_Date(regDate);
+                    order.setDeliverDate(dliverDate);
 
-                    payment_.setState(0);
-                    payment_.setCount(count);
-                    payment_.setColor(color);
-                    payment_.setPrice(totalPrice);
-                    payment_.setPayment(payment);
-                    payment_.setRemainder(totalPrice - payment);
-                    payment_.setRegDate(regDate);
-                    payment_.setDeliverDate(dliverDate);
-                    payment_.setCustomer(customer);
-                    payment_.setTaskID(db_acsess.getLastId_task() + 1);
-                    payment_.setTask(task);
+                    final int id_cl = getIntent().getIntExtra("id_cl", 0);
+                    final int id_cu = getIntent().getIntExtra("id_cu", 0);
+                    Cloth cl = db_acsess.getCloth(id_cu, id_cl);
+                    order.setCloth(cl);
+                    payment_.setAmount((int) payment);
+                    payment_.setDate(regDate);
+                    payment_.setOrder(order);
+                    payment_.setDes("p");
                     //Toast.makeText(getApplicationContext(), "Hi "+regDate, Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
-                    addTask(task, payment_);
+                    addTask(order, payment_);
                 }
 
             }
@@ -261,11 +248,11 @@ public class Show_Model_Activity extends AppCompatActivity {
         dialog.getWindow().setAttributes(lp);
     }
 
-    private void addTask(Task task, Payment payment_) {
+    private void addTask(Order order, Payment payment_) {
 
         DB_Acsess db_acsess = DB_Acsess.getInstans(this);
         db_acsess.open();
-        long s = db_acsess.add_task(task, payment_);
+        long s = db_acsess.add_task(order, payment_);
 
         if (s > 0) {
             Toast.makeText(this, "اضافه شد", Toast.LENGTH_SHORT).show();

@@ -2,7 +2,6 @@ package com.hmdapp.finaltailor.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -73,6 +72,8 @@ public class Regester_Activity extends AppCompatActivity {
 
         id_cl = getIntent().getIntExtra("id_cl", 1);
         id_per = getIntent().getIntExtra("id_cu", 1);
+        customer.setId(id_per);
+
         fb_insert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -117,6 +118,8 @@ public class Regester_Activity extends AppCompatActivity {
         db_acsess.open();
         int id_cl = getIntent().getIntExtra("id_cl", 1);
         int id_per = getIntent().getIntExtra("id_cu", 1);
+
+
         Cloth cl = db_acsess.getCloth(id_per, id_cl);
 
 
@@ -191,7 +194,9 @@ public class Regester_Activity extends AppCompatActivity {
         cloth.setModel_qot_astin(qot_astin);
         cloth.setModel_yaqa(model_yaqa);
         cloth.setDes(des);
-        cloth.setFk_customer(id_per);
+        cloth.setCustomer(customer);
+
+
         return true;
     }
 

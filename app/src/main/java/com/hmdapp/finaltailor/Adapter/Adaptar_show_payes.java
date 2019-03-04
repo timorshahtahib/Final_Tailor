@@ -7,18 +7,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.hmdapp.finaltailor.Models.Model;
 import com.hmdapp.finaltailor.Models.Payment;
 import com.hmdapp.finaltailor.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class AdapterListRemainder extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class Adaptar_show_payes extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<Payment> items = new ArrayList<>();
+    private List<Payment> items ;
 
     private Context ctx;
-    private OnItemClickListener mOnItemClickListener;
+    private  OnItemClickListener mOnItemClickListener;
 
     public interface OnItemClickListener {
         void onItemClick(View view, Payment obj, int position);
@@ -28,44 +28,47 @@ public class AdapterListRemainder extends RecyclerView.Adapter<RecyclerView.View
         this.mOnItemClickListener = mItemClickListener;
     }
 
-    public AdapterListRemainder(Context context, List<Payment> items) {
+    public Adaptar_show_payes(Context context, List<Payment> items) {
         this.items = items;
         ctx = context;
     }
 
     public class OriginalViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView name;
-        public TextView remainderSum;
+        public TextView date;
+        public TextView amount;
+
+
         public View lyt_parent;
 
         public OriginalViewHolder(View v) {
             super(v);
 
-            name = (TextView) v.findViewById(R.id.txt_name_remainder);
-            remainderSum = (TextView) v.findViewById(R.id.txt_count_remainder);
-            lyt_parent = (View) v.findViewById(R.id.lyt_parent_remainder);
+            date = (TextView) v.findViewById(R.id.txt_date_pay);
+            amount = (TextView) v.findViewById(R.id.txt_amount_pay);
+
+
+            lyt_parent = (View) v.findViewById(R.id.lyt_parent);
         }
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         RecyclerView.ViewHolder vh;
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.remainder_item, parent, false);
-        vh = new OriginalViewHolder(v);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.pay_item, parent, false);
+        vh = new Adaptar_show_payes.OriginalViewHolder(v);
         return vh;
     }
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
-        if (holder instanceof OriginalViewHolder) {
-            OriginalViewHolder view = (OriginalViewHolder) holder;
+        if (holder instanceof Adaptar_show_payes.OriginalViewHolder) {
+            Adaptar_show_payes.OriginalViewHolder view = (Adaptar_show_payes.OriginalViewHolder) holder;
 
-            Payment payment = items.get(position);
-//            view.date.setText(payment.getCustomer().getName()+"   ");
-//            view.remainderSum.setText(payment.getRemainder()+"");
-
+            Payment model = items.get(position);
+            view.date.setText(model.getDate());
+            view.amount.setText(model.getAmount()+"");
 
 
             view.lyt_parent.setOnClickListener(new View.OnClickListener() {

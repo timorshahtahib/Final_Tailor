@@ -351,7 +351,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="@dimen/stander_margin"
-                            android:text="قیمت"
+                            android:text="کل قیمت "
                             android:textSize="18sp"
                             android:textStyle="bold"
                             tools:layout_editor_absoluteX="282dp"
@@ -361,7 +361,7 @@
 
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:text="پیش پرداخت"
+                            android:text="رسیدات "
                             android:layout_marginRight="@dimen/stander_margin"
                             android:textSize="18sp"
                             android:textStyle="bold" />
@@ -392,10 +392,10 @@
                             android:id="@+id/task_payment_payment"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="400"
+                            android:layout_marginRight="@dimen/stander_margin_x4"
+                            android:text="9"
                             tools:layout_editor_absoluteX="172dp"
-                            tools:layout_editor_absoluteY="28dp"
-                            android:layout_marginRight="@dimen/stander_margin_x4"/>
+                            tools:layout_editor_absoluteY="28dp" />
 
                     </LinearLayout>
 

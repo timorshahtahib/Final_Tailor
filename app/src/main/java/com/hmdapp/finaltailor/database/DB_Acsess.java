@@ -12,11 +12,10 @@ import android.widget.Toast;
 import com.hmdapp.finaltailor.Models.Cloth;
 import com.hmdapp.finaltailor.Models.Customer;
 import com.hmdapp.finaltailor.Models.Model;
+import com.hmdapp.finaltailor.Models.Order;
 import com.hmdapp.finaltailor.Models.Payment;
-import com.hmdapp.finaltailor.Models.Task;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 
@@ -31,7 +30,6 @@ public class DB_Acsess {
     private DB_Acsess(Context context) {
         this.openHelper = new DBMS(context);
     }
-
 
     public static DB_Acsess getInstans(Context context) {
 
@@ -66,7 +64,7 @@ public class DB_Acsess {
             con.setJob(c.getString(3));
 
             list.add(con);
-            Log.d("idddddddddddddddddd", con.getCl_id() + "");
+            Log.d("idddddddddddddddddd", con.getId() + "");
         }
         return list;
     }
@@ -82,41 +80,36 @@ public class DB_Acsess {
             con.setName(c.getString(1));
             con.setPhone(c.getString(2));
             con.setJob(c.getString(3));
-            con.setCl_id(c.getInt(4));
+
             list.add(con);
-            Log.d("idddddddddddddddddd", con.getCl_id() + "");
+            Log.d("idddddddddddddddddd", con.getId() + "");
         }
         return list;
     }
 
-    public List<Task> getAllTask() {
+    public List<Order> getAllTask() {
 
-        ArrayList<Task> list = new ArrayList<>();
-        c = db.rawQuery("select * from tasks ORDER BY deliver_date DESC", new String[]{});
-        Log.d("Get All Task : size", c.getCount() + "");
-        while (c.moveToNext()) {
-            Task task = new Task();
+        ArrayList<Order> list = new ArrayList<>();
 
-            Customer customer = new Customer();
-            // customer.setName(getCustomerNameById(c.getInt(0)));
+        //ORDER BY deliver_date DESC
 
-            task.setId(c.getInt(0));
-            task.setCustomerId(c.getInt(1));
-            customer.setName(c.getString(2));
-            task.setState(c.getInt(3));
-            task.setCount(c.getInt(4));
-            task.setColor(c.getString(5));
-            task.setPrice(c.getFloat(6));
-            task.setPayment(c.getFloat(7));
-            task.setRemainder(c.getFloat(8));
-            task.setRegDate(c.getString(9));
-            task.setDeliverDate(c.getString(10));
-            task.setIsExist(c.getInt(11));
-            task.setCustomer(customer);
+        Cursor d = db.rawQuery("select * from 'order' ", new String[]{});
 
-
-            list.add(task);
-            Log.d("Get Task ....  id : ", task.getId() + "");
+        Log.d("Get All order : size", d.getCount() + "");
+        while (d.moveToNext()) {
+            Order order = new Order();
+            order.setId(d.getInt(0));
+            order.setCount(d.getInt(1));
+            order.setColor(d.getString(2));
+            order.setPrice(d.getFloat(3));
+            order.setOrder_Date(d.getString(4));
+            order.setDeliverDate(d.getString(5));
+            order.setIsExist(d.getInt(6));
+            order.setCom_state(d.getInt(7));
+            Cloth cloth = getCloth(d.getInt(8));
+            order.setCloth(cloth);
+            list.add(order);
+            Log.d("Get Order ....  id : ", order.getId() + "");
         }
         return list;
     }
@@ -126,7 +119,7 @@ public class DB_Acsess {
         ArrayList<Payment> list = new ArrayList<>();
 
         c = db.rawQuery("select * from payment  where ((ts_state = 1 AND remainder > 0) AND ( DATE(deliver_date ) between date('now','start of year','+1 month','-31 day') and date('now','start of year','+12 month','-1 day'))) AND cu_id ='" + id + "'  ORDER BY deliver_date DESC ", new String[]{});
-        //Toast.makeText(context, "Get All Task : size : " + c.getCount(), Toast.LENGTH_LONG).show();
+        //Toast.makeText(context, "Get All Order : size : " + c.getCount(), Toast.LENGTH_LONG).show();
         Log.d("Get All Payment : size", c.getCount() + "");
         Log.i("Get All payment : size", c.getCount() + "");
         System.out.println("Get All payment : size : " + c.getCount() + "");
@@ -139,24 +132,24 @@ public class DB_Acsess {
 //            customer.setName(c.getString(2));
 //            payment.setRemainder(c.getFloat(0));
             payment.setId(c.getInt(0));
-            payment.setTaskID(c.getInt(1));
-            payment.setCustomerId(c.getInt(2));
+//            payment.setTaskID(c.getInt(1));
+//            payment.setCustomerId(c.getInt(2));
             customer.setName(c.getString(3));
-            payment.setState(c.getInt(4));
-            payment.setCount(c.getInt(5));
-            payment.setColor(c.getString(6));
-            payment.setPrice(c.getFloat(7));
-            payment.setPayment(c.getFloat(8));
-            payment.setRemainder(c.getFloat(9));
-            payment.setRegDate(c.getString(10));
-            payment.setDeliverDate(c.getString(11));
-            payment.setCustomer(customer);
-
-            payment.setCustomer(customer);
+//            payment.setState(c.getInt(4));
+//            payment.setCount(c.getInt(5));
+//            payment.setColor(c.getString(6));
+//            payment.setPrice(c.getFloat(7));
+//            payment.setPayment(c.getFloat(8));
+//            payment.setRemainder(c.getFloat(9));
+//            payment.setRegDate(c.getString(10));
+//            payment.setDeliverDate(c.getString(11));
+//            payment.setCustomer(customer);
+//
+//            payment.setCustomer(customer);
 
 
             list.add(payment);
-            Log.d("Get Task ....  id : ", payment.getId() + "");
+            Log.d("Get Order ....  id : ", payment.getId() + "");
         }
         return list;
     }
@@ -166,7 +159,7 @@ public class DB_Acsess {
         ArrayList<Payment> list = new ArrayList<>();
 
         c = db.rawQuery("select SUM(remainder) , cu_id, cu_name from payment  where (ts_state = 1 AND remainder > 0) AND ( DATE(deliver_date ) between date('now','start of year','+1 month','-31 day') and date('now','start of year','+12 month','-1 day')) GROUP BY cu_id ORDER BY deliver_date DESC ", new String[]{});
-        //Toast.makeText(context, "Get All Task : size : " + c.getCount(), Toast.LENGTH_LONG).show();
+        //Toast.makeText(context, "Get All Order : size : " + c.getCount(), Toast.LENGTH_LONG).show();
         Log.d("Get All Payment : size", c.getCount() + "");
         Log.i("Get All payment : size", c.getCount() + "");
         System.out.println("Get All payment : size : " + c.getCount() + "");
@@ -174,100 +167,96 @@ public class DB_Acsess {
             Payment payment = new Payment();
 
             Customer customer = new Customer();
-
-            payment.setCustomerId(c.getInt(1));
+//
+//            payment.setCustomerId(c.getInt(1));
             customer.setName(c.getString(2));
-            payment.setRemainder(c.getFloat(0));
+            //     payment.setRemainder(c.getFloat(0));
 
 //            payment.setRemainder(c.getColumnIndex("Total"));
 //            payment.setCustomerId(c.getColumnIndex("cu_id"));
 //            customer.setName(c.getColumnIndex("cu_name")+"");
-            payment.setCustomer(customer);
+            // payment.setCustomer(customer);
 
 
             list.add(payment);
-            Log.d("Get Task ....  id : ", payment.getId() + "");
+            Log.d("Get Order ....  id : ", payment.getId() + "");
         }
         return list;
     }
 
     public List<Payment> getAllPaymentReport(String type, Context context) {
-
+Cursor d=null;
         ArrayList<Payment> list = new ArrayList<>();
         switch (type) {
             case "Daily":
-                c = db.rawQuery("select * from payment where deliver_date = date('now') and ts_state =1 ORDER BY deliver_date DESC ", new String[]{});
+                d = db.rawQuery("select id,date,amount,'desc',fk_order from payment where date = date('now') and amount<0 ORDER BY  date DESC  ", new String[]{});
                 break;
             case "Weekly":
 
-                c = db.rawQuery("select * from payment  where ts_state = 1 AND ( DATE(deliver_date ) between DATE('now', 'weekday 0', '-7 days') AND DATE('now', 'weekday 0', '-1 days')) ORDER BY deliver_date DESC ", new String[]{});
+                d = db.rawQuery("select id,date,amount,'desc',fk_order from payment  where  ( DATE(date ) between DATE('now', 'weekday 0', '-7 days') AND DATE('now', 'weekday 0', '-1 days'))  and amount<0 ORDER BY date DESC ", new String[]{});
                 //c = db.rawQuery("SELECT * from tasks  where DATE(deliver_date ) >(SELECT DATE('now', '-7 day'))", new String[]{});
                 break;
             case "Monthly":
 
-                c = db.rawQuery("select * from payment  where ts_state = 1 AND ( DATE(deliver_date ) between  date('now','start of month','+1 month','-31 day') and date('now','start of month','+1 month','-1 day')) ORDER BY deliver_date DESC ", new String[]{});
+                d = db.rawQuery("select id,date,amount,'desc',fk_order from payment  where ( DATE(date ) between  date('now','start of month','+1 month','-31 day') and date('now','start of month','+1 month','-1 day')) and amount<0 ORDER BY date DESC ", new String[]{});
                 break;
             case "Yearly":
 
-                c = db.rawQuery("select * from payment  where ts_state = 1 AND ( DATE(deliver_date ) between date('now','start of year','+1 month','-31 day') and date('now','start of year','+12 month','-1 day')) ORDER BY deliver_date DESC ", new String[]{});
+                d = db.rawQuery("select id,date,amount,'desc',fk_order from payment  where  ( DATE(date ) between date('now','start of year','+1 month','-31 day') and date('now','start of year','+12 month','-1 day')) and amount<0 ORDER BY date DESC ", new String[]{});
                 break;
         }
 
-        //Toast.makeText(context, "Get All Task : size : " + c.getCount(), Toast.LENGTH_LONG).show();
-        Log.d("Get All Payment : size", c.getCount() + "");
-        Log.i("Get All payment : size", c.getCount() + "");
-        System.out.println("Get All payment : size : " + c.getCount() + "");
-        while (c.moveToNext()) {
-            Payment payment = new Payment();
+        //Toast.makeText(context, "Get All Order : size : " + c.getCount(), Toast.LENGTH_LONG).show();
+        Log.d("Get All Payment : size", d.getCount() + "");
 
-            Customer customer = new Customer();
-            payment.setId(c.getInt(0));
-            payment.setTaskID(c.getInt(1));
-            payment.setCustomerId(c.getInt(2));
-            customer.setName(c.getString(3));
-            payment.setState(c.getInt(4));
-            payment.setCount(c.getInt(5));
-            payment.setColor(c.getString(6));
-            payment.setPrice(c.getFloat(7));
-            payment.setPayment(c.getFloat(8));
-            payment.setRemainder(c.getFloat(9));
-            payment.setRegDate(c.getString(10));
-            payment.setDeliverDate(c.getString(11));
-            payment.setCustomer(customer);
+        System.out.println("Get All payment : size : " + d.getCount() + "");
+        while (d.moveToNext()) {
+            Payment payment = new Payment();
+            payment.setId(d.getInt(0));
+            payment.setDate(d.getString(1));
+            payment.setAmount(d.getInt(2));
+            Order order=getOrder(d.getInt(4));
+            payment.setOrder(order);
+
+
 
 
             list.add(payment);
-            Log.d("Get Task ....  id : ", payment.getId() + "");
+            Log.d("Get Order ....  id : ", payment.getId() + "");
         }
         return list;
     }
 
     public int getDailyPayment() {
-        c = db.rawQuery("select SUM(cu_payment) as Total from payment where deliver_date = date('now') and ts_state =1", new String[]{});
+        c = db.rawQuery("select SUM(amount) as Total from payment where date = date('now')  and amount<0", new String[]{});
         c.moveToFirst();
         return c.getInt(c.getColumnIndex("Total"));
     }
 
     public int getMonthlyPayment() {
-        c = db.rawQuery("select SUM(cu_payment) as Total from payment where ts_state = 1 AND ( DATE(deliver_date ) between  date('now','start of month','+1 month','-31 day') and date('now','start of month','+1 month','-1 day')) ", new String[]{});
+        c = db.rawQuery("select SUM(amount) as Total from payment where ( DATE(date ) between  date('now','start of month','+1 month','-31 day') and date('now','start of month','+1 month','-1 day')) and amount<0 ", new String[]{});
         c.moveToFirst();
         return c.getInt(c.getColumnIndex("Total"));
     }
 
     public int getWeeklyPayment() {
-        c = db.rawQuery("select SUM(cu_payment) as Total from payment where ts_state = 1 AND ( DATE(deliver_date ) between DATE('now', 'weekday 0', '-7 days') AND DATE('now', 'weekday 0', '-1 days')) ", new String[]{});
+        c = db.rawQuery("select SUM(amount) as Total from payment where ( DATE(date ) between DATE('now', 'weekday 0', '-7 days') AND DATE('now', 'weekday 0', '-1 days'))  and amount<0 ", new String[]{});
         c.moveToFirst();
         return c.getInt(c.getColumnIndex("Total"));
     }
 
     public int getYearlyPayment() {
-        c = db.rawQuery("select SUM(cu_payment) as Total from payment where ts_state = 1 AND ( DATE(deliver_date ) between date('now','start of year','+1 month','-31 day') and date('now','start of year','+12 month','-1 day')) ", new String[]{});
+        c = db.rawQuery("select SUM(amount) as Total from payment where  ( DATE(date ) between date('now','start of year','+1 month','-31 day') and date('now','start of year','+12 month','-1 day')) and amount<0 ", new String[]{});
+        c.moveToFirst();
+        return c.getInt(c.getColumnIndex("Total"));
+    } public int getAllPayment() {
+        c = db.rawQuery("select SUM(amount) as Total from payment where  amount<0", new String[]{});
         c.moveToFirst();
         return c.getInt(c.getColumnIndex("Total"));
     }
 
     public int getRemainderPayment() {
-        c = db.rawQuery("select SUM(remainder) as Total from payment where ts_state = 1 AND ( DATE(deliver_date ) between date('now','start of year','+1 month','-31 day') and date('now','start of year','+12 month','-1 day')) ", new String[]{});
+        c = db.rawQuery("select SUM(amount) as Total from payment ", new String[]{});
         c.moveToFirst();
         return c.getInt(c.getColumnIndex("Total"));
     }
@@ -283,7 +272,7 @@ public class DB_Acsess {
         con.setName(c.getString(1));
         con.setPhone(c.getString(2));
         con.setJob(c.getString(3));
-       // con.setCl_id(c.getInt(4));
+        // con.setCl_id(c.getInt(4));
 
         return con;
     }
@@ -350,10 +339,10 @@ public class DB_Acsess {
 //        return list;
 //    }
 //
-    public Cloth getCloth(int id,int idcl) {
+    public Cloth getCloth(int id, int idcl) {
 
 
-        c = db.rawQuery("select * from cu_cl_info where fk_customer='" + id + "'  and id ='" +idcl + "'", new String[]{});
+        c = db.rawQuery("select * from cu_cl_info where fk_customer='" + id + "'  and id ='" + idcl + "'", new String[]{});
         c.moveToNext();
         Cloth con = new Cloth();
 
@@ -378,12 +367,51 @@ public class DB_Acsess {
 
         con.setModel_yaqa(c.getString(16));
 
-        con.setFk_customer(c.getInt(17));
-        con.setDes(c.getString(18));
+
+        Customer customer = getCustomer(c.getInt(17));
+
+        con.setCustomer(customer);
+        //  con.setDes(c.getString(18));
 
         Log.d("inter", id + "");
 
-        Log.d("bagal ", c.getInt(4) + "");
+//        Log.d("bagal ", c.getInt(4) + "");
+        return con;
+    }
+
+    public Cloth getCloth(int id) {
+
+        Cursor d = db.rawQuery("select * from cu_cl_info where    id ='" + id + "'", new String[]{});
+        d.moveToNext();
+        Cloth con = new Cloth();
+
+        con.setId(d.getInt(0));
+        con.setAstin(d.getInt(1));
+        con.setQad(d.getInt(2));
+        con.setShana(d.getInt(3));
+        con.setBaqal(d.getInt(4));
+        con.setDaman(d.getInt(5));
+        con.setShalwar(d.getInt(6));
+        con.setPacha(d.getInt(7));
+        con.setBar_shalwar(d.getInt(8));
+        con.setModel(d.getString(9));
+
+        con.setModel_dam_astin(d.getString(10));
+        con.setModel_qot_astin(d.getString(11));
+        con.setQad_paty(d.getString(12));
+        con.setModel_astin(d.getString(13));
+        con.setYakhan(d.getInt(14));
+        con.setDam_astin(d.getInt(15));
+
+
+        con.setModel_yaqa(d.getString(16));
+        Customer customer = getCustomer(d.getInt(17));
+        con.setCustomer(customer);
+        con.setDes(d.getString(18));
+
+        Log.d("inter", id + "");
+
+        //Log.d("bagal ", c.getInt(4) + "");
         return con;
     }
 
@@ -452,8 +480,8 @@ public class DB_Acsess {
         val_cloth.put("cl_astin", cloth.getAstin());
         val_cloth.put("cl_dam_astin", cloth.getDam_astin());
 
-        val_cloth.put("fk_customer",cloth.getFk_customer());
-        val_cloth.put("desc",cloth.getDes());
+        val_cloth.put("fk_customer", cloth.getCustomer().getId());
+        val_cloth.put("desc", cloth.getDes());
 
 
         int r = db.update("cu_cl_info", val_cloth, "id" + " = ?",
@@ -482,8 +510,6 @@ public class DB_Acsess {
     public long insert_cloth(Cloth cloth) {
 
 
-
-
         ContentValues val_cloth = new ContentValues();
         val_cloth.put("cl_qad", cloth.getQad());
         val_cloth.put("cl_shana", cloth.getShana());
@@ -502,12 +528,11 @@ public class DB_Acsess {
         val_cloth.put("cl_astin", cloth.getAstin());
         val_cloth.put("cl_dam_astin", cloth.getDam_astin());
 
-        val_cloth.put("fk_customer", cloth.getFk_customer());
+        val_cloth.put("fk_customer", cloth.getCustomer().getId());
         val_cloth.put("desc", cloth.getDes());
 
 
         long b2 = db.insert("cu_cl_info", null, val_cloth);
-
 
 
         db.close(); // Closing database connection
@@ -515,7 +540,7 @@ public class DB_Acsess {
 
     }
 
-    public long insert_customer(Customer contact){
+    public long insert_customer(Customer contact) {
 
         ContentValues val_customer = new ContentValues();
         val_customer.put("full_name", contact.getName()); // Contact Phone
@@ -531,42 +556,48 @@ public class DB_Acsess {
     }
 
 
-    public long add_task(Task task, Payment py) {
+    public long add_task(Order order, Payment py) {
 
         ContentValues val_py = new ContentValues();
 
         ContentValues val_task = new ContentValues();
 
 
-        val_task.put("ts_cu_id", task.getCustomer().getId());
-        val_task.put("cu_name", task.getCustomer().getName());
-        val_task.put("ts_state", task.getState());
-        val_task.put("count", task.getCount());
-        val_task.put("color", task.getColor());
-        val_task.put("price", task.getPrice());
-        val_task.put("cu_payment", task.getPayment());
-        val_task.put("remainder", task.getRemainder());
-        val_task.put("reg_date", task.getRegDate());
-        val_task.put("deliver_date", task.getDeliverDate());
+        val_task.put("fk_cu_cl_info", order.getCloth().getId());
 
-        long b2 = db.insert("tasks", null, val_task);
+        val_task.put("count", order.getCount());
 
-        //val_py.put("py_ts_id", getLastId_task());
-        val_py.put("py_ts_id", py.getTaskID());
-        val_py.put("cu_id", py.getCustomer().getId());
+        val_task.put("color", order.getColor());
+        val_task.put("price", order.getPrice());
+        val_task.put("order_date", order.getOrder_Date());
 
-        val_py.put("cu_name", py.getCustomer().getName());
-        val_py.put("count", py.getCount());
-        val_py.put("color", py.getColor());
-        val_py.put("price", py.getPrice());
 
-        val_py.put("cu_payment", py.getPayment());
-        val_py.put("remainder", py.getRemainder());
+        val_task.put("deliver_date", order.getDeliverDate());
+        val_task.put("is_exist", order.getIsExist());
+        val_task.put("com_state", order.getCom_state());
 
-        val_py.put("reg_date", py.getRegDate());
-        val_py.put("deliver_date", py.getDeliverDate());
+        long b2 = db.insert("'order'", null, val_task);
+
+
+        val_py.put("fk_order", getLastId_task());
+        val_py.put("date", py.getDate());
+        val_py.put("amount", -py.getAmount());
+        val_py.put("cr_db", py.getCr_db() + "");
+        val_py.put("desc", py.getDes());
+
+
         // Inserting Row
         long b1 = db.insert("payment", null, val_py);
+
+
+        ContentValues val_py2 = new ContentValues();
+        val_py2.put("fk_order", getLastId_task());
+        val_py2.put("date", py.getDate());
+        val_py2.put("amount", order.getPrice());
+        val_py2.put("cr_db", py.getCr_db() + "");
+        val_py2.put("desc","debet");
+
+       db.insert("payment", null,val_py2);
 
 
         db.close(); // Closing database connection
@@ -585,7 +616,7 @@ public class DB_Acsess {
 
     public int getLastId_task() {
 
-        c = db.rawQuery("select id from tasks", new String[]{});
+        c = db.rawQuery("select id from 'order'", new String[]{});
 
         c.moveToLast();
         try {
@@ -625,7 +656,7 @@ public class DB_Acsess {
     }
 
     public boolean deleteTask(int id) {
-        int result = db.delete("tasks", "id" + " = ?", new String[]{id + ""});
+        int result = db.delete("'order'", "id" + " = ?", new String[]{id + ""});
         if (result > 0) {
             return true;
         } else {
@@ -650,22 +681,22 @@ public class DB_Acsess {
             case "Daily":
                 // c = db.rawQuery("select * from payment where deliver_date = date('now') and ts_state =1 ORDER BY deliver_date DESC ", new String[]{});
 
-                result = db.delete("payment", "deliver_date = date('now') AND ts_state =1 ", null);
+                result = db.delete("payment", "ate = date('now') AND ts_state =1 ", null);
                 break;
             case "Weekly":
 
                 // c = db.rawQuery("select * from payment  where ts_state = 1 AND ( DATE(deliver_date ) between DATE('now', 'weekday 0', '-7 days') AND DATE('now', 'weekday 0', '-1 days')) ORDER BY deliver_date DESC ", new String[]{});
-                result = db.delete("payment", "ts_state = 1  AND ( DATE(deliver_date ) between DATE('now', 'weekday 0', '-7 days') AND DATE('now', 'weekday 0', '-1 days')) ", null);
+                result = db.delete("payment", " ( DATE(date ) between DATE('now', 'weekday 0', '-7 days') AND DATE('now', 'weekday 0', '-1 days')) ", null);
                 break;
             case "Monthly":
 
                 // c = db.rawQuery("select * from payment  where ts_state = 1 AND ( DATE(deliver_date ) between  date('now','start of month','+1 month','-31 day') and date('now','start of month','+1 month','-1 day')) ORDER BY deliver_date DESC ", new String[]{});
-                result = db.delete("payment", "ts_state = 1 AND ( DATE(deliver_date ) between  date('now','start of month','+1 month','-31 day') and date('now','start of month','+1 month','-1 day')) ", null);
+                result = db.delete("payment", " ( DATE(date ) between  date('now','start of month','+1 month','-31 day') and date('now','start of month','+1 month','-1 day')) ", null);
                 break;
             case "Yearly":
 
                 //c = db.rawQuery("select * from payment  where ts_state = 1 AND ( DATE(deliver_date ) between date('now','start of year','+1 month','-31 day') and date('now','start of year','+12 month','-1 day')) ORDER BY deliver_date DESC ", new String[]{});
-                result = db.delete("payment", "ts_state = 1 AND ( DATE(deliver_date ) between date('now','start of year','+1 month','-31 day') and date('now','start of year','+12 month','-1 day')) ", null);
+                result = db.delete("payment", "( DATE(date ) between date('now','start of year','+1 month','-31 day') and date('now','start of year','+12 month','-1 day')) ", null);
                 break;
         }
 
@@ -678,63 +709,61 @@ public class DB_Acsess {
 
     }
 
-    public int updateTask(Context context, Task task, Payment payment) {
+    public int updateTask( Order order) {
         ContentValues taskValues = new ContentValues();
-        taskValues.put("ts_state", task.getState());
+        taskValues.put("com_state", order.getCom_state());
 
-        ContentValues paymentValues = new ContentValues();
-        paymentValues.put("ts_state", payment.getState());
-
-
-        int result = db.update("tasks", taskValues, "id" + " = ?", new String[]{task.getId() + ""});
-        int result2 = db.update("payment", paymentValues, "py_ts_id" + " = ?", new String[]{payment.getTaskID() + ""});
+        int result = db.update("'order'", taskValues, "id" + " = ?", new String[]{order.getId() + ""});
+        //    int result2 = db.update("payment", paymentValues, "py_ts_id" + " = ?", new String[]{payment.getTaskID() + ""});
         //  Toast.makeText(context, "ID : " + payment.getTaskID(), Toast.LENGTH_LONG).show();
         Log.d("update tasks", "tag " + result);
         return result;
     }
 
-    public int updateTaskClothState(Context context, Task task) {
+    public int updateTaskClothState( Order order) {
         ContentValues taskValues = new ContentValues();
-        taskValues.put("is_exist", task.getIsExist());
-        int result = db.update("tasks", taskValues, "id" + " = ?", new String[]{task.getId() + ""});
+        taskValues.put("is_exist", order.getIsExist());
+        int result = db.update("'order'", taskValues, "id" + " = ?", new String[]{order.getId() + ""});
 
 
-        //Toast.makeText(context, "ID : " + task.getId(), Toast.LENGTH_LONG).show();
+        //Toast.makeText(context, "ID : " + order.getId(), Toast.LENGTH_LONG).show();
         Log.d("update tasks", "tag " + result);
         return result;
     }
 
-    public int updateTaskPayment(Context context, Task task, Payment payment) {
-        ContentValues taskValues = new ContentValues();
-        taskValues.put("remainder", task.getRemainder());
-        taskValues.put("cu_payment", task.getPayment());
+    public long Add_Rasid(Payment py) {
 
-        ContentValues paymentValues = new ContentValues();
-        paymentValues.put("remainder", payment.getRemainder());
-        paymentValues.put("cu_payment", payment.getPayment());
 
-        int result = db.update("tasks", taskValues, "id" + " = ?", new String[]{task.getId() + ""});
-        int result2 = db.update("payment", paymentValues, "py_ts_id" + " = ?", new String[]{payment.getTaskID() + ""});
-        //Toast.makeText(context, "ID Task : " + task.getId(), Toast.LENGTH_LONG).show();
 
-        //   Toast.makeText(context, "ID Payment : " + payment.getTaskID(), Toast.LENGTH_LONG).show();
-        Log.d("update tasks", "tag " + result);
-        Log.d("update payment", "tag " + result2);
-        return result2;
+        ContentValues  val_py = new ContentValues();
+
+        val_py.put("fk_order", getLastId_task());
+        val_py.put("date", py.getDate());
+        val_py.put("amount", -py.getAmount());
+        val_py.put("cr_db","caridet");
+        val_py.put("desc", py.getDes()+"");
+
+
+        // Inserting Row
+        long b1 = db.insert("payment", null, val_py);
+        if(b1>0){
+           Log.d("payment added","amount :"+py.getAmount()+"");
+        }
+
+       return b1;
     }
 
-    public int updateTaskPaymentReport(Context context, Task task, Payment payment) {
+    public int updateTaskPaymentReport(Context context, Order order, Payment payment) {
         ContentValues taskValues = new ContentValues();
-        taskValues.put("remainder", task.getRemainder());
-        taskValues.put("cu_payment", task.getPayment());
+
 
         ContentValues paymentValues = new ContentValues();
-        paymentValues.put("remainder", payment.getRemainder());
-        paymentValues.put("cu_payment", payment.getPayment());
+//        paymentValues.put("remainder", payment.getRemainder());
+//        paymentValues.put("cu_payment", payment.getPayment());
 
-        int result = db.update("tasks", taskValues, "id" + " = ?", new String[]{task.getId() + ""});
+        int result = db.update("tasks", taskValues, "id" + " = ?", new String[]{order.getId() + ""});
         int result2 = db.update("payment", paymentValues, "id" + " = ?", new String[]{payment.getId() + ""});
-        //  Toast.makeText(context, "ID Task : " + task.getId(), Toast.LENGTH_LONG).show();
+        //  Toast.makeText(context, "ID Order : " + order.getId(), Toast.LENGTH_LONG).show();
 
         // Toast.makeText(context, "ID Payment : " + payment.getId(), Toast.LENGTH_LONG).show();
         Log.d("update tasks", "tag " + result);
@@ -745,13 +774,98 @@ public class DB_Acsess {
     public ArrayList<Model> get_Model_cloth(int id) {
 
         ArrayList<Model> list = new ArrayList<>();
-        c = db.rawQuery("select id,desc from cu_cl_info where fk_customer='" +id+ "'", new String[]{});
+        c = db.rawQuery("select id,desc from cu_cl_info where fk_customer='" + id + "'", new String[]{});
         Log.d("size", c.getCount() + "");
         while (c.moveToNext()) {
             Model con = new Model();
             con.setId(c.getInt(0));
             con.setName(c.getString(1));
             list.add(con);
+        }
+        return list;
+    }
+
+    public Order getOrder(int id) {
+
+        c = db.rawQuery("select * from 'order'  where id='" + id + "'", new String[]{});
+        Log.d("size", c.getCount() + "");
+        c.moveToNext();
+        Order order = new Order();
+        order.setId(c.getInt(0));
+        order.setCount(c.getInt(1));
+        order.setColor(c.getString(2));
+        order.setPrice(c.getFloat(3));
+        order.setOrder_Date(c.getString(4));
+        order.setDeliverDate(c.getString(5));
+        order.setIsExist(c.getInt(6));
+        order.setCom_state(c.getInt(7));
+        Cloth cloth = getCloth(c.getInt(8));
+        order.setCloth(cloth);
+
+
+        return order;
+
+
+    }
+
+    public Payment getPayment(int id) throws Exception {
+
+        Cursor d = db.rawQuery("select * from payment  where fk_order='" + id + "'", new String[]{});
+        Log.d("size_payment", c.getCount() + "");
+        d.moveToNext();
+        Payment payment = new Payment();
+        payment.setId(d.getInt(0));
+        payment.setDate(d.getString(1));
+        payment.setAmount(d.getInt(2));
+        payment.setDes(d.getString(4));
+        Order order = getOrder(d.getInt(5));
+        payment.setReminder(getTotal(id));
+        try {
+            payment.setPish_pardakht(get_rasid(id));
+
+        } catch (Exception e) {
+            payment.setPish_pardakht(0);
+
+        }
+
+
+        Log.d("payment_s", payment.toString());
+        payment.setOrder(order);
+
+        return payment;
+    }
+
+    public int get_rasid(int id) {
+        c = db.rawQuery("select sum(amount) from payment  where fk_order='" + id + "' and amount<0 ", new String[]{});
+        Log.d("size_pish", c.getCount() + "");
+        c.moveToNext();
+        int m = c.getInt(0);
+        return m;
+    }
+
+    public int getTotal(int id) {
+        c = db.rawQuery("select sum(amount) from payment  where fk_order='" + id + "'", new String[]{});
+        Log.d("size", c.getCount() + "");
+        c.moveToNext();
+        int m = c.getInt(0);
+        return m;
+    }
+
+    public ArrayList<Payment> getPayment_of_roder(int id) {
+
+c.close();
+        ArrayList<Payment> list = new ArrayList<>();
+        //c = db.rawQuery("select * from payment where fk_order='" + id + "'  and amount<0", new String[]{});
+        c = db.rawQuery("select id,date,amount,'desc',fk_order from payment where fk_order='" + id + "'  and amount<0", new String[]{});
+        Log.d("size_payment", c.getCount() + "");
+        while (c.moveToNext()) {
+            Payment payment = new Payment();
+            payment.setId(c.getInt(0));
+            payment.setDate(c.getString(1));
+            Log.d("amount_",c.getInt(2)+"");
+            payment.setAmount(c.getInt(2));
+            payment.setDes(c.getString(3));
+            list.add(payment);
         }
         return list;
     }

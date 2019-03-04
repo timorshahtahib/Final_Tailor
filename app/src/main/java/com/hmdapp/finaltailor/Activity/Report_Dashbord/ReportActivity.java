@@ -1,4 +1,4 @@
-package com.hmdapp.finaltailor.Activity;
+package com.hmdapp.finaltailor.Activity.Report_Dashbord;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -27,7 +27,7 @@ public class ReportActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     AdapterListPayment adapterListPayment;
     private View parent_view;
-    String value ;
+    String value;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +50,7 @@ public class ReportActivity extends AppCompatActivity {
 
         DB_Acsess db_acsess = DB_Acsess.getInstans(this);
         db_acsess.open();
-        List<Payment> items = db_acsess.getAllPaymentReport(value,this);
+        List<Payment> items = db_acsess.getAllPaymentReport(value, this);
 
 
         adapterListPayment = new AdapterListPayment(this, items);
@@ -61,21 +61,17 @@ public class ReportActivity extends AppCompatActivity {
         adapterListPayment.setOnItemClickListener(new AdapterListPayment.OnItemClickListener() {
             @Override
             public void onItemClick(View view, Payment obj, int position) {
-                Intent intent = new Intent(getApplicationContext(),DisplayReportActivity.class);
+                Intent intent = new Intent(getApplicationContext(), DisplayReportActivity.class);
                 intent.putExtra("id", obj.getId());
-                intent.putExtra("cu_id", obj.getCustomerId());
-                intent.putExtra("task_id", obj.getTaskID());
-                intent.putExtra("state",obj.getState());
-                intent.putExtra("deliver_date", obj.getDeliverDate());
-                intent.putExtra("color", obj.getColor());
-                intent.putExtra("count", obj.getCount());
-                intent.putExtra("price", obj.getPrice());
-                intent.putExtra("payment", obj.getPayment());
-                intent.putExtra("remainder", obj.getRemainder());
-                intent.putExtra("reg_date", obj.getRegDate());
+
+                intent.putExtra("task_id", obj.getOrder().getId());
+
+
+                intent.putExtra("payment", obj.getAmount());
+
 
                 startActivity(intent);
-               // Snackbar.make(parent_view, "Item " + obj.getCustomer().getPhone() + " clicked", Snackbar.LENGTH_SHORT).show();
+                // Snackbar.make(parent_view, "Item " + obj.getCustomer().getPhone() + " clicked", Snackbar.LENGTH_SHORT).show();
             }
         });
 
@@ -84,17 +80,17 @@ public class ReportActivity extends AppCompatActivity {
     private void initToolbar(String type) {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        switch (type){
-            case "Daily" :
+        switch (type) {
+            case "Daily":
                 getSupportActionBar().setTitle("لیست گزارش ها روزانه ");
                 break;
-            case "Weekly" :
+            case "Weekly":
                 getSupportActionBar().setTitle("لیست گزارش ها هفتانه ");
                 break;
-            case "Monthly" :
+            case "Monthly":
                 getSupportActionBar().setTitle("لیست گزارش ها ماهانه ");
                 break;
-            case "Yearly" :
+            case "Yearly":
                 getSupportActionBar().setTitle("لیست گزارش ها سالانه ");
                 break;
         }
@@ -113,19 +109,17 @@ public class ReportActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             finish();
-        }else if(item.getItemId() == R.id.app_bar_delete_all){
-          //  Toast.makeText(getApplicationContext(), item.getTitle(), Toast.LENGTH_SHORT).show();
+        } else if (item.getItemId() == R.id.app_bar_delete_all) {
+            //  Toast.makeText(getApplicationContext(), item.getTitle(), Toast.LENGTH_SHORT).show();
             showAlertDialog();
-        }
-
-        else {
+        } else {
             Toast.makeText(getApplicationContext(), item.getTitle(), Toast.LENGTH_SHORT).show();
         }
         return super.onOptionsItemSelected(item);
     }
 
     private void showAlertDialog() {
-      // Toast.makeText(ReportActivity.this, "Value : "+value, Toast.LENGTH_SHORT).show();
+        // Toast.makeText(ReportActivity.this, "Value : "+value, Toast.LENGTH_SHORT).show();
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("آیا میخواهید گزارش ها را پاک کنید ؟");
         builder.setPositiveButton("بلی", new DialogInterface.OnClickListener() {
@@ -135,12 +129,12 @@ public class ReportActivity extends AppCompatActivity {
                 db_acsess.open();
 
                 boolean result = db_acsess.deletePaymentByType(value);
-               // Toast.makeText(ReportActivity.this, "Result : "+result, Toast.LENGTH_SHORT).show();
-                if(result == true){
+                // Toast.makeText(ReportActivity.this, "Result : "+result, Toast.LENGTH_SHORT).show();
+                if (result == true) {
                     Toast.makeText(ReportActivity.this, "گزارش ها موفقانه حذف شد", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(ReportActivity.this, DashboradReportActivity.class));
                     finish();
-                }else{
+                } else {
                     Toast.makeText(ReportActivity.this, "گزارش ها حذف نشد", Toast.LENGTH_SHORT).show();
                 }
             }

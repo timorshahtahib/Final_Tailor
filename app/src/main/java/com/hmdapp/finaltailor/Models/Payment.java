@@ -2,51 +2,49 @@ package com.hmdapp.finaltailor.Models;
 
 public class Payment {
 
-    private int count;
-    private int taskID;
-    private Task task;
-    private Customer customer;
+
     private int id;
-    private int customerId;
-    private String regDate;
-    private String deliverDate;
-    private String color;
-    private int state ;
-    private float price ;
-    private float payment ;
-    private float remainder ;
-    private int isExist ;
+    private String Date;
+    private int amount;
+    private char cr_db;
+    private Order order;
+    private String des;
+    private int total, reminder;
+    private int pish_pardakht;
 
-    public int getCount() {
-        return count;
+    public int getPish_pardakht() {
+        return pish_pardakht;
     }
 
-    public void setCount(int count) {
-        this.count = count;
+    public void setPish_pardakht(int pish_pardakht) {
+        this.pish_pardakht = pish_pardakht;
     }
 
-    public int getTaskID() {
-        return taskID;
+    public Order getOrder() {
+        return order;
     }
 
-    public void setTaskID(int taskID) {
-        this.taskID = taskID;
+    public void setOrder(Order order) {
+        this.order = order;
     }
 
-    public Task getTask() {
-        return task;
+
+
+
+    public int getTotal() {
+        return total;
     }
 
-    public void setTask(Task task) {
-        this.task = task;
+    public void setTotal(int total) {
+        this.total = total;
     }
 
-    public Customer getCustomer() {
-        return customer;
+    public int getReminder() {
+        return reminder;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public void setReminder(int reminder) {
+        this.reminder = reminder;
     }
 
     public int getId() {
@@ -57,75 +55,52 @@ public class Payment {
         this.id = id;
     }
 
-    public int getCustomerId() {
-        return customerId;
+    public String getDate() {
+        return Date;
     }
 
-    public void setCustomerId(int customerId) {
-        this.customerId = customerId;
+    public void setDate(String date) {
+        Date = date;
     }
 
-    public String getRegDate() {
-        return regDate;
+    public int getAmount() {
+        return amount;
     }
 
-    public void setRegDate(String regDate) {
-        this.regDate = regDate;
+    public void setAmount(int amount) {
+        this.amount = amount;
     }
 
-    public String getDeliverDate() {
-        return deliverDate;
+    public char getCr_db() {
+        return cr_db;
     }
 
-    public void setDeliverDate(String deliverDate) {
-        this.deliverDate = deliverDate;
+    public void setCr_db(char cr_db) {
+        this.cr_db = cr_db;
     }
 
-    public String getColor() {
-        return color;
+
+    public String getDes() {
+        return des;
     }
 
-    public void setColor(String color) {
-        this.color = color;
+    public void setDes(String des) {
+        this.des = des;
     }
 
-    public int getState() {
-        return state;
-    }
 
-    public void setState(int state) {
-        this.state = state;
-    }
+    @Override
+    public String toString() {
+        return "Payment{" +
+                "id=" + id +
+                ", Date='" + Date + '\'' +
+                ", amount=" + amount +
+                ", cr_db=" + cr_db +
 
-    public float getPrice() {
-        return price;
-    }
-
-    public void setPrice(float price) {
-        this.price = price;
-    }
-
-    public float getPayment() {
-        return payment;
-    }
-
-    public void setPayment(float payment) {
-        this.payment = payment;
-    }
-
-    public float getRemainder() {
-        return remainder;
-    }
-
-    public void setRemainder(float remainder) {
-        this.remainder = remainder;
-    }
-
-    public int getIsExist() {
-        return isExist;
-    }
-
-    public void setIsExist(int isExist) {
-        this.isExist = isExist;
+                ", des='" + des + '\'' +
+                ", total=" + total +
+                ", reminder=" + reminder +
+                ", pish_pardakht=" + pish_pardakht +
+                '}';
     }
 }
