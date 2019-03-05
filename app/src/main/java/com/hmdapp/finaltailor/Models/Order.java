@@ -5,7 +5,7 @@ public class Order {
     private int id;
     private float price;
     private int count;
-    private int customerId;
+
     private String color;
     private String order_Date;
     private String deliverDate;
@@ -45,13 +45,7 @@ private Cloth cloth;
         this.id = id;
     }
 
-    public int getCustomerId() {
-        return customerId;
-    }
 
-    public void setCustomerId(int customerId) {
-        this.customerId = customerId;
-    }
 
 
     public String getDeliverDate() {

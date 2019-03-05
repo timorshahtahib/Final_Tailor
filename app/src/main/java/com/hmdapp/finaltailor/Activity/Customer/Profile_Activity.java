@@ -275,12 +275,10 @@ public class Profile_Activity extends AppCompatActivity {
                     Payment payment_ = new Payment();
                     float totalPrice = price * count;
 
-                    Customer customer = new Customer();
+
                     long time = System.currentTimeMillis();
                     String regDate = Tools.getFormattedDateSimple(time);
-                    customer.setId(id_cu);
-                    customer.setName(cuName);
-                    order.setCustomerId(customer.getId());
+
                     order.setCount(count);
                     order.setColor(color);
                     order.setCom_state(0);

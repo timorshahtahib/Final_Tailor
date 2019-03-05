@@ -57,7 +57,7 @@ public class RemainderActivity extends AppCompatActivity {
             @Override
             public void onItemClick(View view, Payment obj, int position) {
                 Intent intent = new Intent(getApplicationContext(), EveryRemainderActivity.class);
-                intent.putExtra("id", obj.getId());
+                intent.putExtra("id", obj.getOrder().getId());
 
 
 

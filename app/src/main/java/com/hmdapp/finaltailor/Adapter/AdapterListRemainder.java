@@ -63,8 +63,8 @@ public class AdapterListRemainder extends RecyclerView.Adapter<RecyclerView.View
             OriginalViewHolder view = (OriginalViewHolder) holder;
 
             Payment payment = items.get(position);
-//            view.date.setText(payment.getCustomer().getName()+"   ");
-//            view.remainderSum.setText(payment.getRemainder()+"");
+            view.name.setText(payment.getOrder().getCloth().getCustomer().getName()+"   ");
+            view.remainderSum.setText(payment.getTotal()+"");
 
 
 

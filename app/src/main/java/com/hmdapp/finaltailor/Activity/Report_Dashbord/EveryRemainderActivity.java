@@ -38,7 +38,7 @@ public class EveryRemainderActivity extends AppCompatActivity {
     private void initComponent() {
 
 
-        int customerId = getIntent().getIntExtra("cu_id", 1);
+        int Id = getIntent().getIntExtra("id", 1);
         recyclerView = findViewById(R.id.every_remainder_report_recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
@@ -49,7 +49,7 @@ public class EveryRemainderActivity extends AppCompatActivity {
 
         DB_Acsess db_acsess = DB_Acsess.getInstans(this);
         db_acsess.open();
-        List<Payment> items = db_acsess.getListOfRemainderReport(this, customerId);
+        List<Payment> items = db_acsess.getListOfRemainderReport(this,Id);
 
 
         adapterListPayment = new AdapterListPayment(this, items);

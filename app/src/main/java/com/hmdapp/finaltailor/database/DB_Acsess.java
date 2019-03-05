@@ -118,36 +118,18 @@ public class DB_Acsess {
 
         ArrayList<Payment> list = new ArrayList<>();
 
-        c = db.rawQuery("select * from payment  where ((ts_state = 1 AND remainder > 0) AND ( DATE(deliver_date ) between date('now','start of year','+1 month','-31 day') and date('now','start of year','+12 month','-1 day'))) AND cu_id ='" + id + "'  ORDER BY deliver_date DESC ", new String[]{});
+    Cursor    d = db.rawQuery("select * from payment  where   ( DATE(date ) between date('now','start of year','+1 month','-31 day') and date('now','start of year','+12 month','-1 day')) AND fk_order ='" + id + "'  ORDER BY date DESC ", new String[]{});
         //Toast.makeText(context, "Get All Order : size : " + c.getCount(), Toast.LENGTH_LONG).show();
-        Log.d("Get All Payment : size", c.getCount() + "");
-        Log.i("Get All payment : size", c.getCount() + "");
-        System.out.println("Get All payment : size : " + c.getCount() + "");
+        Log.d("Get All Payment : size", d.getCount() + "");
+        Log.i("Get All payment : size", d.getCount() + "");
+        System.out.println("Get All payment : size : " + d.getCount() + "");
         while (c.moveToNext()) {
             Payment payment = new Payment();
-
-            Customer customer = new Customer();
-
-//            payment.setCustomerId(c.getInt(1));
-//            customer.setName(c.getString(2));
-//            payment.setRemainder(c.getFloat(0));
-            payment.setId(c.getInt(0));
-//            payment.setTaskID(c.getInt(1));
-//            payment.setCustomerId(c.getInt(2));
-            customer.setName(c.getString(3));
-//            payment.setState(c.getInt(4));
-//            payment.setCount(c.getInt(5));
-//            payment.setColor(c.getString(6));
-//            payment.setPrice(c.getFloat(7));
-//            payment.setPayment(c.getFloat(8));
-//            payment.setRemainder(c.getFloat(9));
-//            payment.setRegDate(c.getString(10));
-//            payment.setDeliverDate(c.getString(11));
-//            payment.setCustomer(customer);
-//
-//            payment.setCustomer(customer);
-
-
+            payment.setId(d.getInt(0));
+            payment.setDate(d.getString(1));
+            payment.setId(d.getInt(3));
+            Order order = getOrder(d.getInt(5));
+            payment.setOrder(order);
             list.add(payment);
             Log.d("Get Order ....  id : ", payment.getId() + "");
         }
@@ -158,34 +140,31 @@ public class DB_Acsess {
 
         ArrayList<Payment> list = new ArrayList<>();
 
-        c = db.rawQuery("select SUM(remainder) , cu_id, cu_name from payment  where (ts_state = 1 AND remainder > 0) AND ( DATE(deliver_date ) between date('now','start of year','+1 month','-31 day') and date('now','start of year','+12 month','-1 day')) GROUP BY cu_id ORDER BY deliver_date DESC ", new String[]{});
+        Cursor d = db.rawQuery("select SUM(amount) as total, id, date,fk_order from payment  where ( DATE(date ) between date('now','start of year','+1 month','-31 day') and date('now','start of year','+12 month','-1 day')) GROUP BY fk_order ORDER BY date DESC", new String[]{});
         //Toast.makeText(context, "Get All Order : size : " + c.getCount(), Toast.LENGTH_LONG).show();
-        Log.d("Get All Payment : size", c.getCount() + "");
-        Log.i("Get All payment : size", c.getCount() + "");
-        System.out.println("Get All payment : size : " + c.getCount() + "");
-        while (c.moveToNext()) {
-            Payment payment = new Payment();
-
-            Customer customer = new Customer();
-//
-//            payment.setCustomerId(c.getInt(1));
-            customer.setName(c.getString(2));
-            //     payment.setRemainder(c.getFloat(0));
-
-//            payment.setRemainder(c.getColumnIndex("Total"));
-//            payment.setCustomerId(c.getColumnIndex("cu_id"));
-//            customer.setName(c.getColumnIndex("cu_name")+"");
-            // payment.setCustomer(customer);
+        Log.d("Get All reminder : size", d.getCount() + "");
 
 
-            list.add(payment);
-            Log.d("Get Order ....  id : ", payment.getId() + "");
+        while (d.moveToNext()) {
+
+            if (d.getInt(0) > 0) {
+                Payment payment = new Payment();
+                payment.setTotal(d.getInt(0));
+                payment.setId(d.getInt(1));
+                payment.setDate(d.getString(2));
+                Order order = getOrder(d.getInt(3));
+                payment.setOrder(order);
+                Log.d("Get Order ....  id : ", payment.getId() + "");
+                list.add(payment);
+            }
+
+
         }
         return list;
     }
 
     public List<Payment> getAllPaymentReport(String type, Context context) {
-Cursor d=null;
+        Cursor d = null;
         ArrayList<Payment> list = new ArrayList<>();
         switch (type) {
             case "Daily":
@@ -215,10 +194,8 @@ Cursor d=null;
             payment.setId(d.getInt(0));
             payment.setDate(d.getString(1));
             payment.setAmount(d.getInt(2));
-            Order order=getOrder(d.getInt(4));
+            Order order = getOrder(d.getInt(4));
             payment.setOrder(order);
-
-
 
 
             list.add(payment);
@@ -249,7 +226,9 @@ Cursor d=null;
         c = db.rawQuery("select SUM(amount) as Total from payment where  ( DATE(date ) between date('now','start of year','+1 month','-31 day') and date('now','start of year','+12 month','-1 day')) and amount<0 ", new String[]{});
         c.moveToFirst();
         return c.getInt(c.getColumnIndex("Total"));
-    } public int getAllPayment() {
+    }
+
+    public int getAllPayment() {
         c = db.rawQuery("select SUM(amount) as Total from payment where  amount<0", new String[]{});
         c.moveToFirst();
         return c.getInt(c.getColumnIndex("Total"));
@@ -595,9 +574,9 @@ Cursor d=null;
         val_py2.put("date", py.getDate());
         val_py2.put("amount", order.getPrice());
         val_py2.put("cr_db", py.getCr_db() + "");
-        val_py2.put("desc","debet");
+        val_py2.put("desc", "debet");
 
-       db.insert("payment", null,val_py2);
+        db.insert("payment", null, val_py2);
 
 
         db.close(); // Closing database connection
@@ -709,7 +688,7 @@ Cursor d=null;
 
     }
 
-    public int updateTask( Order order) {
+    public int updateTask(Order order) {
         ContentValues taskValues = new ContentValues();
         taskValues.put("com_state", order.getCom_state());
 
@@ -720,7 +699,7 @@ Cursor d=null;
         return result;
     }
 
-    public int updateTaskClothState( Order order) {
+    public int updateTaskClothState(Order order) {
         ContentValues taskValues = new ContentValues();
         taskValues.put("is_exist", order.getIsExist());
         int result = db.update("'order'", taskValues, "id" + " = ?", new String[]{order.getId() + ""});
@@ -734,23 +713,22 @@ Cursor d=null;
     public long Add_Rasid(Payment py) {
 
 
-
-        ContentValues  val_py = new ContentValues();
+        ContentValues val_py = new ContentValues();
 
         val_py.put("fk_order", getLastId_task());
         val_py.put("date", py.getDate());
         val_py.put("amount", -py.getAmount());
-        val_py.put("cr_db","caridet");
-        val_py.put("desc", py.getDes()+"");
+        val_py.put("cr_db", "caridet");
+        val_py.put("desc", py.getDes() + "");
 
 
         // Inserting Row
         long b1 = db.insert("payment", null, val_py);
-        if(b1>0){
-           Log.d("payment added","amount :"+py.getAmount()+"");
+        if (b1 > 0) {
+            Log.d("payment added", "amount :" + py.getAmount() + "");
         }
 
-       return b1;
+        return b1;
     }
 
     public int updateTaskPaymentReport(Context context, Order order, Payment payment) {
@@ -853,7 +831,7 @@ Cursor d=null;
 
     public ArrayList<Payment> getPayment_of_roder(int id) {
 
-c.close();
+        c.close();
         ArrayList<Payment> list = new ArrayList<>();
         //c = db.rawQuery("select * from payment where fk_order='" + id + "'  and amount<0", new String[]{});
         c = db.rawQuery("select id,date,amount,'desc',fk_order from payment where fk_order='" + id + "'  and amount<0", new String[]{});
@@ -862,7 +840,7 @@ c.close();
             Payment payment = new Payment();
             payment.setId(c.getInt(0));
             payment.setDate(c.getString(1));
-            Log.d("amount_",c.getInt(2)+"");
+            Log.d("amount_", c.getInt(2) + "");
             payment.setAmount(c.getInt(2));
             payment.setDes(c.getString(3));
             list.add(payment);
