@@ -44,6 +44,8 @@ public class DB_Acsess {
 
     public void open() {
         this.db = openHelper.getWritableDatabase();
+
+        db.rawQuery("PRAGMA foreign_keys = ON",new String[]{});
     }
 
     public void close() {
@@ -107,9 +109,9 @@ public class DB_Acsess {
             order.setDeliverDate(d.getString(5));
             order.setIsExist(d.getInt(6));
             order.setCom_state(d.getInt(7));
-         Cloth cloth = getCloth(d.getInt(8));
-         // Cloth cloth = getCloth(1);
-         order.setCloth(cloth);
+            Cloth cloth = getCloth(d.getInt(8));
+            // Cloth cloth = getCloth(1);
+            order.setCloth(cloth);
             list.add(order);
             Log.d("Get Order ....  id : ", order.getId() + "");
         }
@@ -271,7 +273,7 @@ public class DB_Acsess {
     }
 
     public int getWeeklyPayment() {
-      Cursor  d = db.rawQuery("select SUM(amount) as Total from payment where ( DATE(date ) between DATE('now', 'weekday 0', '-7 days') AND DATE('now', 'weekday 0', '-1 days'))  and amount<0 ", new String[]{});
+        Cursor d = db.rawQuery("select SUM(amount) as Total from payment where ( DATE(date ) between DATE('now', 'weekday 0', '-7 days') AND DATE('now', 'weekday 0', '-1 days'))  and amount<0 ", new String[]{});
         d.moveToFirst();
         return (d.getInt(d.getColumnIndex("Total")) * -1);
     }
@@ -426,6 +428,7 @@ public class DB_Acsess {
         con.setModel_yaqa(c.getString(15));
         con.setAstin(c.getInt(16));
         Customer customer = getCustomer(c.getInt(17));
+        con.setDes(c.getString(18));
         con.setCustomer(customer);
 
         //Log.d("bagal ", c.getInt(4) + "");
@@ -604,7 +607,11 @@ public class DB_Acsess {
 
 
         // Inserting Row
-        long b1 = db.insert("payment", null, val_py);
+
+        if (py.getAmount() > 0) {
+            db.insert("payment", null, val_py);
+
+        }
 
 
         ContentValues val_py2 = new ContentValues();
@@ -614,7 +621,7 @@ public class DB_Acsess {
         val_py2.put("cr_db", py.getCr_db() + "");
         val_py2.put("desc", "debet");
 
-        db.insert("payment", null, val_py2);
+        long b1 = db.insert("payment", null, val_py2);
 
 
         db.close(); // Closing database connection
@@ -660,14 +667,69 @@ public class DB_Acsess {
     public boolean delete_Cutomer(int id) {
 
 
+        ArrayList<Cloth> cloths = get_cLoth(id);
+        for (Cloth c : cloths) {
+            try {
+                Order order = get_order_of_spicific_cloth(c.getId());
+                deleteTask(order.getId());
+                delete_cloth(c.getId());
+
+            }catch (Exception e){
+
+            }
+
+        }
+
+
         int b2 = db.delete("customer", "id" + " = ?",
                 new String[]{id + ""});
         return b2 > 0;
 
     }
 
+    private Order get_order_of_spicific_cloth(int id) {
+
+        c = db.rawQuery("select * from 'order'  where fk_cu_cl_info='" + id + "'", new String[]{});
+        Log.d("size", c.getCount() + "");
+        c.moveToNext();
+        Order order = new Order();
+        order.setId(c.getInt(0));
+        order.setCount(c.getInt(1));
+        order.setColor(c.getString(2));
+        order.setPrice(c.getFloat(3));
+        order.setOrder_Date(c.getString(4));
+        order.setDeliverDate(c.getString(5));
+        order.setIsExist(c.getInt(6));
+        order.setCom_state(c.getInt(7));
+        Cloth cloth = getCloth(c.getInt(8));
+        order.setCloth(cloth);
+        return order;
+    }
+
+    ArrayList<Cloth> get_cLoth(int cu_id) {
+        ArrayList<Cloth> list = new ArrayList<>();
+        c = db.rawQuery("select id from cu_cl_info where fk_customer='" + cu_id + "'", new String[]{});
+        Log.d("size", c.getCount() + "");
+        while (c.moveToNext()) {
+            Cloth con = getCloth(c.getInt(0));
+
+
+            list.add(con);
+        }
+        return list;
+    }
+
     public boolean deleteTask(int id) {
+        Order order = getOrder(id);
+        deletePayment_of_custom_order(order.getId());
         int result = db.delete("'order'", "id" + " = ?", new String[]{id + ""});
+
+        return result > 0;
+
+    }
+
+    public boolean deletePayment_of_custom_order(int id) {
+        int result = db.delete("payment", "fk_order" + " = ?", new String[]{id + ""});
         return result > 0;
 
     }
@@ -735,7 +797,7 @@ public class DB_Acsess {
 
         ContentValues val_py = new ContentValues();
 
-        val_py.put("fk_order", getLastId_task());
+        val_py.put("fk_order", py.getOrder().getId());
         val_py.put("date", py.getDate());
         val_py.put("amount", -py.getAmount());
         val_py.put("cr_db", "caridet");

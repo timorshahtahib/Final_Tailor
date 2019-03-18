@@ -66,7 +66,7 @@ public class Regester_Customer extends AppCompatActivity {
                         }
 
                     }
-//                    Toast.makeText(Regester_Activity.this, "id" + getRgText(rg_model), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(Regester_cloth_Activity.this, "id" + getRgText(rg_model), Toast.LENGTH_SHORT).show();
 
 
                 }

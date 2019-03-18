@@ -18,7 +18,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-import com.hmdapp.finaltailor.Activity.Regester_Activity;
 import com.hmdapp.finaltailor.Adapter.Adaptar_model;
 import com.hmdapp.finaltailor.Models.Model;
 import com.hmdapp.finaltailor.R;
@@ -64,7 +63,7 @@ public class Profile_Activity extends AppCompatActivity {
         fb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), Regester_Activity.class);
+                Intent intent = new Intent(getApplicationContext(), Regester_cloth_Activity.class);
                 intent.putExtra("id_cu", id_cu);
                 startActivity(intent);
                 finish();

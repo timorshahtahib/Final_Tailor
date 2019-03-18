@@ -208,6 +208,8 @@ public class show_Order_Info extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
+
+            startActivity(new Intent(this,Tasks_Activity.class));
             finish();
 
         } else if (item.getItemId() == R.id.action_pay_task) {

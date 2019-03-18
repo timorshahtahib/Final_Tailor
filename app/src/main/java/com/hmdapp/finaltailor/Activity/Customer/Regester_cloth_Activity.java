@@ -1,4 +1,4 @@
-package com.hmdapp.finaltailor.Activity;
+package com.hmdapp.finaltailor.Activity.Customer;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,13 +13,12 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import com.hmdapp.finaltailor.Activity.Customer.Person_Activity;
 import com.hmdapp.finaltailor.Models.Cloth;
 import com.hmdapp.finaltailor.Models.Customer;
 import com.hmdapp.finaltailor.R;
 import com.hmdapp.finaltailor.database.DB_Acsess;
 
-public class Regester_Activity extends AppCompatActivity {
+public class Regester_cloth_Activity extends AppCompatActivity {
 
 
     Button fb_insert;
@@ -90,15 +89,15 @@ public class Regester_Activity extends AppCompatActivity {
                         finish();
                     } else {
                         if (insert(cloth)) {
-                            Toast.makeText(Regester_Activity.this, "added ", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Regester_cloth_Activity.this, "added ", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(getApplicationContext(), Person_Activity.class));
                             finish();
                         } else {
-                            Toast.makeText(Regester_Activity.this, "not aded", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Regester_cloth_Activity.this, "not aded", Toast.LENGTH_SHORT).show();
                         }
 
                     }
-//                    Toast.makeText(Regester_Activity.this, "id" + getRgText(rg_model), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(Regester_cloth_Activity.this, "id" + getRgText(rg_model), Toast.LENGTH_SHORT).show();
 
 
                 }

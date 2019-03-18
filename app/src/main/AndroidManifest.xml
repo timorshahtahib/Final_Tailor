@@ -45,9 +45,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".Activity.Customer.Person_Activity" />
-        <activity android:name=".Activity.ContactActivity" />
         <activity android:name=".Activity.Customer.Profile_Activity" />
-        <activity android:name=".Activity.Regester_Activity" />
+        <activity android:name=".Activity.Customer.Regester_cloth_Activity" />
         <activity android:name=".Activity.Order.Tasks_Activity" />
         <activity android:name=".Activity.AboutCompanyImage" />
     </application>

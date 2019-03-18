@@ -18,13 +18,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.hmdapp.finaltailor.Activity.Regester_Activity;
 import com.hmdapp.finaltailor.Adapter.AdapterGridSingleLine;
 import com.hmdapp.finaltailor.Models.Cloth;
 import com.hmdapp.finaltailor.Models.Order;
 import com.hmdapp.finaltailor.Models.Payment;
 import com.hmdapp.finaltailor.R;
-import com.hmdapp.finaltailor.Utlity.SpacingItemDecoration;
 import com.hmdapp.finaltailor.Utlity.Tools;
 import com.hmdapp.finaltailor.database.DB_Acsess;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
@@ -91,7 +89,7 @@ public class Show_Model_Activity extends AppCompatActivity {
         } else if (item.getItemId() == R.id.action_edit) {
             int id_cu = getIntent().getIntExtra("id_cu", 0);
             int id_cl = getIntent().getIntExtra("id_cl", 0);
-            Intent intent = new Intent(getApplicationContext(), Regester_Activity.class);
+            Intent intent = new Intent(getApplicationContext(), Regester_cloth_Activity.class);
             intent.putExtra("id_cu", id_cu);
             intent.putExtra("id_cl", id_cl);
             intent.putExtra("state", 1);
@@ -191,7 +189,14 @@ public class Show_Model_Activity extends AppCompatActivity {
 
                 String review = txt_show_date.getText().toString().trim();
                 float price = Float.parseFloat(ed_mony.getText().toString());
-                float payment = Float.parseFloat(ed_payment.getText().toString());
+                float payment=0;
+                try{
+                   payment = Float.parseFloat(ed_payment.getText().toString());
+
+                }catch (Exception e){
+                  payment = 0;
+
+                }
                 String color = edColor.getText().toString();
                 int count = Integer.parseInt(edCount.getText().toString());
 
@@ -202,8 +207,6 @@ public class Show_Model_Activity extends AppCompatActivity {
                 } else if (price < 50) {
                     Toast.makeText(getApplicationContext(), "لطفا قیمت دوخت را وارد کنید", Toast.LENGTH_SHORT).show();
 
-                } else if (payment < 10) {
-                    Toast.makeText(getApplicationContext(), "لطفا رسید را وارد کنید", Toast.LENGTH_SHORT).show();
 
                 } else if (color.trim().isEmpty()) {
                     Toast.makeText(getApplicationContext(), "لطفا رنگ را وارد کنید", Toast.LENGTH_SHORT).show();
@@ -214,7 +217,8 @@ public class Show_Model_Activity extends AppCompatActivity {
                 } else {
 
                     Order order = new Order();
-                    Payment payment_ = new Payment();
+
+
                     float totalPrice = price * count;
                     long time = System.currentTimeMillis();
                    String regDate = Tools.getFormattedDateSimple(time);
@@ -232,10 +236,13 @@ public class Show_Model_Activity extends AppCompatActivity {
                     final int id_cu = getIntent().getIntExtra("id_cu", 0);
                     Cloth cl = db_acsess.getCloth(id_cu, id_cl);
                     order.setCloth(cl);
-                    payment_.setAmount((int) payment);
-                    payment_.setDate(regDate);
-                    payment_.setOrder(order);
-                    payment_.setDes("p");
+                    Payment payment_ = new Payment();
+
+                        payment_.setAmount((int) payment);
+                        payment_.setDate(regDate);
+                        payment_.setOrder(order);
+                        payment_.setDes("p");
+
                     //Toast.makeText(getApplicationContext(), "Hi "+regDate, Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
                     addTask(order, payment_);
