@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.hmdapp.finaltailor.Activity.Order.show_Order_Info;
 import com.hmdapp.finaltailor.Adapter.AdapterListPayment;
 import com.hmdapp.finaltailor.Models.Payment;
 import com.hmdapp.finaltailor.R;
@@ -61,13 +62,10 @@ public class ReportActivity extends AppCompatActivity {
         adapterListPayment.setOnItemClickListener(new AdapterListPayment.OnItemClickListener() {
             @Override
             public void onItemClick(View view, Payment obj, int position) {
-                Intent intent = new Intent(getApplicationContext(), DisplayReportActivity.class);
-                intent.putExtra("id", obj.getId());
+                Intent intent = new Intent(getApplicationContext(), show_Order_Info.class);
 
-                intent.putExtra("task_id", obj.getOrder().getId());
+                intent.putExtra("id", obj.getOrder().getId());
 
-
-                intent.putExtra("payment", obj.getAmount());
 
 
                 startActivity(intent);
@@ -78,20 +76,20 @@ public class ReportActivity extends AppCompatActivity {
     }
 
     private void initToolbar(String type) {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         switch (type) {
             case "Daily":
-                getSupportActionBar().setTitle("لیست گزارش ها روزانه ");
+                getSupportActionBar().setTitle("روزانه ");
                 break;
             case "Weekly":
-                getSupportActionBar().setTitle("لیست گزارش ها هفتانه ");
+                getSupportActionBar().setTitle("هفتانه ");
                 break;
             case "Monthly":
-                getSupportActionBar().setTitle("لیست گزارش ها ماهانه ");
+                getSupportActionBar().setTitle("ماهانه ");
                 break;
             case "Yearly":
-                getSupportActionBar().setTitle("لیست گزارش ها سالانه ");
+                getSupportActionBar().setTitle("سالانه ");
                 break;
         }
 
@@ -108,6 +106,8 @@ public class ReportActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
+
+            startActivity(new Intent(this,DashboradReportActivity.class));
             finish();
         } else if (item.getItemId() == R.id.app_bar_delete_all) {
             //  Toast.makeText(getApplicationContext(), item.getTitle(), Toast.LENGTH_SHORT).show();
@@ -147,5 +147,10 @@ public class ReportActivity extends AppCompatActivity {
             }
         });
         builder.show();
+    }
+
+    @Override
+    public void onBackPressed() {
+
     }
 }

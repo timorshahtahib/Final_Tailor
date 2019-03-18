@@ -12,7 +12,10 @@ import android.view.View;
 import android.widget.Toast;
 
 
+import com.hmdapp.finaltailor.Activity.Order.show_Order_Info;
 import com.hmdapp.finaltailor.Adapter.AdapterListPayment;
+import com.hmdapp.finaltailor.Adapter.AdapterList_Tasks;
+import com.hmdapp.finaltailor.Models.Order;
 import com.hmdapp.finaltailor.Models.Payment;
 import com.hmdapp.finaltailor.R;
 import com.hmdapp.finaltailor.Utlity.SpacingItemDecoration;
@@ -23,7 +26,7 @@ import java.util.List;
 
 public class EveryRemainderActivity extends AppCompatActivity {
     RecyclerView recyclerView;
-    AdapterListPayment adapterListPayment;
+    AdapterList_Tasks adapterListPayment;
     private View parent_view;
 
     @Override
@@ -49,34 +52,41 @@ public class EveryRemainderActivity extends AppCompatActivity {
 
         DB_Acsess db_acsess = DB_Acsess.getInstans(this);
         db_acsess.open();
-        List<Payment> items = db_acsess.getListOfRemainderReport(this,Id);
+        List<Order> items = db_acsess.getreminder_customer_order(this,Id);
 
 
-        adapterListPayment = new AdapterListPayment(this, items);
+        adapterListPayment = new AdapterList_Tasks(this, items);
         recyclerView.setAdapter(adapterListPayment);
-        // Toast.makeText(this, "size" + items.size(), Toast.LENGTH_SHORT).show();
-        // on item list clicked
 
-        adapterListPayment.setOnItemClickListener(new AdapterListPayment.OnItemClickListener() {
+        adapterListPayment.setOnItemClickListener(new AdapterList_Tasks.OnItemClickListener() {
             @Override
-            public void onItemClick(View view, Payment obj, int position) {
-                Intent intent = new Intent(getApplicationContext(), TotalReportPaymentCustomerActivity.class);
+            public void onItemClick(View view, Order obj, int position) {
+                Intent intent = new Intent(getApplicationContext(), show_Order_Info.class);
                 intent.putExtra("id", obj.getId());
-
-                intent.putExtra("task_id", obj.getOrder().getId());
-
-                intent.putExtra("payment", obj.getAmount());
-
-
                 startActivity(intent);
-                //Snackbar.make(parent_view, "Item " + obj.getCustomer().getPhone() + " clicked", Snackbar.LENGTH_SHORT).show();
             }
         });
+
+//        adapterListPayment.setOnItemClickListener(new AdapterListPayment.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(View view, Payment obj, int position) {
+//                Intent intent = new Intent(getApplicationContext(), TotalReportPaymentCustomerActivity.class);
+//                intent.putExtra("id", obj.getId());
+//
+//                intent.putExtra("task_id", obj.getOrder().getId());
+//
+//                intent.putExtra("payment", obj.getAmount());
+//
+//
+//                startActivity(intent);
+//                //Snackbar.make(parent_view, "Item " + obj.getCustomer().getPhone() + " clicked", Snackbar.LENGTH_SHORT).show();
+//            }
+//        });
 
     }
 
     private void initToolbar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("لیست قرض های فردی ");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

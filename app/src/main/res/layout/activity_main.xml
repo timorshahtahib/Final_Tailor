@@ -4,16 +4,15 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:layoutDirection="ltr"
     android:layout_height="match_parent"
 
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
+
             android:layoutDirection="rtl"
             android:background="@color/grey_5"
             android:fitsSystemWindows="true"
@@ -26,7 +25,6 @@
             </android.support.design.widget.AppBarLayout>
 
             <android.support.v4.widget.NestedScrollView
-                android:id="@+id/nested_scroll_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scrollbars="none"
@@ -37,41 +35,129 @@
                     android:layout_height="wrap_content"
                     android:descendantFocusability="blocksDescendants"
                     android:orientation="vertical">
+                    <android.support.v7.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="0dp"
+                        app:cardElevation="2dp">
 
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <android.support.v4.view.ViewPager
+                                android:id="@+id/pager"
+                                android:layoutDirection="rtl"
+                                android:layout_width="match_parent"
+                                android:layout_height="250dp"
+                                android:layout_alignParentLeft="true"
+                                android:layout_alignParentStart="true"
+                                android:layout_alignParentTop="true"
+                                android:background="@color/grey_20"
+                                android:foreground="@color/overlay_dark_10" />
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:layout_centerHorizontal="true"
+                                android:background="@drawable/bg_gradient"
+                                android:orientation="vertical"
+                                android:paddingBottom="@dimen/spacing_mlarge"
+                                android:paddingLeft="@dimen/spacing_large"
+                                android:paddingRight="@dimen/spacing_large"
+                                android:paddingTop="@dimen/spacing_mxlarge">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:id="@+id/title"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Suspendisse ornare est ac auctor pulvinar"
+                                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                                        android:textColor="@android:color/white" />
+
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="@dimen/spacing_middle"
+                                        android:gravity="center"
+                                        android:orientation="horizontal">
+
+                                        <ImageView
+                                            android:layout_width="@dimen/spacing_large"
+                                            android:layout_height="@dimen/spacing_large"
+                                            android:layout_marginEnd="@dimen/spacing_medium"
+                                            android:layout_marginRight="@dimen/spacing_medium"
+                                            android:tint="@color/grey_10"
+                                            app:srcCompat="@drawable/ic_location" />
+
+                                        <TextView
+                                            android:id="@+id/brief"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="خیاط"
+                                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                            android:textColor="@color/grey_10" />
+
+                                    </LinearLayout>
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:id="@+id/layout_dots"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentBottom="true"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_gravity="end"
+                                    android:gravity="center"
+                                    android:orientation="horizontal" />
+
+
+                            </RelativeLayout>
+
+                        </RelativeLayout>
+
+                    </android.support.v7.widget.CardView>
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/spacing_large" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="100dp"
                         android:orientation="horizontal"
                         android:paddingLeft="@dimen/spacing_middle"
                         android:paddingRight="@dimen/spacing_middle">
 
                         <android.support.v7.widget.CardView
                             android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="@dimen/spacing_xsmall"
+                            android:layout_height="match_parent"
                             android:layout_marginLeft="@dimen/spacing_xsmall"
-                            android:layout_marginRight="@dimen/spacing_xsmall"
                             android:layout_marginTop="@dimen/spacing_xsmall"
+                            android:layout_marginRight="@dimen/spacing_xsmall"
+                            android:layout_marginBottom="@dimen/spacing_xsmall"
                             android:layout_weight="1"
                             android:visibility="visible"
                             app:cardCornerRadius="2dp"
                             app:cardElevation="2dp">
 
                             <LinearLayout
-                                android:id="@+id/person"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="match_parent"
                                 android:onClick="person_Action"
                                 android:orientation="horizontal"
                                 android:padding="@dimen/spacing_large">
 
                                 <RelativeLayout
-                                    android:layout_width="40dp"
-                                    android:layout_height="40dp">
+                                    android:layout_width="60dp"
+                                    android:layout_height="60dp">
 
                                     <ImageView
                                         android:layout_width="match_parent"
@@ -81,8 +167,8 @@
                                         app:srcCompat="@drawable/shape_circle" />
 
                                     <ImageView
-                                        android:layout_width="20dp"
-                                        android:layout_height="20dp"
+                                        android:layout_width="40dp"
+                                        android:layout_height="40dp"
                                         android:layout_centerInParent="true"
                                         android:tint="@android:color/white"
                                         app:srcCompat="@drawable/ic_person"
@@ -100,19 +186,12 @@
                                     android:orientation="vertical">
 
                                     <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="92776"
-                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
-                                        android:textColor="@color/grey_60"
-                                        android:textStyle="bold" />
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
                                         android:text="مشتریان"
                                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
-                                        android:textColor="@color/grey_40" />
+                                        android:textColor="@color/grey_40"
+                                        android:textSize="14sp" />
 
                                 </LinearLayout>
 
@@ -126,11 +205,11 @@
 
                         <android.support.v7.widget.CardView
                             android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="@dimen/spacing_xsmall"
+                            android:layout_height="match_parent"
                             android:layout_marginLeft="@dimen/spacing_xsmall"
-                            android:layout_marginRight="@dimen/spacing_xsmall"
                             android:layout_marginTop="@dimen/spacing_xsmall"
+                            android:layout_marginRight="@dimen/spacing_xsmall"
+                            android:layout_marginBottom="@dimen/spacing_xsmall"
                             android:layout_weight="1"
                             android:visibility="visible"
                             app:cardCornerRadius="2dp"
@@ -138,13 +217,13 @@
 
                             <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="match_parent"
                                 android:orientation="horizontal"
                                 android:padding="@dimen/spacing_large">
 
                                 <RelativeLayout
-                                    android:layout_width="40dp"
-                                    android:layout_height="40dp">
+                                    android:layout_width="60dp"
+                                    android:layout_height="60dp">
 
                                     <ImageView
                                         android:layout_width="match_parent"
@@ -154,8 +233,8 @@
                                         app:srcCompat="@drawable/shape_circle" />
 
                                     <ImageView
-                                        android:layout_width="20dp"
-                                        android:layout_height="20dp"
+                                        android:layout_width="40dp"
+                                        android:layout_height="40dp"
                                         android:layout_centerInParent="true"
                                         android:tint="@android:color/white"
                                         app:srcCompat="@drawable/ic_bookmark"
@@ -169,24 +248,16 @@
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
+                                    android:layout_height="match_parent"
                                     android:orientation="vertical">
 
                                     <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="0dp"
-                                        android:layout_weight="1"
-                                        android:text="52791"
-                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
-                                        android:textColor="@color/grey_60"
-                                        android:textStyle="bold" />
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
                                         android:text="تنظیمات"
                                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
-                                        android:textColor="@color/grey_40" />
+                                        android:textColor="@color/grey_40"
+                                        android:textSize="14sp" />
 
                                 </LinearLayout>
 
@@ -202,18 +273,18 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="100dp"
                         android:orientation="horizontal"
                         android:paddingLeft="@dimen/spacing_middle"
                         android:paddingRight="@dimen/spacing_middle">
 
                         <android.support.v7.widget.CardView
                             android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="@dimen/spacing_xsmall"
+                            android:layout_height="match_parent"
                             android:layout_marginLeft="@dimen/spacing_xsmall"
-                            android:layout_marginRight="@dimen/spacing_xsmall"
                             android:layout_marginTop="@dimen/spacing_xsmall"
+                            android:layout_marginRight="@dimen/spacing_xsmall"
+                            android:layout_marginBottom="@dimen/spacing_xsmall"
                             android:layout_weight="1"
                             android:visibility="visible"
                             app:cardCornerRadius="2dp"
@@ -221,14 +292,14 @@
 
                             <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal"
+                                android:layout_height="match_parent"
                                 android:onClick="task_action"
+                                android:orientation="horizontal"
                                 android:padding="@dimen/spacing_large">
 
                                 <RelativeLayout
-                                    android:layout_width="40dp"
-                                    android:layout_height="40dp">
+                                    android:layout_width="60dp"
+                                    android:layout_height="60dp">
 
                                     <ImageView
                                         android:layout_width="match_parent"
@@ -238,8 +309,8 @@
                                         app:srcCompat="@drawable/shape_circle" />
 
                                     <ImageView
-                                        android:layout_width="20dp"
-                                        android:layout_height="20dp"
+                                        android:layout_width="40dp"
+                                        android:layout_height="40dp"
                                         android:layout_centerInParent="true"
                                         android:tint="@android:color/white"
                                         app:srcCompat="@drawable/ic_shopping_basket"
@@ -255,24 +326,15 @@
 
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:orientation="vertical"
-                                 >
+                                    android:orientation="vertical">
 
                                     <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="0dp"
-                                        android:layout_weight="1"
-                                        android:text="4000+"
-                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
-                                        android:textColor="@color/grey_60"
-                                        android:textStyle="bold" />
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="کار ها "
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:text="سفارشات"
                                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
-                                        android:textColor="@color/grey_40" />
+                                        android:textColor="@color/grey_40"
+                                        android:textSize="14sp" />
 
                                 </LinearLayout>
 
@@ -286,11 +348,11 @@
 
                         <android.support.v7.widget.CardView
                             android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="@dimen/spacing_xsmall"
+                            android:layout_height="match_parent"
                             android:layout_marginLeft="@dimen/spacing_xsmall"
-                            android:layout_marginRight="@dimen/spacing_xsmall"
                             android:layout_marginTop="@dimen/spacing_xsmall"
+                            android:layout_marginRight="@dimen/spacing_xsmall"
+                            android:layout_marginBottom="@dimen/spacing_xsmall"
                             android:layout_weight="1"
                             android:visibility="visible"
                             app:cardCornerRadius="2dp"
@@ -299,13 +361,13 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal"
                                 android:onClick="onReportClick"
+                                android:orientation="horizontal"
                                 android:padding="@dimen/spacing_large">
 
                                 <RelativeLayout
-                                    android:layout_width="40dp"
-                                    android:layout_height="40dp">
+                                    android:layout_width="60dp"
+                                    android:layout_height="60dp">
 
                                     <ImageView
                                         android:layout_width="match_parent"
@@ -315,8 +377,8 @@
                                         app:srcCompat="@drawable/shape_circle" />
 
                                     <ImageView
-                                        android:layout_width="20dp"
-                                        android:layout_height="20dp"
+                                        android:layout_width="40dp"
+                                        android:layout_height="40dp"
                                         android:layout_centerInParent="true"
                                         android:tint="@android:color/white"
                                         app:srcCompat="@drawable/ic_description"
@@ -330,24 +392,16 @@
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
+                                    android:layout_height="match_parent"
                                     android:orientation="vertical">
 
                                     <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="0dp"
-                                        android:layout_weight="1"
-                                        android:text="4429"
-                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
-                                        android:textColor="@color/grey_60"
-                                        android:textStyle="bold" />
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
                                         android:text="راپور ها"
                                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
-                                        android:textColor="@color/grey_40" />
+                                        android:textColor="@color/grey_40"
+                                        android:textSize="14sp" />
 
                                 </LinearLayout>
 
@@ -360,156 +414,6 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/spacing_middle" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:paddingLeft="@dimen/spacing_middle"
-                        android:paddingRight="@dimen/spacing_middle">
-
-                        <android.support.v7.widget.CardView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="@dimen/spacing_xsmall"
-                            android:layout_marginLeft="@dimen/spacing_xsmall"
-                            android:layout_marginRight="@dimen/spacing_xsmall"
-                            android:layout_marginTop="@dimen/spacing_xsmall"
-                            android:visibility="visible"
-                            app:cardCornerRadius="2dp"
-                            app:cardElevation="2dp">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical">
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="?attr/actionBarSize"
-                                    android:gravity="center_vertical"
-                                    android:orientation="horizontal">
-
-                                    <View
-                                        android:layout_width="@dimen/spacing_large"
-                                        android:layout_height="0dp" />
-
-                                    <TextView
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="1"
-                                        android:text="Recent Activity"
-                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
-                                        android:textColor="@color/grey_60"
-                                        android:textStyle="bold" />
-
-                                    <ImageButton
-                                        android:layout_width="?attr/actionBarSize"
-                                        android:layout_height="?attr/actionBarSize"
-                                        android:background="?attr/selectableItemBackgroundBorderless"
-                                        android:tint="@color/colorPrimary"
-                                        app:srcCompat="@drawable/ic_add"
-                                        tools:ignore="VectorDrawableCompat" />
-
-                                </LinearLayout>
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="@dimen/spacing_xmlarge"
-                                    android:gravity="center_vertical"
-                                    android:orientation="horizontal">
-
-                                    <View
-                                        android:layout_width="@dimen/spacing_large"
-                                        android:layout_height="0dp" />
-
-                                    <TextView
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="1"
-                                        android:text="Post a Product"
-                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
-                                        android:textColor="@color/grey_60" />
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="16 Feb 18"
-                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
-                                        android:textColor="@color/grey_40" />
-
-                                    <View
-                                        android:layout_width="@dimen/spacing_large"
-                                        android:layout_height="0dp" />
-
-                                </LinearLayout>
-
-                                <View
-                                    android:layout_width="match_parent"
-                                    android:layout_height="1dp"
-                                    android:background="@color/grey_10" />
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="?attr/actionBarSize"
-                                    android:background="?attr/selectableItemBackground"
-                                    android:clickable="true"
-                                    android:gravity="center"
-                                    android:orientation="horizontal">
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="See More"
-                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
-                                        android:textColor="@color/colorPrimary" />
-
-                                </LinearLayout>
-
-                            </LinearLayout>
-
-                        </android.support.v7.widget.CardView>
-
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/spacing_middle" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal"
-                        android:paddingLeft="@dimen/spacing_middle"
-                        android:paddingRight="@dimen/spacing_middle">
-
-                        <android.support.v7.widget.CardView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginLeft="@dimen/spacing_xsmall"
-                            android:layout_marginTop="@dimen/spacing_xsmall"
-                            android:layout_marginRight="@dimen/spacing_xsmall"
-                            android:layout_marginBottom="@dimen/spacing_medium"
-                            android:visibility="visible"
-                            app:cardCornerRadius="2dp"
-                            app:cardElevation="2dp">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:gravity="center_horizontal"
-                                android:orientation="horizontal"
-                                android:padding="@dimen/spacing_large">
-
-                            </LinearLayout>
-
-                        </android.support.v7.widget.CardView>
-
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/spacing_large" />
 
                 </LinearLayout>
 
@@ -521,8 +425,17 @@
         android:layout_width="250dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
+        android:background="@android:color/white"
+
+
+
+
+
         app:menu="@menu/navigation_menu"
         app:headerLayout="@layout/layout_navigation_header"
+
+
+
         />
 
 </android.support.v4.widget.DrawerLayout>

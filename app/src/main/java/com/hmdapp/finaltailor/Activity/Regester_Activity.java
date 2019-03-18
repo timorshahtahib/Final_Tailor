@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.hmdapp.finaltailor.Activity.Customer.Person_Activity;
 import com.hmdapp.finaltailor.Models.Cloth;
 import com.hmdapp.finaltailor.Models.Customer;
 import com.hmdapp.finaltailor.R;
@@ -400,15 +401,11 @@ public class Regester_Activity extends AppCompatActivity {
         db_acsess.open();
         long t = db_acsess.insert_cloth(cl);
 
-        if (t > 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return t > 0;
     }
 
     private void initToolbar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("اضافه کردن مدل لباس");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

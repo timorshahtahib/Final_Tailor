@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">خیاط</string>
-    <string name="middle_lorem_ipsum">محصل  وبیکار</string>
-    <string name="جستجو">Search</string>
 
 
     <string name="exporterenToast">Exporter</string>
@@ -10,6 +8,14 @@
 
 
     <string name="dummy_button">تماس باما</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="intro">اپلیکشن خیاطی مخصوص به مشتریان ما میباشد و اگر میخواهید از این اپلیکشن استفاده با ما تماس شود    </string>
+
+    <string name="wasi">عبدلواسع کاکر</string>
+    <string name="younisail">yonesrana@gmail.com</string>
+    <string name="wasimail">wsi@gmail.com</string>
+    <string name="timor_na">تیمورشاه تایب</string>
+    <string name="timor_email">taib2020@gmail.com</string>
+    <string name="younis">یونس محمدی</string>
+    <string name="saraj">سراج احمد قادری</string>
+    <string name="saraj_email">sarajbina@gmail.com</string>
 </resources>

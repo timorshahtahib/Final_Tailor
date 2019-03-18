@@ -3,10 +3,9 @@ package com.hmdapp.finaltailor.Activity.Customer;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -22,7 +21,6 @@ import android.widget.Toast;
 import com.hmdapp.finaltailor.Activity.Regester_Activity;
 import com.hmdapp.finaltailor.Adapter.AdapterGridSingleLine;
 import com.hmdapp.finaltailor.Models.Cloth;
-import com.hmdapp.finaltailor.Models.Customer;
 import com.hmdapp.finaltailor.Models.Order;
 import com.hmdapp.finaltailor.Models.Payment;
 import com.hmdapp.finaltailor.R;
@@ -57,9 +55,9 @@ public class Show_Model_Activity extends AppCompatActivity {
                 cl.getYakhan(), cl.getModel_dam_astin(), cl.getQad_paty(), cl.getModel(),
                 cl.getDaman(), cl.getModel_qot_astin(), cl.getModel_yaqa()};
 //
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView2);
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 4));
-        recyclerView.addItemDecoration(new SpacingItemDecoration(3, Tools.dpToPx(this, 3), true));
+        RecyclerView recyclerView = findViewById(R.id.recyclerView2);
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+     //   recyclerView.addItemDecoration(new SpacingItemDecoration(3, Tools.dpToPx(this, 3), true));
         recyclerView.setHasFixedSize(true);
 
         AdapterGridSingleLine adapterGridSingleLine = new AdapterGridSingleLine(this, names, value);
@@ -70,13 +68,13 @@ public class Show_Model_Activity extends AppCompatActivity {
     }
 
     private void initToolbar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.include);
+        Toolbar toolbar = findViewById(R.id.include);
         String name = getIntent().getStringExtra("date");
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(name);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        Tools.setSystemBarColor(this, R.color.purple_600);
+
     }
 
 
@@ -162,7 +160,7 @@ public class Show_Model_Activity extends AppCompatActivity {
 
         ed_mony = dialog.findViewById(R.id.txt_mony);
         ed_payment = dialog.findViewById(R.id.txt_pay);
-        txt_show_date = dialog.findViewById(R.id.txt_date);
+        txt_show_date = dialog.findViewById(R.id.deliver_date);
         edColor = dialog.findViewById(R.id.txt_color);
         edCount = dialog.findViewById(R.id.txt_count);
 
@@ -174,7 +172,7 @@ public class Show_Model_Activity extends AppCompatActivity {
             }
         });
 
-        ((AppCompatButton) dialog.findViewById(R.id.bt_cancel)).setOnClickListener(new View.OnClickListener() {
+        dialog.findViewById(R.id.bt_cancel).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
@@ -182,7 +180,7 @@ public class Show_Model_Activity extends AppCompatActivity {
         });
 
 
-        ((AppCompatButton) dialog.findViewById(R.id.bt_submit)).setOnClickListener(new View.OnClickListener() {
+        dialog.findViewById(R.id.bt_submit).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DB_Acsess db_acsess = DB_Acsess.getInstans(getApplicationContext());
@@ -216,10 +214,12 @@ public class Show_Model_Activity extends AppCompatActivity {
                 } else {
 
                     Order order = new Order();
-                  Payment payment_ = new Payment();
+                    Payment payment_ = new Payment();
                     float totalPrice = price * count;
                     long time = System.currentTimeMillis();
-                    String regDate = Tools.getFormattedDateSimple(time);
+                   String regDate = Tools.getFormattedDateSimple(time);
+                   // String regDate = android.text.format.DateFormat.format("yyy-mm-dd", new Date(time)).toString();
+
                     order.setCount(count);
                     order.setColor(color);
                     order.setCom_state(0);
@@ -276,8 +276,12 @@ public class Show_Model_Activity extends AppCompatActivity {
                         long date_ship_millis = calendar.getTimeInMillis();
                         // ((TextView) findViewById(R.id.result)).setText(Tools.getFormattedDateSimple(date_ship_millis));
 
-                        dliverDate = Tools.getFormattedDateSimple(date_ship_millis) + "";
-                        txt_show_date.setText(dliverDate);
+                        // long date = new Date(date_ship_millis).getTime();
+                      //  String dd = android.text.format.DateFormat.format("yyy-mm-dd", new Date(date_ship_millis)).toString();
+                       // dliverDate = dd + "";
+                         dliverDate=Tools.getFormattedDateSimple(date_ship_millis);
+                        //Toast.makeText(Show_Model_Activity.this, "" + d, Toast.LENGTH_SHORT).show();
+                        txt_show_date.setText("" + dliverDate);
 
                         // Toast.makeText(Profile_Activity.this, date, Toast.LENGTH_SHORT).show();
 
@@ -290,7 +294,7 @@ public class Show_Model_Activity extends AppCompatActivity {
 
 
         //set dark theme
-        datePicker.setThemeDark(true);
+       // datePicker.setThemeDark(true);
         datePicker.setAccentColor(getResources().getColor(R.color.colorPrimary));
         datePicker.setMinDate(cur_calender);
         datePicker.show(getFragmentManager(), "Datepickerdialog");

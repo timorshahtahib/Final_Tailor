@@ -43,10 +43,10 @@ public class Adaptar_model  extends RecyclerView.Adapter<RecyclerView.ViewHolder
         public OriginalViewHolder(View v) {
             super(v);
 
-            name = (TextView) v.findViewById(R.id.name_model);
+            name = v.findViewById(R.id.name_model);
 
 
-            lyt_parent = (View) v.findViewById(R.id.lyt_parent);
+            lyt_parent = v.findViewById(R.id.lyt_parent);
         }
     }
 

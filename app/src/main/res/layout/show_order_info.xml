@@ -2,9 +2,10 @@
 <android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
+    android:background="@drawable/side_nav_bar"
     >
 
     <android.support.design.widget.AppBarLayout
@@ -15,7 +16,7 @@
             android:layoutDirection="ltr"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/purple_500"
+
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:contentInsetStartWithNavigation="0dp"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
@@ -24,7 +25,6 @@
 
     <android.support.v4.widget.NestedScrollView
         android:layoutDirection="rtl"
-        android:id="@+id/nested_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
@@ -45,7 +45,7 @@
                 android:layout_marginTop="@dimen/spacing_xlarge"
                 android:text="یونیس شانس"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
-                android:textColor="@color/grey_90"
+                android:textColor="@color/white2"
                 android:visibility="visible" />
 
             <TextView
@@ -55,7 +55,7 @@
                 android:layout_marginTop="@dimen/spacing_medium"
                 android:text="عکاس"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
-                android:textColor="@color/grey_60"
+                android:textColor="@color/white2"
                 android:visibility="visible" />
 
             <LinearLayout
@@ -78,9 +78,9 @@
                     android:id="@+id/image"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:src="@drawable/photo_female_5"
+                    android:src="@drawable/person"
                     app:civ_border="true"
-                    app:civ_border_color="@color/purple_500"
+
                     app:civ_border_width="2dp"
                     app:civ_shadow="true"
                     app:civ_shadow_radius="0" />
@@ -89,24 +89,14 @@
                     android:layout_width="?attr/actionBarSize"
                     android:layout_height="?attr/actionBarSize"
                     android:layout_margin="@dimen/spacing_middle"
+                    android:onClick="caa"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:tint="@color/light_green_600"
                     app:srcCompat="@drawable/ic_call" />
 
             </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/spacing_xlarge"
-                android:layout_marginTop="@dimen/spacing_large"
-                android:layout_marginRight="@dimen/spacing_xlarge"
-                android:gravity="center"
-                android:lineSpacingExtra="2dp"
-                android:text="زنده گی زیباست"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
-                android:textColor="@color/grey_90"
-                android:visibility="visible" />
+
 
             <View
                 android:layout_width="match_parent"
@@ -150,6 +140,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="وضعیت"
+                            android:textColor="@color/white2"
                             android:layout_marginRight="@dimen/stander_margin"
                             android:textSize="18sp"
                             android:textStyle="bold"
@@ -164,6 +155,7 @@
                             android:layout_marginTop="@dimen/stander_margin"
                             android:textSize="18sp"
                             android:textStyle="bold"
+                            android:textColor="@color/white2"
                             tools:layout_editor_absoluteX="282dp"
                             tools:layout_editor_absoluteY="26dp" />
 
@@ -175,6 +167,7 @@
                             android:layout_marginRight="@dimen/stander_margin"
                             android:layout_marginTop="@dimen/stander_margin"
                             android:textSize="18sp"
+                            android:textColor="@color/white2"
                             android:textStyle="bold" />
 
                     </LinearLayout>
@@ -192,6 +185,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="16sp"
+
+
                             tools:layout_editor_absoluteX="172dp"
                             tools:layout_editor_absoluteY="28dp"
                             android:layout_marginRight="@dimen/stander_margin_x4"
@@ -212,6 +207,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="234"
+                            android:textColor="@color/white2"
                             tools:layout_editor_absoluteX="172dp"
                             tools:layout_editor_absoluteY="28dp"
                             android:layout_marginRight="@dimen/stander_margin_x4" />
@@ -233,7 +229,6 @@
                 tools:layout_editor_absoluteY="25dp">
 
                 <LinearLayout
-                    android:id="@+id/lyt_parent_3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="1dp"
@@ -261,6 +256,7 @@
                             android:text="رنگ"
                             android:layout_marginRight="@dimen/stander_margin"
                             android:textSize="18sp"
+                            android:textColor="@color/white2"
                             android:textStyle="bold"
                             tools:layout_editor_absoluteX="282dp"
                             tools:layout_editor_absoluteY="26dp" />
@@ -272,6 +268,7 @@
                             android:text="تعداد"
                             android:layout_marginRight="@dimen/stander_margin"
                             android:textSize="18sp"
+                            android:textColor="@color/white2"
                             android:textStyle="bold" />
 
                     </LinearLayout>
@@ -291,6 +288,7 @@
                             android:layout_height="wrap_content"
                             android:textSize="16sp"
                             android:text="سبز"
+                            android:textColor="@color/white2"
                             tools:layout_editor_absoluteX="172dp"
                             tools:layout_editor_absoluteY="28dp"
                             android:layout_marginRight="@dimen/stander_margin_x4"
@@ -303,6 +301,7 @@
                             android:layout_height="wrap_content"
                             android:textSize="16sp"
                             android:text="234"
+                            android:textColor="@color/white2"
                             tools:layout_editor_absoluteX="172dp"
                             tools:layout_editor_absoluteY="28dp"
                             android:layout_marginRight="@dimen/stander_margin_x4"
@@ -325,7 +324,6 @@
                 tools:layout_editor_absoluteY="25dp">
 
                 <LinearLayout
-                    android:id="@+id/lyt_parent_2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="1dp"
@@ -354,6 +352,7 @@
                             android:text="کل قیمت "
                             android:textSize="18sp"
                             android:textStyle="bold"
+                            android:textColor="@color/white2"
                             tools:layout_editor_absoluteX="282dp"
                             tools:layout_editor_absoluteY="26dp" />
 
@@ -362,6 +361,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:text="رسیدات "
+                            android:textColor="@color/white2"
                             android:layout_marginRight="@dimen/stander_margin"
                             android:textSize="18sp"
                             android:textStyle="bold" />
@@ -383,6 +383,7 @@
                             android:layout_height="wrap_content"
                             android:textSize="16sp"
                             android:text="234"
+                            android:textColor="@color/white2"
                             tools:layout_editor_absoluteX="172dp"
                             tools:layout_editor_absoluteY="28dp"
                             android:layout_marginRight="@dimen/stander_margin_x4"
@@ -394,6 +395,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginRight="@dimen/stander_margin_x4"
                             android:text="9"
+                            android:textColor="@color/white2"
                             tools:layout_editor_absoluteX="172dp"
                             tools:layout_editor_absoluteY="28dp" />
 
@@ -414,7 +416,6 @@
                 tools:layout_editor_absoluteY="25dp">
 
                 <LinearLayout
-                    android:id="@+id/lyt_parent_23"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="1dp"
@@ -442,6 +443,7 @@
                             android:text="باقی مانده"
                             android:layout_marginRight="@dimen/stander_margin"
                             android:textSize="18sp"
+                            android:textColor="@color/white2"
                             android:textStyle="bold"
                             tools:layout_editor_absoluteX="282dp"
                             tools:layout_editor_absoluteY="26dp" />
@@ -452,6 +454,7 @@
                             android:layout_height="match_parent"
                             android:text="تاریخ ثبت"
                             android:layout_marginRight="@dimen/stander_margin"
+                            android:textColor="@color/white2"
                             android:textSize="18sp"
                             android:textStyle="bold" />
 
@@ -471,6 +474,7 @@
                             android:layout_height="wrap_content"
                             android:textSize="16sp"
                             android:text="300"
+                            android:textColor="@color/white2"
                             tools:layout_editor_absoluteX="172dp"
                             tools:layout_editor_absoluteY="28dp"
                             android:layout_marginRight="@dimen/stander_margin_x4"
@@ -481,6 +485,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="۱۳۹۷-۱۰-۱۲"
+                            android:textColor="@color/white2"
                             tools:layout_editor_absoluteX="172dp"
                             tools:layout_editor_absoluteY="28dp"
                             android:layout_marginRight="@dimen/stander_margin_x4" />

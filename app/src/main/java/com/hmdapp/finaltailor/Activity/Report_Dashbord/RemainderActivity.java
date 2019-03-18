@@ -1,8 +1,8 @@
-package com.hmdapp.finaltailor.Activity;
+package com.hmdapp.finaltailor.Activity.Report_Dashbord;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -11,10 +11,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-
-import com.hmdapp.finaltailor.Activity.Report_Dashbord.EveryRemainderActivity;
 import com.hmdapp.finaltailor.Adapter.AdapterListRemainder;
 import com.hmdapp.finaltailor.Models.Payment;
+import com.hmdapp.finaltailor.Models.payment_report;
 import com.hmdapp.finaltailor.R;
 import com.hmdapp.finaltailor.Utlity.SpacingItemDecoration;
 import com.hmdapp.finaltailor.Utlity.Tools;
@@ -45,19 +44,18 @@ public class RemainderActivity extends AppCompatActivity {
 
         DB_Acsess db_acsess = DB_Acsess.getInstans(this);
         db_acsess.open();
-        List<Payment> items = db_acsess.getAllRemainderReport( this);
+        List<payment_report> items = db_acsess.getreminder_customer( this);
 
 
         adapterListRemainder = new AdapterListRemainder(this, items);
         recyclerView.setAdapter(adapterListRemainder);
-        // Toast.makeText(this, "size" + items.size(), Toast.LENGTH_SHORT).show();
-        // on item list clicked
+
 
         adapterListRemainder.setOnItemClickListener(new AdapterListRemainder.OnItemClickListener() {
             @Override
-            public void onItemClick(View view, Payment obj, int position) {
+            public void onItemClick(View view, payment_report obj, int position) {
                 Intent intent = new Intent(getApplicationContext(), EveryRemainderActivity.class);
-                intent.putExtra("id", obj.getOrder().getId());
+                intent.putExtra("id", obj.getId());
 
 
 
@@ -69,7 +67,7 @@ public class RemainderActivity extends AppCompatActivity {
     }
 
     private void initToolbar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("لیست تمام قرض ها ");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -85,11 +83,18 @@ public class RemainderActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
+
+            startActivity(new Intent(this,DashboradReportActivity.class));
             finish();
         } else {
             Toast.makeText(getApplicationContext(), item.getTitle(), Toast.LENGTH_SHORT).show();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+
     }
 }
 

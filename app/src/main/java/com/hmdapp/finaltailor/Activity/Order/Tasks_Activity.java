@@ -58,14 +58,16 @@ public class Tasks_Activity extends AppCompatActivity {
             public void onItemClick(View view, Order obj, int position) {
                 Intent intent = new Intent(getApplicationContext(), show_Order_Info.class);
                 intent.putExtra("id", obj.getId());
+                intent.putExtra("phone",obj.getCloth().getCustomer().getPhone());
                 startActivity(intent);
+                finish();
                // Snackbar.make(parent_view, "Item " + obj.getCustomer().getPhone() + " clicked", Snackbar.LENGTH_SHORT).show();
             }
         });
 
     }
     private void initToolbar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("لیست کار ها ");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -90,5 +92,8 @@ public class Tasks_Activity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onBackPressed() {
 
+    }
 }

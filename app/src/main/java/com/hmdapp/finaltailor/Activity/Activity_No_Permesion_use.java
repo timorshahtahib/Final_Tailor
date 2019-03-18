@@ -26,6 +26,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.hmdapp.finaltailor.R;
 
 
+import java.security.Permission;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,8 +42,10 @@ public class Activity_No_Permesion_use extends AppCompatActivity {
 
             permission.READ_PHONE_STATE,
             permission.SEND_SMS,
+            permission.CALL_PHONE,
             permission.READ_SMS,
             permission.RECEIVE_SMS,
+
     };
 
     /**

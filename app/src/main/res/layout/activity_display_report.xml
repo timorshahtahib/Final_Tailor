@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
+    android:background="@drawable/side_nav_bar"
+
     >
 
     <android.support.design.widget.AppBarLayout
@@ -16,7 +17,7 @@
             android:layoutDirection="ltr"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/purple_500"
+
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:contentInsetStartWithNavigation="0dp"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
@@ -25,7 +26,6 @@
 
     <android.support.v4.widget.NestedScrollView
         android:layoutDirection="rtl"
-        android:id="@+id/nested_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
@@ -77,12 +77,11 @@
                     tools:ignore="VectorDrawableCompat" />
 
                 <com.mikhaellopez.circularimageview.CircularImageView
-                    android:id="@+id/image_display_report"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:src="@drawable/photo_female_5"
+                    android:src="@drawable/person"
                     app:civ_border="true"
-                    app:civ_border_color="@color/purple_500"
+
                     app:civ_border_width="2dp"
                     app:civ_shadow="true"
                     app:civ_shadow_radius="0" />
@@ -214,7 +213,6 @@
                 tools:layout_editor_absoluteY="25dp">
 
                 <LinearLayout
-                    android:id="@+id/lyt_parent_3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="1dp"
@@ -306,7 +304,6 @@
                 tools:layout_editor_absoluteY="25dp">
 
                 <LinearLayout
-                    android:id="@+id/lyt_parent_2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="1dp"
@@ -395,7 +392,6 @@
                 tools:layout_editor_absoluteY="25dp">
 
                 <LinearLayout
-                    android:id="@+id/lyt_parent_23"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="1dp"

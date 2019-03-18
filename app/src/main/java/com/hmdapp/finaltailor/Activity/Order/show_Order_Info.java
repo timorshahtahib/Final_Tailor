@@ -1,13 +1,16 @@
 package com.hmdapp.finaltailor.Activity.Order;
 
 import android.app.Dialog;
+import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.Toolbar;
+import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -45,13 +48,13 @@ public class show_Order_Info extends AppCompatActivity {
     }
 
     private void initToolbar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_payment);
+        Toolbar toolbar = findViewById(R.id.toolbar_payment);
 
 
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        Tools.setSystemBarColor(this, R.color.purple_600);
+
     }
 
     private void initViews() {
@@ -119,6 +122,7 @@ public class show_Order_Info extends AppCompatActivity {
                     order.setCom_state(1);
 
                     db_acsess.updateTask( order);
+                    onsend_sms();
                     // Toast.makeText(show_Order_Info.this, "True = 1", Toast.LENGTH_LONG).show();
                     startActivity(new Intent(show_Order_Info.this, Tasks_Activity.class));
                     finish();
@@ -267,7 +271,7 @@ public class show_Order_Info extends AppCompatActivity {
         edPayment = dialog.findViewById(R.id.txt_payment_after_work);
 
 
-        ((AppCompatButton) dialog.findViewById(R.id.bt_cancel)).setOnClickListener(new View.OnClickListener() {
+        dialog.findViewById(R.id.bt_cancel).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
@@ -275,7 +279,7 @@ public class show_Order_Info extends AppCompatActivity {
         });
 
 
-        ((AppCompatButton) dialog.findViewById(R.id.bt_submit)).setOnClickListener(new View.OnClickListener() {
+        dialog.findViewById(R.id.bt_submit).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DB_Acsess db_acsess = DB_Acsess.getInstans(show_Order_Info.this);
@@ -329,5 +333,36 @@ public class show_Order_Info extends AppCompatActivity {
 
         dialog.show();
         dialog.getWindow().setAttributes(lp);
+    }
+
+    public void caa(View view) {
+
+        String phon = getIntent().getStringExtra("phone");
+
+        Intent callIntent = new Intent(Intent.ACTION_CALL);
+        callIntent.setData(Uri.parse("tel:"+phon));//change the number
+
+        try{
+            startActivity(callIntent);
+        }
+
+        catch (android.content.ActivityNotFoundException ex){
+
+            ex.printStackTrace();
+            Toast.makeText(getApplicationContext(),"yourActivity is not founded",Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void onsend_sms() {
+        String phon = getIntent().getStringExtra("phone");
+
+
+
+        //Get the SmsManager instance and call the sendTextMessage method to send message
+        SmsManager sms=SmsManager.getDefault();
+        sms.sendTextMessage(phon, null, "سلام مشتری عزیز وقت بخیر لباس شما دوخته شده است", null,null);
+
+        Toast.makeText(getApplicationContext(), "Message Sent successfully!",
+                Toast.LENGTH_LONG).show();
     }
 }

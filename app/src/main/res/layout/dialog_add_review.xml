@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layoutDirection="rtl"
@@ -17,7 +17,7 @@
         <com.mikhaellopez.circularimageview.CircularImageView
             android:layout_width="@dimen/spacing_xmlarge"
             android:layout_height="@dimen/spacing_xmlarge"
-            android:src="@drawable/photo_male_7"
+            android:src="@drawable/person"
             app:civ_border="false"
             app:civ_shadow="true"
             app:civ_shadow_radius="0" />
@@ -137,7 +137,7 @@
         android:padding="@dimen/spacing_large">
 
         <TextView
-            android:id="@+id/txt_date"
+            android:id="@+id/deliver_date"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/grey_3"

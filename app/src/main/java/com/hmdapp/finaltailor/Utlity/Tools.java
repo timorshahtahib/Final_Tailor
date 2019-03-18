@@ -15,11 +15,13 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class Tools {
 
@@ -33,6 +35,16 @@ public class Tools {
                     img.setImageDrawable(circularBitmapDrawable);
                 }
             });
+        } catch (Exception e) {
+        }
+    }
+
+    public static void displayImageOriginal(Context ctx, ImageView img, @DrawableRes int drawable) {
+        try {
+            Glide.with(ctx).load(drawable)
+                    .crossFade()
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .into(img);
         } catch (Exception e) {
         }
     }
@@ -50,8 +62,10 @@ public class Tools {
     }
 
     public static String getFormattedDateSimple(Long dateTime) {
-        SimpleDateFormat newFormat = new SimpleDateFormat("YYYY-MM-dd");
-        return newFormat.format(new Date(dateTime));
+//        SimpleDateFormat newFormat = new SimpleDateFormat("YYYY-MM-dd", Locale.US);
+//        return newFormat.format(new Date(dateTime));
+
+        return android.text.format.DateFormat.format("yyyy-MM-dd", new Date(dateTime)).toString();
     }
 
 //    Calendar calendar = Calendar.getInstance();

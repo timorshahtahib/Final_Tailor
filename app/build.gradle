@@ -4,7 +4,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.hmdapp.finaltailor"
-        minSdkVersion 15
+        minSdkVersion 17
         targetSdkVersion 28
         multiDexEnabled true
         versionCode 1
@@ -46,5 +46,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore:18.0.0'
 
     implementation 'com.android.support:multidex:1.0.3'
+
+    implementation 'com.rom4ek:arcnavigationview:1.0.3'
 
 }

@@ -2,6 +2,7 @@ package com.hmdapp.finaltailor.Activity.Report_Dashbord;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -40,13 +41,13 @@ public class DisplayReportActivity extends AppCompatActivity {
         initViews();
     }
     private void initToolbar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_display_report);
+        Toolbar toolbar = findViewById(R.id.toolbar_display_report);
         String name = getIntent().getStringExtra("date");
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(name);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        Tools.setSystemBarColor(this, R.color.purple_600);
+
     }
 
     private void initViews(){
@@ -66,9 +67,9 @@ public class DisplayReportActivity extends AppCompatActivity {
         deliveryDate.setText(deliverCuDate);
         tvColor.setText(getIntent().getStringExtra("color"));
         tvCount.setText(getIntent().getIntExtra("count",1)+"");
-        tvPrice.setText((int) getIntent().getFloatExtra("price",1)+"");
-        tvPayment.setText((int) getIntent().getFloatExtra("payment", 1)+"");
-        tvRemainder.setText((int) getIntent().getFloatExtra("remainder", 1)+"");
+        tvPrice.setText((Float) getIntent().getFloatExtra("price",1)+"");
+        tvPayment.setText((Float) getIntent().getFloatExtra("payment", 1)+"");
+        tvRemainder.setText((Float) getIntent().getFloatExtra("remainder", 1)+"");
         tvRegDate.setText(getIntent().getStringExtra("reg_date"));
 
         if (state == 0){
@@ -129,7 +130,9 @@ public class DisplayReportActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
+            startActivity(new Intent(this,DashboradReportActivity.class));
             finish();
+
 
         } else if (item.getItemId() == R.id.action_pay_task) {
 
@@ -195,7 +198,7 @@ public class DisplayReportActivity extends AppCompatActivity {
 
 
 
-        ((AppCompatButton) dialog.findViewById(R.id.bt_cancel)).setOnClickListener(new View.OnClickListener() {
+        dialog.findViewById(R.id.bt_cancel).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
@@ -203,7 +206,7 @@ public class DisplayReportActivity extends AppCompatActivity {
         });
 
 
-        ((AppCompatButton) dialog.findViewById(R.id.bt_submit)).setOnClickListener(new View.OnClickListener() {
+        dialog.findViewById(R.id.bt_submit).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DB_Acsess db_acsess = DB_Acsess.getInstans(DisplayReportActivity.this);

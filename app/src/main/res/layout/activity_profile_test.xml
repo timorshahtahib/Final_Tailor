@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
+    android:background="@drawable/side_nav_bar"
     >
 
     <android.support.design.widget.AppBarLayout
@@ -15,7 +15,7 @@
             android:layoutDirection="ltr"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/purple_500"
+
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:contentInsetStartWithNavigation="0dp"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
@@ -24,12 +24,12 @@
 
     <android.support.v4.widget.NestedScrollView
         android:layoutDirection="rtl"
-        android:id="@+id/nested_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
         android:scrollbars="none"
         android:scrollingCache="true"
+        android:background="@drawable/side_nav_bar"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
@@ -44,8 +44,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_xlarge"
                 android:text="یونیس شانس"
+
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
-                android:textColor="@color/grey_90"
+                android:textColor="@color/white2"
                 android:visibility="visible" />
 
             <TextView
@@ -55,7 +56,7 @@
                 android:layout_marginTop="@dimen/spacing_medium"
                 android:text="عکاس"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
-                android:textColor="@color/grey_60"
+                android:textColor="@color/white2"
                 android:visibility="visible" />
 
             <LinearLayout
@@ -78,9 +79,9 @@
                     android:id="@+id/image"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:src="@drawable/photo_female_5"
+                    android:src="@drawable/person"
                     app:civ_border="true"
-                    app:civ_border_color="@color/purple_500"
+
                     app:civ_border_width="2dp"
                     app:civ_shadow="true"
                     app:civ_shadow_radius="0" />
@@ -90,23 +91,13 @@
                     android:layout_height="?attr/actionBarSize"
                     android:layout_margin="@dimen/spacing_middle"
                     android:background="?attr/selectableItemBackgroundBorderless"
+                    android:onClick="call"
                     android:tint="@color/light_green_600"
                     app:srcCompat="@drawable/ic_call" />
 
             </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/spacing_xlarge"
-                android:layout_marginTop="@dimen/spacing_large"
-                android:layout_marginRight="@dimen/spacing_xlarge"
-                android:gravity="center"
-                android:lineSpacingExtra="2dp"
-                android:text="زنده گی زیباست"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
-                android:textColor="@color/grey_90"
-                android:visibility="visible" />
+
 
             <View
                 android:layout_width="match_parent"
@@ -130,6 +121,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
+        android:layout_margin="20dp"
         android:layout_gravity="bottom"
         app:srcCompat="@android:drawable/ic_input_add" />
 

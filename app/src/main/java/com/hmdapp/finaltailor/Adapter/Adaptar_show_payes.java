@@ -44,11 +44,11 @@ public class Adaptar_show_payes extends RecyclerView.Adapter<RecyclerView.ViewHo
         public OriginalViewHolder(View v) {
             super(v);
 
-            date = (TextView) v.findViewById(R.id.txt_date_pay);
-            amount = (TextView) v.findViewById(R.id.txt_amount_pay);
+            date = v.findViewById(R.id.txt_date_pay);
+            amount = v.findViewById(R.id.txt_amount_pay);
 
 
-            lyt_parent = (View) v.findViewById(R.id.lyt_parent);
+            lyt_parent = v.findViewById(R.id.lyt_parent);
         }
     }
 

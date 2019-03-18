@@ -14,6 +14,7 @@ import com.hmdapp.finaltailor.Models.Customer;
 import com.hmdapp.finaltailor.Models.Model;
 import com.hmdapp.finaltailor.Models.Order;
 import com.hmdapp.finaltailor.Models.Payment;
+import com.hmdapp.finaltailor.Models.payment_report;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -106,8 +107,9 @@ public class DB_Acsess {
             order.setDeliverDate(d.getString(5));
             order.setIsExist(d.getInt(6));
             order.setCom_state(d.getInt(7));
-            Cloth cloth = getCloth(d.getInt(8));
-            order.setCloth(cloth);
+         Cloth cloth = getCloth(d.getInt(8));
+         // Cloth cloth = getCloth(1);
+         order.setCloth(cloth);
             list.add(order);
             Log.d("Get Order ....  id : ", order.getId() + "");
         }
@@ -118,7 +120,7 @@ public class DB_Acsess {
 
         ArrayList<Payment> list = new ArrayList<>();
 
-    Cursor    d = db.rawQuery("select * from payment  where   ( DATE(date ) between date('now','start of year','+1 month','-31 day') and date('now','start of year','+12 month','-1 day')) AND fk_order ='" + id + "'  ORDER BY date DESC ", new String[]{});
+        Cursor d = db.rawQuery("select * from payment  where   ( DATE(date ) between date('now','start of year','+1 month','-31 day') and date('now','start of year','+12 month','-1 day')) AND fk_order ='" + id + "'  ORDER BY date DESC ", new String[]{});
         //Toast.makeText(context, "Get All Order : size : " + c.getCount(), Toast.LENGTH_LONG).show();
         Log.d("Get All Payment : size", d.getCount() + "");
         Log.i("Get All payment : size", d.getCount() + "");
@@ -141,24 +143,76 @@ public class DB_Acsess {
         ArrayList<Payment> list = new ArrayList<>();
 
         Cursor d = db.rawQuery("select SUM(amount) as total, id, date,fk_order from payment  where ( DATE(date ) between date('now','start of year','+1 month','-31 day') and date('now','start of year','+12 month','-1 day')) GROUP BY fk_order ORDER BY date DESC", new String[]{});
+        //    Cursor d = db.rawQuery("SELECT `customer_id`,`full_name`,`order_id`,`count`,`color`,`price`,`order_date`,`deliver_date`,`is_exist`,`com_state`,`payment_id`,`date`,`cr_db`,SUM(amount)AS total_amount,`desc` FROM payment_report  GROUP BY customer_id   HAVING total_amount>0 ORDER BY `date` DESC", new String[]{});
         //Toast.makeText(context, "Get All Order : size : " + c.getCount(), Toast.LENGTH_LONG).show();
         Log.d("Get All reminder : size", d.getCount() + "");
 
 
         while (d.moveToNext()) {
 
-            if (d.getInt(0) > 0) {
-                Payment payment = new Payment();
-                payment.setTotal(d.getInt(0));
-                payment.setId(d.getInt(1));
-                payment.setDate(d.getString(2));
-                Order order = getOrder(d.getInt(3));
-                payment.setOrder(order);
-                Log.d("Get Order ....  id : ", payment.getId() + "");
-                list.add(payment);
-            }
+            Payment payment = new Payment();
+            payment.setTotal(d.getInt(0));
+            payment.setId(d.getInt(1));
+            payment.setDate(d.getString(2));
+            Order order = getOrder(d.getInt(3));
+            payment.setOrder(order);
+            Log.d("Get Order ....  id : ", payment.getId() + "");
+            list.add(payment);
+        }
+        return list;
+    }
+
+    public List<payment_report> getreminder_customer(Context context) {
+
+        ArrayList<payment_report> list = new ArrayList<>();
+
+        //  Cursor d = db.rawQuery("select SUM(amount) as total, id, date,fk_order from payment  where ( DATE(date ) between date('now','start of year','+1 month','-31 day') and date('now','start of year','+12 month','-1 day')) GROUP BY fk_order ORDER BY date DESC", new String[]{});
+        Cursor d = db.rawQuery("SELECT `customer_id`,`full_name`,SUM(amount)AS total_amount FROM payment_report  GROUP BY customer_id   HAVING total_amount>0 ORDER BY `date` DESC", new String[]{});
+        //Toast.makeText(context, "Get All Order : size : " + c.getCount(), Toast.LENGTH_LONG).show();
+        Log.d("Get All reminder : size", d.getCount() + "");
 
 
+        while (d.moveToNext()) {
+
+            payment_report payment = new payment_report();
+
+            payment.setId(d.getInt(0));
+            payment.setName(d.getString(1));
+            payment.setAmount(d.getInt(2));
+
+            Log.d("Get Order ....  id : ", payment.getId() + "");
+            list.add(payment);
+        }
+        return list;
+    }
+
+    public List<Order> getreminder_customer_order(Context context, int id) {
+
+        ArrayList<Order> list = new ArrayList<>();
+
+        //  Cursor d = db.rawQuery("select SUM(amount) as total, id, date,fk_order from payment  where ( DATE(date ) between date('now','start of year','+1 month','-31 day') and date('now','start of year','+12 month','-1 day')) GROUP BY fk_order ORDER BY date DESC", new String[]{});
+        Cursor d = db.rawQuery(" SELECT `order_id`,`count`,`color`,`price`,`deliver_date`,`is_exist`,`com_state`, `fk_cloth`,SUM(amount)AS total_amount FROM payment_report where customer_id ='" + id + "'  GROUP BY customer_id,order_id  HAVING total_amount>0", new String[]{});
+        //Toast.makeText(context, "Get All Order : size : " + c.getCount(), Toast.LENGTH_LONG).show();
+        Log.d("Get All reminder : size", d.getCount() + "");
+
+
+        while (d.moveToNext()) {
+
+            Order order = new Order();
+            order.setId(d.getInt(0));
+            order.setCount(d.getInt(1));
+            order.setColor(d.getString(2));
+            order.setPrice(d.getFloat(3));
+
+            order.setDeliverDate(d.getString(4));
+            order.setIsExist(d.getInt(5));
+            order.setCom_state(d.getInt(6));
+            Cloth cloth = getCloth(d.getInt(7));
+            order.setCloth(cloth);
+
+
+            Log.d("Get Order ....  id : ", order.getId() + "");
+            list.add(order);
         }
         return list;
     }
@@ -193,7 +247,7 @@ public class DB_Acsess {
             Payment payment = new Payment();
             payment.setId(d.getInt(0));
             payment.setDate(d.getString(1));
-            payment.setAmount(d.getInt(2));
+            payment.setAmount((d.getInt(2)) * -1);
             Order order = getOrder(d.getInt(4));
             payment.setOrder(order);
 
@@ -207,31 +261,31 @@ public class DB_Acsess {
     public int getDailyPayment() {
         c = db.rawQuery("select SUM(amount) as Total from payment where date = date('now')  and amount<0", new String[]{});
         c.moveToFirst();
-        return c.getInt(c.getColumnIndex("Total"));
+        return (c.getInt(c.getColumnIndex("Total")) * -1);
     }
 
     public int getMonthlyPayment() {
         c = db.rawQuery("select SUM(amount) as Total from payment where ( DATE(date ) between  date('now','start of month','+1 month','-31 day') and date('now','start of month','+1 month','-1 day')) and amount<0 ", new String[]{});
         c.moveToFirst();
-        return c.getInt(c.getColumnIndex("Total"));
+        return (c.getInt(c.getColumnIndex("Total")) * -1);
     }
 
     public int getWeeklyPayment() {
-        c = db.rawQuery("select SUM(amount) as Total from payment where ( DATE(date ) between DATE('now', 'weekday 0', '-7 days') AND DATE('now', 'weekday 0', '-1 days'))  and amount<0 ", new String[]{});
-        c.moveToFirst();
-        return c.getInt(c.getColumnIndex("Total"));
+      Cursor  d = db.rawQuery("select SUM(amount) as Total from payment where ( DATE(date ) between DATE('now', 'weekday 0', '-7 days') AND DATE('now', 'weekday 0', '-1 days'))  and amount<0 ", new String[]{});
+        d.moveToFirst();
+        return (d.getInt(d.getColumnIndex("Total")) * -1);
     }
 
     public int getYearlyPayment() {
         c = db.rawQuery("select SUM(amount) as Total from payment where  ( DATE(date ) between date('now','start of year','+1 month','-31 day') and date('now','start of year','+12 month','-1 day')) and amount<0 ", new String[]{});
         c.moveToFirst();
-        return c.getInt(c.getColumnIndex("Total"));
+        return (c.getInt(c.getColumnIndex("Total")) * -1);
     }
 
     public int getAllPayment() {
         c = db.rawQuery("select SUM(amount) as Total from payment where  amount<0", new String[]{});
         c.moveToFirst();
-        return c.getInt(c.getColumnIndex("Total"));
+        return (c.getInt(c.getColumnIndex("Total")) * -1);
     }
 
     public int getRemainderPayment() {
@@ -324,71 +378,55 @@ public class DB_Acsess {
         c = db.rawQuery("select * from cu_cl_info where fk_customer='" + id + "'  and id ='" + idcl + "'", new String[]{});
         c.moveToNext();
         Cloth con = new Cloth();
-
         con.setId(c.getInt(0));
-        con.setAstin(c.getInt(1));
-        con.setQad(c.getInt(2));
-        con.setShana(c.getInt(3));
-        con.setBaqal(c.getInt(4));
-        con.setDaman(c.getInt(5));
-        con.setShalwar(c.getInt(6));
-        con.setPacha(c.getInt(7));
-        con.setBar_shalwar(c.getInt(8));
-        con.setModel(c.getString(9));
-
-        con.setModel_dam_astin(c.getString(10));
-        con.setModel_qot_astin(c.getString(11));
-        con.setQad_paty(c.getString(12));
-        con.setModel_astin(c.getString(13));
-        con.setYakhan(c.getInt(14));
-        con.setDam_astin(c.getInt(15));
-
-
-        con.setModel_yaqa(c.getString(16));
-
-
+        con.setQad(c.getInt(1));
+        con.setShana(c.getInt(2));
+        con.setBaqal(c.getInt(3));
+        con.setDaman(c.getInt(4));
+        con.setShalwar(c.getInt(5));
+        con.setPacha(c.getInt(6));
+        con.setBar_shalwar(c.getInt(7));
+        con.setModel(c.getString(8));
+        con.setModel_dam_astin(c.getString(9));
+        con.setModel_qot_astin(c.getString(10));
+        con.setQad_paty(c.getString(11));
+        con.setModel_astin(c.getString(12));
+        con.setYakhan(c.getInt(13));
+        con.setDam_astin(c.getInt(14));
+        con.setModel_yaqa(c.getString(15));
+        con.setAstin(c.getInt(16));
         Customer customer = getCustomer(c.getInt(17));
-
         con.setCustomer(customer);
-        //  con.setDes(c.getString(18));
-
         Log.d("inter", id + "");
 
-//        Log.d("bagal ", c.getInt(4) + "");
+
         return con;
     }
 
     public Cloth getCloth(int id) {
 
-        Cursor d = db.rawQuery("select * from cu_cl_info where    id ='" + id + "'", new String[]{});
-        d.moveToNext();
+        Cursor c = db.rawQuery("select * from cu_cl_info where    id ='" + id + "'", new String[]{});
+        c.moveToNext();
         Cloth con = new Cloth();
-
-        con.setId(d.getInt(0));
-        con.setAstin(d.getInt(1));
-        con.setQad(d.getInt(2));
-        con.setShana(d.getInt(3));
-        con.setBaqal(d.getInt(4));
-        con.setDaman(d.getInt(5));
-        con.setShalwar(d.getInt(6));
-        con.setPacha(d.getInt(7));
-        con.setBar_shalwar(d.getInt(8));
-        con.setModel(d.getString(9));
-
-        con.setModel_dam_astin(d.getString(10));
-        con.setModel_qot_astin(d.getString(11));
-        con.setQad_paty(d.getString(12));
-        con.setModel_astin(d.getString(13));
-        con.setYakhan(d.getInt(14));
-        con.setDam_astin(d.getInt(15));
-
-
-        con.setModel_yaqa(d.getString(16));
-        Customer customer = getCustomer(d.getInt(17));
+        con.setId(c.getInt(0));
+        con.setQad(c.getInt(1));
+        con.setShana(c.getInt(2));
+        con.setBaqal(c.getInt(3));
+        con.setDaman(c.getInt(4));
+        con.setShalwar(c.getInt(5));
+        con.setPacha(c.getInt(6));
+        con.setBar_shalwar(c.getInt(7));
+        con.setModel(c.getString(8));
+        con.setModel_dam_astin(c.getString(9));
+        con.setModel_qot_astin(c.getString(10));
+        con.setQad_paty(c.getString(11));
+        con.setModel_astin(c.getString(12));
+        con.setYakhan(c.getInt(13));
+        con.setDam_astin(c.getInt(14));
+        con.setModel_yaqa(c.getString(15));
+        con.setAstin(c.getInt(16));
+        Customer customer = getCustomer(c.getInt(17));
         con.setCustomer(customer);
-        con.setDes(d.getString(18));
-
-        Log.d("inter", id + "");
 
         //Log.d("bagal ", c.getInt(4) + "");
         return con;
@@ -615,10 +653,7 @@ public class DB_Acsess {
                 new String[]{id + ""});
 
 
-        if (b > 0) {
-            return true;
-        }
-        return false;
+        return b > 0;
 
     }
 
@@ -627,30 +662,19 @@ public class DB_Acsess {
 
         int b2 = db.delete("customer", "id" + " = ?",
                 new String[]{id + ""});
-        if (b2 > 0) {
-            return true;
-        }
-        return false;
+        return b2 > 0;
 
     }
 
     public boolean deleteTask(int id) {
         int result = db.delete("'order'", "id" + " = ?", new String[]{id + ""});
-        if (result > 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return result > 0;
 
     }
 
     public boolean deletePayment(int id) {
         int result = db.delete("payment", "id" + " = ?", new String[]{id + ""});
-        if (result > 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return result > 0;
 
     }
 
@@ -680,11 +704,7 @@ public class DB_Acsess {
         }
 
 
-        if (result > 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return result > 0;
 
     }
 
@@ -779,14 +799,12 @@ public class DB_Acsess {
         order.setCom_state(c.getInt(7));
         Cloth cloth = getCloth(c.getInt(8));
         order.setCloth(cloth);
-
-
         return order;
 
 
     }
 
-    public Payment getPayment(int id) throws Exception {
+    public Payment getPayment(int id) {
 
         Cursor d = db.rawQuery("select * from payment  where fk_order='" + id + "'", new String[]{});
         Log.d("size_payment", c.getCount() + "");
@@ -794,7 +812,7 @@ public class DB_Acsess {
         Payment payment = new Payment();
         payment.setId(d.getInt(0));
         payment.setDate(d.getString(1));
-        payment.setAmount(d.getInt(2));
+        payment.setAmount((d.getInt(2) * -1));
         payment.setDes(d.getString(4));
         Order order = getOrder(d.getInt(5));
         payment.setReminder(getTotal(id));

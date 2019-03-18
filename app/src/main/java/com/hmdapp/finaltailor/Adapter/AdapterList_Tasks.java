@@ -44,11 +44,11 @@ public class AdapterList_Tasks extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         public OriginalViewHolder(View v) {
             super(v);
-            image = (ImageView) v.findViewById(R.id.img_status);
-            name = (TextView) v.findViewById(R.id.txt_namee);
-            date = (TextView) v.findViewById(R.id.txt_date);
-            model = (TextView) v.findViewById(R.id.txt_model);
-            lyt_parent = (View) v.findViewById(R.id.lyt_parent);
+            image = v.findViewById(R.id.img_status);
+            name = v.findViewById(R.id.txt_namee);
+            date = v.findViewById(R.id.txt_date);
+            model = v.findViewById(R.id.txt_model);
+            lyt_parent = v.findViewById(R.id.lyt_parent);
         }
     }
 

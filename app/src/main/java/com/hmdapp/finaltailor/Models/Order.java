@@ -9,7 +9,7 @@ public class Order {
     private String color;
     private String order_Date;
     private String deliverDate;
-private Cloth cloth;
+    private Cloth cloth;
     private int isExist;
     private int com_state;
 
@@ -44,8 +44,6 @@ private Cloth cloth;
     public void setId(int id) {
         this.id = id;
     }
-
-
 
 
     public String getDeliverDate() {

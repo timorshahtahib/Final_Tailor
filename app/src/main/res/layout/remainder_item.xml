@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
+<android.support.v7.widget.CardView xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -8,9 +8,7 @@
     app:cardCornerRadius="@dimen/standard_card_radius"
     android:layout_margin="@dimen/stander_margin_x"
     >
-    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <android.support.constraint.ConstraintLayout xmlns="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:layout_editor_absoluteY="25dp">
@@ -35,6 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
+                android:layout_weight="1"
                 android:orientation="vertical">
 
                 <TextView
@@ -42,17 +41,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="اسم مشتری :"
-                    android:textSize="18sp"
+                    android:textSize="14sp"
                     android:textStyle="bold"
                     tools:layout_editor_absoluteX="282dp"
                     tools:layout_editor_absoluteY="26dp" />
 
                 <TextView
-                    android:id="@+id/textView7"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="مقدار پول غرض"
-                    android:textSize="18sp"
+                    android:textSize="14sp"
                     android:textStyle="bold" />
 
             </LinearLayout>
@@ -62,6 +60,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
+                android:layout_weight="1"
                 android:orientation="vertical">
 
                 <TextView
@@ -69,7 +68,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="صفی الله  اکبری  "
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     tools:layout_editor_absoluteX="172dp"
                     tools:layout_editor_absoluteY="28dp" />
 
@@ -78,10 +77,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="500"
-                    android:textSize="16sp"
+                    android:textColor="@color/red_800"
+                    android:textSize="14sp"
                     tools:layout_editor_absoluteX="196dp" />
 
             </LinearLayout>
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/reminder" />
 
         </LinearLayout>
 

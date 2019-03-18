@@ -43,7 +43,7 @@ public class SMSBReceiver extends BroadcastReceiver {
                 message = smsm[i].getMessageBody();
                 sms_str += "Sent From: " + smsm[i].getOriginatingAddress();
                 sms_str += "\r\nMessage: ";
-                sms_str += smsm[i].getMessageBody().toString();
+                sms_str += smsm[i].getMessageBody();
                 sms_str += "\r\n";
             }
         }

@@ -22,9 +22,9 @@
             android:id="@+id/image"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:src="@drawable/photo_female_5"
+            android:src="@drawable/person"
             app:civ_border="true"
-            app:civ_border_color="@color/purple_500"
+
             app:civ_border_width="2dp"
             app:civ_shadow="true"
             app:civ_shadow_radius="0" />
@@ -38,7 +38,6 @@
         android:visibility="visible">
 
         <TextView
-            android:id="@+id/textView"
             style="@style/default_text_view_setting"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -114,9 +113,9 @@
         android:layout_gravity="bottom|end|left"
         android:layout_margin="@dimen/spacing_smlarge"
         android:clickable="true"
-
+        style="@style/Widget.AppCompat.Button.Colored"
         android:text="ذخیره"
-        app:backgroundTint="@color/green_100"
+        android:textColor="@color/white2"
 
         />
 </LinearLayout>

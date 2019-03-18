@@ -7,20 +7,21 @@
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/icon"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activity.Order.Show_Payment_of_order"></activity>
+        <activity android:name=".Activity.Order.Show_Payment_of_order" />
         <activity android:name=".Activity.Customer.Show_Model_Activity" />
         <activity android:name=".Activity.Customer.Regester_Customer" />
-        <activity android:name=".Activity.Report_Dashbord.TotalReportPaymentCustomerActivity" />
         <activity android:name=".Activity.Report_Dashbord.EveryRemainderActivity" />
-        <activity android:name=".Activity.RemainderActivity" />
+        <activity android:name=".Activity.Report_Dashbord.RemainderActivity" />
         <activity android:name=".Activity.Report_Dashbord.DisplayReportActivity" />
         <activity android:name=".Activity.Report_Dashbord.ReportActivity" />
         <activity
@@ -40,14 +41,15 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.Person_Activity" />
+        <activity android:name=".Activity.Customer.Person_Activity" />
         <activity android:name=".Activity.ContactActivity" />
         <activity android:name=".Activity.Customer.Profile_Activity" />
         <activity android:name=".Activity.Regester_Activity" />
         <activity android:name=".Activity.Order.Tasks_Activity" />
+        <activity android:name=".Activity.AboutCompanyImage" />
     </application>
 
 </manifest>

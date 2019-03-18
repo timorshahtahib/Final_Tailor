@@ -5,6 +5,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,12 +17,47 @@ import com.hmdapp.finaltailor.Utlity.Tools;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AdapterListBasic extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class AdapterListBasic extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements Filterable {
 
     private List<Customer> items = new ArrayList<>();
-
+    private List<Customer> contactListFiltered;
     private Context ctx;
     private OnItemClickListener mOnItemClickListener;
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                String charString = charSequence.toString();
+                if (charString.isEmpty()) {
+                    contactListFiltered = items;
+                } else {
+                    List<Customer> filteredList = new ArrayList<>();
+                    for (Customer row : items) {
+
+                        // name match condition. this might differ depending on your requirement
+                        // here we are looking for name or phone number match
+                        if (row.getName().toLowerCase().contains(charString.toLowerCase())) {
+                            filteredList.add(row);
+                        }
+                    }
+
+                    contactListFiltered = filteredList;
+                }
+
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = contactListFiltered;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                contactListFiltered = (ArrayList<Customer>) filterResults.values;
+                notifyDataSetChanged();
+            }
+        };
+    }
 
     public interface OnItemClickListener {
         void onItemClick(View view, Customer obj, int position);
@@ -44,11 +81,11 @@ public class AdapterListBasic extends RecyclerView.Adapter<RecyclerView.ViewHold
 
         public OriginalViewHolder(View v) {
             super(v);
-            image = (ImageView) v.findViewById(R.id.image);
-            name = (TextView) v.findViewById(R.id.name);
-            job = (TextView) v.findViewById(R.id.description);
+            image = v.findViewById(R.id.image);
+            name = v.findViewById(R.id.name);
+            job = v.findViewById(R.id.description);
 
-            lyt_parent = (View) v.findViewById(R.id.lyt_parent);
+            lyt_parent = v.findViewById(R.id.lyt_parent);
         }
     }
 
@@ -69,7 +106,7 @@ public class AdapterListBasic extends RecyclerView.Adapter<RecyclerView.ViewHold
             Customer customer = items.get(position);
             view.name.setText(customer.getName());
             view.job.setText(customer.getJob());
-           Tools.displayImageRound(ctx, view.image, R.drawable.photo_male_1);
+
             view.lyt_parent.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

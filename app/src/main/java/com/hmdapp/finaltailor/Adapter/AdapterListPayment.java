@@ -45,9 +45,9 @@ public class AdapterListPayment extends RecyclerView.Adapter<RecyclerView.ViewHo
         public OriginalViewHolder(View v) {
             super(v);
             amount = v.findViewById(R.id.payment_amount);
-            name = (TextView) v.findViewById(R.id.txt_name_payment);
-            date = (TextView) v.findViewById(R.id.txt_date_payment);
-            lyt_parent = (View) v.findViewById(R.id.lyt_parent_payment_item);
+            name = v.findViewById(R.id.txt_name_payment);
+            date = v.findViewById(R.id.txt_date_payment);
+            lyt_parent = v.findViewById(R.id.lyt_parent_payment_item);
         }
     }
 

@@ -38,9 +38,9 @@ public class AdapterGridSingleLine extends RecyclerView.Adapter<RecyclerView.Vie
         public OriginalViewHolder(View v) {
             super(v);
 
-            name = (TextView) v.findViewById(R.id.txt_name);
-            value = (TextView) v.findViewById(R.id.txt_value);
-            lyt_parent = (View) v.findViewById(R.id.lyt_parent);
+            name = v.findViewById(R.id.txt_name);
+            value = v.findViewById(R.id.txt_value);
+            lyt_parent = v.findViewById(R.id.lyt_parent);
         }
     }
 

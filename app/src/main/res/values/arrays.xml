@@ -1,44 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <integer-array name="people_images">
-        <item>@drawable/photo_male_1</item>
-        <item>@drawable/photo_male_2</item>
-        <item>@drawable/photo_female_1</item>
-        <item>@drawable/photo_female_2</item>
-        <item>@drawable/photo_male_3</item>
 
-        <item>@drawable/photo_female_3</item>
-        <item>@drawable/photo_male_4</item>
-        <item>@drawable/photo_female_4</item>
-        <item>@drawable/photo_female_5</item>
-        <item>@drawable/photo_male_5</item>
-
-        <item>@drawable/photo_female_6</item>
-        <item>@drawable/photo_male_6</item>
-        <item>@drawable/photo_male_7</item>
-        <item>@drawable/photo_female_7</item>
-        <item>@drawable/photo_female_8</item>
-    </integer-array>
-
-    <string-array name="people_names">
-        <item>تیمور شاه تایب</item>
-        <item>یونیس محمدی</item>
-        <item>سراج بینا </item>
-        <item>صبغت نوری</item>
-        <item>اصیل سنتر</item>
-
-        <item>تیمور شاه تایب</item>
-        <item>یونیس محمدی</item>
-        <item>سراج بینا </item>
-        <item>صبغت نوری</item>
-        <item>اصیل سنتر</item>
-
-
-        <item>تیمور شاه تایب</item>
-        <item>یونیس محمدی</item>
-        <item>سراج بینا </item>
-        <item>صبغت نوری</item>
-        <item>اصیل سنتر</item>
-
-    </string-array>
 </resources>

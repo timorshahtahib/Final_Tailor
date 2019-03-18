@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.hmdapp.finaltailor.Activity.RemainderActivity;
+import com.hmdapp.finaltailor.Activity.MainActivity;
 import com.hmdapp.finaltailor.R;
 import com.hmdapp.finaltailor.database.DB_Acsess;
 
@@ -46,18 +46,21 @@ public class DashboradReportActivity extends AppCompatActivity {
         Intent intent = new Intent(this, ReportActivity.class);
         intent.putExtra("myKey","Daily");
        startActivity(intent);
+       finish();
     }
 
     public void onMonthlyClick(View view) {
         Intent intent = new Intent(this,ReportActivity.class);
         intent.putExtra("myKey","Monthly");
         startActivity(intent);
+        finish();
     }
 
     public void onWeeklyClick(View view) {
         Intent intent = new Intent(this,ReportActivity.class);
         intent.putExtra("myKey","Weekly");
         startActivity(intent);
+        finish();
     }
 
     public void onYearlyClick(View view) {
@@ -69,10 +72,11 @@ public class DashboradReportActivity extends AppCompatActivity {
         Intent intent = new Intent(this, RemainderActivity.class);
         intent.putExtra("myKey","Yearly");
         startActivity(intent);
+        finish();
     }
 
     private void initToolbar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(" گزارش ها ");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -83,10 +87,17 @@ public class DashboradReportActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
+
+            startActivity(new Intent(this, MainActivity.class));
             finish();
         } else {
             Toast.makeText(getApplicationContext(), item.getTitle(), Toast.LENGTH_SHORT).show();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+
     }
 }

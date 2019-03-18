@@ -57,7 +57,7 @@ public class Show_Payment_of_order extends AppCompatActivity {
     }
 
     private void initToolbar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("لیست پرداخت ها ");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -103,7 +103,7 @@ Intent intent=new Intent(this, show_Order_Info.class);
         edPayment = dialog.findViewById(R.id.txt_payment_after_work);
 
 
-        ((AppCompatButton) dialog.findViewById(R.id.bt_cancel)).setOnClickListener(new View.OnClickListener() {
+        dialog.findViewById(R.id.bt_cancel).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
@@ -111,7 +111,7 @@ Intent intent=new Intent(this, show_Order_Info.class);
         });
 
 
-        ((AppCompatButton) dialog.findViewById(R.id.bt_submit)).setOnClickListener(new View.OnClickListener() {
+        dialog.findViewById(R.id.bt_submit).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DB_Acsess db_acsess = DB_Acsess.getInstans(getApplicationContext());

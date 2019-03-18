@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.hmdapp.finaltailor.Models.Payment;
+import com.hmdapp.finaltailor.Models.payment_report;
 import com.hmdapp.finaltailor.R;
 
 import java.util.ArrayList;
@@ -15,20 +16,20 @@ import java.util.List;
 
 public class AdapterListRemainder extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<Payment> items = new ArrayList<>();
+    private List<payment_report> items = new ArrayList<>();
 
     private Context ctx;
     private OnItemClickListener mOnItemClickListener;
 
     public interface OnItemClickListener {
-        void onItemClick(View view, Payment obj, int position);
+        void onItemClick(View view, payment_report obj, int position);
     }
 
     public void setOnItemClickListener(final OnItemClickListener mItemClickListener) {
         this.mOnItemClickListener = mItemClickListener;
     }
 
-    public AdapterListRemainder(Context context, List<Payment> items) {
+    public AdapterListRemainder(Context context, List<payment_report> items) {
         this.items = items;
         ctx = context;
     }
@@ -42,9 +43,9 @@ public class AdapterListRemainder extends RecyclerView.Adapter<RecyclerView.View
         public OriginalViewHolder(View v) {
             super(v);
 
-            name = (TextView) v.findViewById(R.id.txt_name_remainder);
-            remainderSum = (TextView) v.findViewById(R.id.txt_count_remainder);
-            lyt_parent = (View) v.findViewById(R.id.lyt_parent_remainder);
+            name = v.findViewById(R.id.txt_name_remainder);
+            remainderSum = v.findViewById(R.id.txt_count_remainder);
+            lyt_parent = v.findViewById(R.id.lyt_parent_remainder);
         }
     }
 
@@ -62,9 +63,9 @@ public class AdapterListRemainder extends RecyclerView.Adapter<RecyclerView.View
         if (holder instanceof OriginalViewHolder) {
             OriginalViewHolder view = (OriginalViewHolder) holder;
 
-            Payment payment = items.get(position);
-            view.name.setText(payment.getOrder().getCloth().getCustomer().getName()+"   ");
-            view.remainderSum.setText(payment.getTotal()+"");
+            payment_report payment = items.get(position);
+            view.name.setText(payment.getName()+"   ");
+            view.remainderSum.setText(payment.getAmount()+"");
 
 
 
