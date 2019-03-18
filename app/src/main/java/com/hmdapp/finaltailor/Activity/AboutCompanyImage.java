@@ -161,7 +161,7 @@ public class AboutCompanyImage extends AppCompatActivity {
 
         final Spinner spin = dialog.findViewById(R.id.spinner);
 
-
+      
         final TextView txt_name = dialog.findViewById(R.id.txt_sms_name);
 
 
