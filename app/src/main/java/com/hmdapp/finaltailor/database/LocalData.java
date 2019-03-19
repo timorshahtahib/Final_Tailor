@@ -60,15 +60,16 @@ public class LocalData {
         return appSharedPrefs.getBoolean("reply", false);
     }
 
-    public void set_number_set_reply(Set<String> set_reply) {
 
-        prefsEditor.putStringSet("set_reply", set_reply);
+
+    public  void set_confirm_text(String txt){
+        prefsEditor.putString("txe_con",txt);
         prefsEditor.commit();
+
+
     }
-
-    public HashSet<String> get_number_set_reply() {
-        return (HashSet<String>) appSharedPrefs.getStringSet("set_reply", new HashSet<String>());
-
+    public String get_cutomer_text(){
+      return   appSharedPrefs.getString("txe_con","سلام وقت بخیر " + "مشتری عزیز لباس شما دوخته شده است ");
     }
 
 
@@ -78,53 +79,8 @@ public class LocalData {
         return appSharedPrefs.getBoolean("r_reply", false);
     }
 
-    public void set_roshan_reply(boolean v) {
-        prefsEditor.putBoolean("r_reply", v);
-        prefsEditor.commit();
-    }
-
-    public boolean get_etisalat_reply() {
-
-        return appSharedPrefs.getBoolean("et_reply", false);
-    }
-
-    public void set_etisalat_reply(boolean v) {
-        prefsEditor.putBoolean("et_reply", v);
-        prefsEditor.commit();
-    }
 
 
-    public boolean get_salam_reply() {
-
-        return appSharedPrefs.getBoolean("sa_reply", false);
-    }
-
-    public void set_salam_reply(boolean v) {
-        prefsEditor.putBoolean("sa_reply", v);
-        prefsEditor.commit();
-    }
-
-
-    public boolean get_awc_reply() {
-
-        return appSharedPrefs.getBoolean("awc_reply", false);
-    }
-
-    public void set_awc_reply(boolean v) {
-        prefsEditor.putBoolean("awc_reply", v);
-        prefsEditor.commit();
-    }
-
-
-    public boolean get_mtn_reply() {
-
-        return appSharedPrefs.getBoolean("mtn_reply", false);
-    }
-
-    public void set_mtn_reply(boolean v) {
-        prefsEditor.putBoolean("mtn_reply", v);
-        prefsEditor.commit();
-    }
 
 
 /// end  reply for  customer

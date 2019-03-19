@@ -30,6 +30,7 @@ import com.hmdapp.finaltailor.Models.Payment;
 import com.hmdapp.finaltailor.R;
 import com.hmdapp.finaltailor.Utlity.Tools;
 import com.hmdapp.finaltailor.database.DB_Acsess;
+import com.hmdapp.finaltailor.database.LocalData;
 
 
 public class show_Order_Info extends AppCompatActivity {
@@ -122,16 +123,20 @@ public class show_Order_Info extends AppCompatActivity {
                     order.setCom_state(1);
 
                     db_acsess.updateTask( order);
-                    onsend_sms();
+                    LocalData localData=new LocalData(getApplicationContext());
+                    if(localData.get_customer_confirm()){
+                        onsend_sms();
+                    }
+
                     // Toast.makeText(show_Order_Info.this, "True = 1", Toast.LENGTH_LONG).show();
-                    startActivity(new Intent(show_Order_Info.this, Tasks_Activity.class));
-                    finish();
+//                    startActivity(new Intent(show_Order_Info.this, Tasks_Activity.class));
+//                    finish();
                 } else {
                     order.setCom_state(0);
 
                     db_acsess.updateTask(order);
-                    startActivity(new Intent(show_Order_Info.this, Tasks_Activity.class));
-                    finish();
+//                    startActivity(new Intent(show_Order_Info.this, Tasks_Activity.class));
+//                    finish();
                     //  Toast.makeText(show_Order_Info.this,"false = 0", Toast.LENGTH_LONG).show();
                 }
 
@@ -356,13 +361,23 @@ public class show_Order_Info extends AppCompatActivity {
     }
 
     public void onsend_sms() {
+        LocalData localData=new LocalData(this);
         String phon = getIntent().getStringExtra("phone");
 
+//        Uri uri = Uri.parse("smsto:0800000123");
+//        Intent it = new Intent(Intent.ACTION_SENDTO, uri);
+//        it.putExtra("sms_body", "The SMS text");
+//        startActivity(it);
 
+//        Intent smsIntent = new Intent(android.content.Intent.ACTION_VIEW);
+//        smsIntent.setType("vnd.android-dir/mms-sms");
+//        smsIntent.putExtra("address",phon);
+//        smsIntent.putExtra("sms_body",localData.get_cutomer_text());
+//        startActivity(smsIntent);
 
         //Get the SmsManager instance and call the sendTextMessage method to send message
         SmsManager sms=SmsManager.getDefault();
-        sms.sendTextMessage(phon, null, "سلام مشتری عزیز وقت بخیر لباس شما دوخته شده است", null,null);
+        sms.sendTextMessage(phon, null, localData.get_cutomer_text(), null,null);
 
         Toast.makeText(getApplicationContext(), "Message Sent successfully!",
                 Toast.LENGTH_LONG).show();

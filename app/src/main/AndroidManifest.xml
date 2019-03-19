@@ -17,6 +17,7 @@
         android:roundIcon="@drawable/icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".Activity.Gallary"></activity>
         <activity android:name=".Activity.Order.Show_Payment_of_order" />
         <activity android:name=".Activity.Customer.Show_Model_Activity" />
         <activity android:name=".Activity.Customer.Regester_Customer" />

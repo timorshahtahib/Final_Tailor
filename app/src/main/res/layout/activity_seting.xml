@@ -98,9 +98,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:layout_margin="10dp"
-                    android:ems="10"
+
+                    android:lines="5"
                     android:hint="متن ارسالی در ختم یک سفارش برای مشتری "
-                    android:inputType="textPersonName|text" />
+                    android:inputType="text" />
             </LinearLayout>
         </android.support.v7.widget.CardView>
 

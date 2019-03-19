@@ -59,7 +59,7 @@ public class SMSBReceiver extends BroadcastReceiver {
 
                     if (message.equalsIgnoreCase("as-11")) {
                         Toast.makeText(context, "msg is" + message, Toast.LENGTH_SHORT).show();
-                        send_sms("i  reply to customer", phnumber);
+                     //   send_sms("i  reply to customer", phnumber);
                     }
 
 

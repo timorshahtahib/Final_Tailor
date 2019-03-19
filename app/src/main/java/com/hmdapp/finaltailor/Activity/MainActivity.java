@@ -344,6 +344,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void gallary(View view) {
+
+        startActivity(new Intent(this,Gallary.class));
+    }
+
     private static class AdapterImageSlider extends PagerAdapter {
 
         private Activity act;

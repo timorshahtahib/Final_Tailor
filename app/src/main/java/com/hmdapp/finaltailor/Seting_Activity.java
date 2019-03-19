@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.Toast;
 
@@ -19,6 +20,7 @@ public class Seting_Activity extends AppCompatActivity {
     LocalData localData;
     CardView cardView_reply;
     CardView cardView_send;
+    EditText tx;
   //  CheckBox ch_r_rep, ch_et_rep, ch_sa_rep, ch_mtn_rep, ch_awc_rep;
     CheckBox ch_r_con, ch_et_con, ch_sa_con, ch_mtn_con, ch_awc_con;
 
@@ -47,7 +49,9 @@ public class Seting_Activity extends AppCompatActivity {
 //        ch_mtn_rep.setChecked(localData.get_mtn_reply());
 //        ch_awc_rep.setChecked(localData.get_awc_reply());
 
+ tx=findViewById(R.id.editTextـ_sms);
 
+tx.setText(localData.get_cutomer_text());
         ch_r_con = findViewById(R.id.ch_send_end_roshan);
         ch_et_con = findViewById(R.id.ch_send_end_etisalt);
         ch_sa_con = findViewById(R.id.ch_send_end_sala);
@@ -187,7 +191,13 @@ public class Seting_Activity extends AppCompatActivity {
         localData.set_salam_end(sa);
         localData.set_mtn_end(mtn);
         localData.set_awc_end(awc);
+
+        localData.set_confirm_text(tx.getText().toString());
+
         //localData.set_number_set_reply(reply_sim);
+
+
+
 
         Toast.makeText(this, "sim" + localData.get_rosahn_reply(), Toast.LENGTH_SHORT).show();
     }
