@@ -15,7 +15,6 @@ import android.widget.Toast;
 import com.hmdapp.finaltailor.database.LocalData;
 
 
-@SuppressWarnings("MagicConstant")
 public class Seting_Activity extends AppCompatActivity {
     LocalData localData;
     CardView cardView_reply;
@@ -66,9 +65,6 @@ public class Seting_Activity extends AppCompatActivity {
 //        cardView_reply = findViewById(R.id.card_reply);
         cardView_send = findViewById(R.id.card_send);
 
-        if (!localData.get_customer_reply()) {
-            cardView_reply.setVisibility(View.GONE);
-        }
         if (!localData.get_customer_confirm()) {
             cardView_send.setVisibility(View.GONE);
         }
@@ -138,6 +134,7 @@ public class Seting_Activity extends AppCompatActivity {
             if (localData.get_customer_confirm()) {
                 set_send_sim();
             }
+
             finish();
         } else {
             Toast.makeText(getApplicationContext(), item.getTitle(), Toast.LENGTH_SHORT).show();

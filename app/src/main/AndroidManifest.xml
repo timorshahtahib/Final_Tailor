@@ -49,6 +49,7 @@
         <activity android:name=".Activity.Customer.Regester_cloth_Activity" />
         <activity android:name=".Activity.Order.Tasks_Activity" />
         <activity android:name=".Activity.AboutCompanyImage" />
+        <activity android:name=".Seting_Activity" />
     </application>
 
 </manifest>

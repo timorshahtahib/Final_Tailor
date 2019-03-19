@@ -36,14 +36,6 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar_s"
         app:layout_constraintVertical_bias="0.0">
 
-        <EditText
-            android:id="@+id/editTextـ_sms"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="متن ارسالی در ختم یک سفارش برای مشتری "
-            android:inputType="textPersonName|text" />
-
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -100,7 +92,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="MTN" />
+
+                <EditText
+                    android:id="@+id/editTextـ_sms"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_margin="10dp"
+                    android:ems="10"
+                    android:hint="متن ارسالی در ختم یک سفارش برای مشتری "
+                    android:inputType="textPersonName|text" />
             </LinearLayout>
         </android.support.v7.widget.CardView>
+
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

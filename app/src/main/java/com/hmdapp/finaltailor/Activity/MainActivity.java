@@ -38,6 +38,7 @@ import com.hmdapp.finaltailor.Activity.Order.Tasks_Activity;
 import com.hmdapp.finaltailor.Activity.Report_Dashbord.DashboradReportActivity;
 import com.hmdapp.finaltailor.Models.Image;
 import com.hmdapp.finaltailor.R;
+import com.hmdapp.finaltailor.Seting_Activity;
 import com.hmdapp.finaltailor.Utlity.Tools;
 
 import java.io.File;
@@ -335,6 +336,12 @@ public class MainActivity extends AppCompatActivity {
             }
         };
         handler.postDelayed(runnable, 3000);
+    }
+
+    public void On_Setting(View view) {
+
+        startActivity(new Intent(this, Seting_Activity.class));
+
     }
 
     private static class AdapterImageSlider extends PagerAdapter {

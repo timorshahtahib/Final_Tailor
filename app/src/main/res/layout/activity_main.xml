@@ -247,6 +247,7 @@
                                     android:layout_height="0dp" />
 
                                 <LinearLayout
+                                    android:onClick="On_Setting"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:orientation="vertical">
