@@ -54,13 +54,13 @@ public class Gallary extends AppCompatActivity {
     private void initComponent() {
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
-        recyclerView.addItemDecoration(new SpacingItemDecoration(3, Tools.dpToPx(this, 2), true));
+       // recyclerView.addItemDecoration(new SpacingItemDecoration(3, Tools.dpToPx(this, 2), true));
         recyclerView.setHasFixedSize(true);
 
         List<Integer> items = DataGenerator.getNatureImages(this);
-        items.addAll(DataGenerator.getNatureImages(this));
-        items.addAll(DataGenerator.getNatureImages(this));
-        items.addAll(DataGenerator.getNatureImages(this));
+//        items.addAll(DataGenerator.getNatureImages(this));
+//        items.addAll(DataGenerator.getNatureImages(this));
+//        items.addAll(DataGenerator.getNatureImages(this));
 
         //set data and list adapter
         mAdapter = new AdapterGridBasic(this, items);

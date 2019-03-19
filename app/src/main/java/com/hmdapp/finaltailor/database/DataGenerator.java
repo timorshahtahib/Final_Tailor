@@ -17,7 +17,7 @@ public class DataGenerator {
         for (int i = 0; i < drw_arr.length(); i++) {
             items.add(drw_arr.getResourceId(i, -1));
         }
-        Collections.shuffle(items);
+        //Collections.shuffle(items);
         return items;
     }
 }

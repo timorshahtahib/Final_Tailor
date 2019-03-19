@@ -149,19 +149,67 @@ public class Regester_cloth_Activity extends AppCompatActivity {
         String qad_paty = cl.getQad_paty();
 
 
-//        if(model.trim().equals("ساده")){
-//            rg_model.check(R.id.rb_model_sada);
-//        }else if(model.trim().equals("شهبازی")){
-//
-//        }else if(model.trim().equals("پاکستانی")){
-//
-//        }else if(model.trim().equals("شهبازی")){
-//
-//        }else if(model.trim().equals("شهبازی")){
-//
-//        }else if(model.trim().equals("شهبازی")){
-//
-//        }
+        if(model.trim().equals("ساده")){
+
+            rg_model.check(R.id.rb_model_sada);
+        }else if(model.equals("شهبازی")){
+
+            rg_model.check(R.id.rb_model_shabazi);
+
+        }else if(model.equals("پاکستانی")){
+
+            rg_model.check(R.id.rb_model_pakistani);
+
+        }else if(model.equals("چپیه بخن")){
+            rg_model.check(R.id.rb_model_chapayakhan);
+
+
+        }else if(model.trim().equals("خامک")){
+            rg_model.check(R.id.rb_model_khamak);
+
+
+        }else if(model.trim().equals("دیگر ...")){
+            rg_model.check(R.id.rb_model_another);
+
+
+        }
+
+
+
+        if(dam_astin.trim().equalsIgnoreCase("ساده ")){
+            rg_model_dam_astin.check(R.id.rb_model_dam_astin_sada);
+        }else if(dam_astin.trim().equalsIgnoreCase("مرابی ")){
+            rg_model_dam_astin.check(R.id.rb_model_dam_astin_mehrabi);
+
+        }else if(dam_astin.trim().equalsIgnoreCase("کفک دار")){
+            rg_model_dam_astin.check(R.id.rb_model_dam_astin_kaphak);
+
+        }else if(dam_astin.trim().equalsIgnoreCase("دیگر ...")){
+            rg_model_dam_astin.check(R.id.rb_model_dam_astin_another);
+
+        }
+
+
+        if(model_astin.trim().equals("ساده")){
+            rg_model_astin.check(R.id.rb_model_astin_sada);
+        }else if(model_astin.trim().equals("کف")){
+            rg_model_astin.check(R.id.rb_model_astin_kaf);
+        }
+
+
+        if (model_yaqa.trim().equals("یق خامک")){
+            rg_model_yaqa.check(R.id.rb_model_yaqa_khamak);
+
+        }else if(model_yaqa.trim().equals("یقه پاکستانی")){
+            rg_model_yaqa.check(R.id.rb_model_yaqa_pak);
+
+
+
+        }else if(model.trim().equals("دیگر ...")){
+            rg_model_yaqa.check(R.id.rb_model_yaqa_another);
+
+        }
+
 
 //        String []property={cl.getModel(),cl.getModel_dam_astin(),cl.getModel_astin(),cl.getModel_qot_astin(),cl.getModel_yaqa(),cl.getQad_paty()};
 //        for (String tx:property) {
@@ -413,7 +461,7 @@ public class Regester_cloth_Activity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_search_setting, menu);
+      //  getMenuInflater().inflate(R.menu.menu_search_setting, menu);
         return true;
     }
 

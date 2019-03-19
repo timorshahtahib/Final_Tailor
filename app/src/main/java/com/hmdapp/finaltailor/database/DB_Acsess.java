@@ -377,7 +377,7 @@ public class DB_Acsess {
     public Cloth getCloth(int id, int idcl) {
 
 
-        c = db.rawQuery("select * from cu_cl_info where fk_customer='" + id + "'  and id ='" + idcl + "'", new String[]{});
+    Cursor    c = db.rawQuery("select * from cu_cl_info where fk_customer='" + id + "'  and id ='" + idcl + "'", new String[]{});
         c.moveToNext();
         Cloth con = new Cloth();
         con.setId(c.getInt(0));
@@ -398,6 +398,7 @@ public class DB_Acsess {
         con.setModel_yaqa(c.getString(15));
         con.setAstin(c.getInt(16));
         Customer customer = getCustomer(c.getInt(17));
+        con.setDes(c.getString(18));
         con.setCustomer(customer);
         Log.d("inter", id + "");
 
