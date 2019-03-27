@@ -198,16 +198,30 @@ public class Profile_Activity extends AppCompatActivity {
         String phon = getIntent().getStringExtra("phone");
 
         Intent callIntent = new Intent(Intent.ACTION_CALL);
-        callIntent.setData(Uri.parse("tel:"+phon));//change the number
+        callIntent.setData(Uri.parse("tel:" + phon));//change the number
 
-        try{
+        try {
             startActivity(callIntent);
-        }
-
-        catch (android.content.ActivityNotFoundException ex){
+        } catch (android.content.ActivityNotFoundException ex) {
 
             ex.printStackTrace();
-            Toast.makeText(getApplicationContext(),"yourActivity is not founded",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "yourActivity is not founded", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void onsendsms(View view) {
+
+
+        String phon = getIntent().getStringExtra("phone");
+
+
+        Intent it = new Intent(Intent.ACTION_SEND);
+        it.setType("text/plain");
+
+
+        it.putExtra("address", phon);
+        startActivity(it);
+
+
     }
 }

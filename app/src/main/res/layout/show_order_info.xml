@@ -70,6 +70,8 @@
                     android:layout_width="?attr/actionBarSize"
                     android:layout_height="?attr/actionBarSize"
                     android:layout_margin="@dimen/spacing_middle"
+
+                    android:onClick="onsendsms"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:tint="@color/light_green_600"
                     app:srcCompat="@drawable/ic_chat" />

@@ -28,7 +28,7 @@ import java.util.List;
 
 public class Person_Activity extends AppCompatActivity {
 
-    private SearchView searchView;
+ private SearchView searchView;
     private View parent_view;
 
     private RecyclerView recyclerView;
@@ -90,6 +90,9 @@ public class Person_Activity extends AppCompatActivity {
                 intent.putExtra("phone", obj.getPhone());
                 intent.putExtra("state", 0);
 
+
+
+
                 startActivity(intent);
                 //Snackbar.make(parent_view, "Item " + obj.getName() + " clicked", Snackbar.LENGTH_SHORT).show();
             }
@@ -118,6 +121,21 @@ public class Person_Activity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+
+                DB_Acsess db_acsess = DB_Acsess.getInstans(getApplicationContext());
+                db_acsess.open();
+                items = db_acsess.get_All_Customer();
+
+                //set data and list adapter
+                mAdapter = new AdapterListBasic(getApplicationContext(), items);
+                recyclerView.setAdapter(mAdapter);
                 return false;
             }
         });

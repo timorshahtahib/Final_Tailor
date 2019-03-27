@@ -68,6 +68,7 @@
                 android:visibility="visible">
 
                 <ImageButton
+                    android:onClick="onsendsms"
                     android:layout_width="?attr/actionBarSize"
                     android:layout_height="?attr/actionBarSize"
                     android:layout_margin="@dimen/spacing_middle"

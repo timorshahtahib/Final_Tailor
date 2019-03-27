@@ -21,8 +21,10 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+
 import com.hmdapp.finaltailor.R;
 
 
@@ -123,7 +125,7 @@ public class Activity_No_Permesion_use extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity__no__permesion_use);
-
+        FirebaseApp.initializeApp(this);
         mVisible = true;
         mControlsView = findViewById(R.id.fullscreen_content_controls);
         mContentView = findViewById(R.id.fullscreen_content);
@@ -141,6 +143,9 @@ public class Activity_No_Permesion_use extends AppCompatActivity {
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
         findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
+
+
+
     }
 
     @Override
@@ -204,6 +209,7 @@ public class Activity_No_Permesion_use extends AppCompatActivity {
         if (checkPermissions()){
            isAvalible_user();
                } else {
+
             // show dialog informing them that we lack certain permissions
 
             Toast.makeText(this, "We Dont Have App Permission", Toast.LENGTH_SHORT).show();
@@ -225,38 +231,45 @@ public class Activity_No_Permesion_use extends AppCompatActivity {
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
-        String uid = tManager.getDeviceId();
+        final String uid = tManager.getDeviceId();
 
-//        FirebaseApp.initializeApp(this);
-//        FirebaseFirestore db = FirebaseFirestore.getInstance();
-//        db.collection("users")
-//                .whereEqualTo("serial", uid) // <-- This line
-//                .get()
-//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                    @Override
-//                    public void onComplete(@NonNull Order<QuerySnapshot> task) {
-//                        if (!task.isSuccessful()) {
-//
-//                            if (!task.getResult().isEmpty()) {
-//                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
-//                                finish();
-//                            }
-////                            for (DocumentSnapshot document : task.getResult()) {
-////                                Log.d(TAG, document.getId() + " => " + document.getData());
-////                            }
-//                        } else {
-//
-//                            Log.d(TAG, "Error getting documents: ", task.getException());
-//                        }
-//                    }
-//                });
+
+        FirebaseApp.initializeApp(this);
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("users")
+                .whereEqualTo("serial", uid) // <-- This line
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (!task.isSuccessful()) {
+
+                            if (!task.getResult().isEmpty()) {
+                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                finish();
+                            }
+                            for (DocumentSnapshot document : task.getResult()) {
+                                if( uid.equalsIgnoreCase(String.valueOf(document.getData()))){
+                                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                    finish();
+                                }else {
+
+                                }
+                                Log.d(TAG, document.getId() + " => " + document.getData());
+                            }
+                        } else {
+
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
 
     }
 
     public void OnCall(View view) {
         Toast.makeText(getApplicationContext(), "+93793240178", Toast.LENGTH_LONG).show();
-        startActivity(new Intent(getApplicationContext(), MainActivity.class));
-        finish();
+
     }
 
 

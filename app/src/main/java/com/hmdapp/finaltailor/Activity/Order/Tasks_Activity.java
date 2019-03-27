@@ -1,5 +1,7 @@
 package com.hmdapp.finaltailor.Activity.Order;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +12,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 
@@ -28,6 +31,9 @@ public class Tasks_Activity extends AppCompatActivity {
     AdapterList_Tasks adapterList_tasks;
     private View parent_view;
 
+    private SearchView searchView;
+    List<Order> items;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +50,7 @@ public class Tasks_Activity extends AppCompatActivity {
 
         DB_Acsess db_acsess = DB_Acsess.getInstans(this);
         db_acsess.open();
-        List<Order> items = db_acsess.getAllTask();
+         items = db_acsess.getAllTask();
 
         Log.d("order_siz_task_activity",items.size()+"");
 
@@ -77,6 +83,44 @@ public class Tasks_Activity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_search_setting, menu);
+
+
+
+
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        searchView = (SearchView) menu.findItem(R.id.app_bar_search)
+                .getActionView();
+        searchView.setSearchableInfo(searchManager
+                .getSearchableInfo(getComponentName()));
+        searchView.setMaxWidth(Integer.MAX_VALUE);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                searchAction(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                items.clear();
+                recyclerView.setAdapter(null);
+                DB_Acsess db_acsess = DB_Acsess.getInstans(getApplicationContext());
+                db_acsess.open();
+                items = db_acsess.getAllTask();
+               // Toast.makeText(Tasks_Activity.this, "close", Toast.LENGTH_SHORT).show();
+                adapterList_tasks = new AdapterList_Tasks(getApplicationContext(), items);
+                recyclerView.setAdapter(adapterList_tasks);
+                return true;
+            }
+        });
         return true;
     }
 
@@ -96,4 +140,28 @@ public class Tasks_Activity extends AppCompatActivity {
     public void onBackPressed() {
 
     }
+
+
+    private void searchAction(String query) {
+        items.clear();
+        recyclerView.setAdapter(null);
+
+
+        DB_Acsess db_acsess = DB_Acsess.getInstans(this);
+        db_acsess.open();
+
+
+        if (!query.trim().equals("")) {
+
+            items.addAll(db_acsess.searchTask(query));
+            if (items.size() > 0) {
+                //  lyt_result.setVisibility(View.VISIBLE);
+                recyclerView.setAdapter(adapterList_tasks);
+            }
+
+        } else {
+            Toast.makeText(this, "Please fill search input", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 }

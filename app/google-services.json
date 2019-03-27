@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "993892082197",
+    "firebase_url": "https://taior-server.firebaseio.com",
+    "project_id": "taior-server",
+    "storage_bucket": "taior-server.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:993892082197:android:563d0312e1de6f57",
+        "android_client_info": {
+          "package_name": "com.hmdapp.finaltailor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "993892082197-so5hhv77qihdh6hcul81dgr77o9f8ikd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hmdapp.finaltailor",
+            "certificate_hash": "7f2d13e6af0c1e82bd9f117b4089690e5de3eb89"
+          }
+        },
+        {
+          "client_id": "993892082197-581qos4qv1rlvdl44dsptvrhcjlqnl5l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGeBPqy_nY6gqVzADFFBA01ofnz2yJAms"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "993892082197-581qos4qv1rlvdl44dsptvrhcjlqnl5l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

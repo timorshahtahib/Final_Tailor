@@ -1,9 +1,11 @@
 package com.hmdapp.finaltailor.Activity;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 
 import android.os.Build;
@@ -12,6 +14,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -20,6 +23,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -33,6 +37,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.hmdapp.finaltailor.Activity.Customer.Person_Activity;
 import com.hmdapp.finaltailor.Activity.Order.Tasks_Activity;
 import com.hmdapp.finaltailor.Activity.Report_Dashbord.DashboradReportActivity;
@@ -50,7 +60,16 @@ import java.util.List;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
+    public static final int MULTIPLE_PERMISSIONS = 10; // code you want.
+    String[] permissions = new String[]{
 
+            Manifest.permission.READ_PHONE_STATE,
+            Manifest.permission.SEND_SMS,
+            Manifest.permission.CALL_PHONE,
+            Manifest.permission.READ_SMS,
+            Manifest.permission.RECEIVE_SMS,
+
+    };
 
     private View parent_view;
     private ViewPager viewPager;
@@ -105,6 +124,8 @@ public class MainActivity extends AppCompatActivity {
         setUpToolbar();
         setUpNavigationView();
         initComponent();
+
+
     }
 
 
@@ -420,4 +441,102 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+
+
+
+    private boolean checkPermissions() {
+        int result;
+        List<String> listPermissionsNeeded = new ArrayList<>();
+        for (String p : permissions) {
+            result = ContextCompat.checkSelfPermission(getApplicationContext(), p);
+            if (result != PackageManager.PERMISSION_GRANTED) {
+                listPermissionsNeeded.add(p);
+            }
+        }
+        if (!listPermissionsNeeded.isEmpty()) {
+            ActivityCompat.requestPermissions(this, listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]), MULTIPLE_PERMISSIONS);
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case MULTIPLE_PERMISSIONS: {
+
+
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                } else {
+
+
+                }
+
+
+                return;
+            }
+        }
+    }
+    private void isAvalible_user() {
+
+        TelephonyManager tManager = (TelephonyManager) getApplication().getSystemService(Context.TELEPHONY_SERVICE);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        final String uid = tManager.getDeviceId();
+
+        FirebaseApp.initializeApp(this);
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("users")
+                .whereEqualTo("serial", uid) // <-- This line
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+
+
+                        Log.d("TAG_e",task.getResult().toString());
+                        if (!task.isSuccessful()) {
+
+
+                            Toast.makeText(MainActivity.this, task.getResult().toString(), Toast.LENGTH_SHORT).show();
+                            if (task.getResult().equals("")) {
+                                startActivity(new Intent(getApplicationContext(),Activity_No_Permesion_use.class));
+                                finish();
+                            }
+//                            for (DocumentSnapshot document : task.getResult()) {
+//                                if( uid.equalsIgnoreCase(String.valueOf(document.getData()))){
+//                                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+//                                    finish();
+//                                }else {
+//                                   ;
+//                                }
+                               Log.d("TAG_e", task.getResult().toString());
+//                         }
+                        } else {
+
+                            Log.d("TAG_e", "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+
+    }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+       // isAvalible_user();
+    }
 }

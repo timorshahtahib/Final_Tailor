@@ -2,6 +2,7 @@ package com.hmdapp.finaltailor.Activity.Order;
 
 import android.app.Dialog;
 import android.app.PendingIntent;
+import android.app.Person;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -23,6 +24,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.api.Control;
 import com.hmdapp.finaltailor.Models.Cloth;
 import com.hmdapp.finaltailor.Models.Customer;
 import com.hmdapp.finaltailor.Models.Order;
@@ -68,7 +70,7 @@ public class show_Order_Info extends AppCompatActivity {
         Cloth cloth = order.getCloth();
         Customer customer = cloth.getCustomer();
 
-        Log.d("order_id","id:  "+id);
+        Log.d("order_id", "id:  " + id);
         Payment payment = null;
         try {
             payment = db_acsess.getPayment(id);
@@ -76,7 +78,7 @@ public class show_Order_Info extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        Log.d("Payment",payment.toString());
+        Log.d("Payment", payment.toString());
 
         getSupportActionBar().setTitle(customer.getName());
 
@@ -91,7 +93,7 @@ public class show_Order_Info extends AppCompatActivity {
         try {
             tvPayment.setText(payment.getPish_pardakht() + "");
             tvRemainder.setText(payment.getReminder() + "");
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -122,9 +124,9 @@ public class show_Order_Info extends AppCompatActivity {
                 if (isChecked) {
                     order.setCom_state(1);
 
-                    db_acsess.updateTask( order);
-                    LocalData localData=new LocalData(getApplicationContext());
-                    if(localData.get_customer_confirm()){
+                    db_acsess.updateTask(order);
+                    LocalData localData = new LocalData(getApplicationContext());
+                    if (localData.get_customer_confirm()) {
                         onsend_sms();
                     }
 
@@ -159,7 +161,7 @@ public class show_Order_Info extends AppCompatActivity {
                     finish();
                 } else {
                     order.setIsExist(0);
-                    db_acsess.updateTaskClothState( order);
+                    db_acsess.updateTaskClothState(order);
                     startActivity(new Intent(show_Order_Info.this, Tasks_Activity.class));
                     finish();
                     //  Toast.makeText(show_Order_Info.this,"false = 0", Toast.LENGTH_LONG).show();
@@ -186,16 +188,16 @@ public class show_Order_Info extends AppCompatActivity {
         tvPayment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int x=Integer.parseInt(tvPayment.getText().toString());
-                if(x==0){
+                int x = Integer.parseInt(tvPayment.getText().toString());
+                if (x == 0) {
 
-                }else{
+                } else {
 
-                    Intent intent=new Intent(getApplicationContext(),Show_Payment_of_order.class);
+                    Intent intent = new Intent(getApplicationContext(), Show_Payment_of_order.class);
                     int remainder = Integer.parseInt(tvRemainder.getText().toString());
-                    intent.putExtra("reminder",remainder);
+                    intent.putExtra("reminder", remainder);
                     int id = getIntent().getIntExtra("id", 0);
-                    intent.putExtra("order_id",id);
+                    intent.putExtra("order_id", id);
                     startActivity(intent);
                     finish();
                 }
@@ -214,7 +216,7 @@ public class show_Order_Info extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
 
-            startActivity(new Intent(this,Tasks_Activity.class));
+            startActivity(new Intent(this, Tasks_Activity.class));
             finish();
 
         } else if (item.getItemId() == R.id.action_pay_task) {
@@ -297,13 +299,12 @@ public class show_Order_Info extends AppCompatActivity {
                 float remainder = Float.parseFloat(tvRemainder.getText().toString());
 
 
-
-               int value = Integer.parseInt(edPayment.getText().toString());
+                int value = Integer.parseInt(edPayment.getText().toString());
 
 
                 //Toast.makeText(getApplicationContext(), "Price : "+price+" , Payment : "+payment +" , Value : "+value, Toast.LENGTH_SHORT).show();
 
-                if ( value-remainder<=0) {
+                if (value - remainder <= 0) {
 
                     int taskId = getIntent().getIntExtra("id", 1);
                     Order order = new Order();
@@ -317,9 +318,9 @@ public class show_Order_Info extends AppCompatActivity {
                     long time = System.currentTimeMillis();
                     String regDate = Tools.getFormattedDateSimple(time);
                     payment_.setDate(regDate);
-                    db_acsess.Add_Rasid( payment_);
+                    db_acsess.Add_Rasid(payment_);
 
-                  // Toast.makeText(getApplicationContext(), "Hi "+regDate, Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(getApplicationContext(), "Hi "+regDate, Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
 
                     startActivity(new Intent(show_Order_Info.this, Tasks_Activity.class));
@@ -347,39 +348,57 @@ public class show_Order_Info extends AppCompatActivity {
         String phon = getIntent().getStringExtra("phone");
 
         Intent callIntent = new Intent(Intent.ACTION_CALL);
-        callIntent.setData(Uri.parse("tel:"+phon));//change the number
+        callIntent.setData(Uri.parse("tel:" + phon));//change the number
 
-        try{
+        try {
             startActivity(callIntent);
-        }
-
-        catch (android.content.ActivityNotFoundException ex){
+        } catch (android.content.ActivityNotFoundException ex) {
 
             ex.printStackTrace();
-            Toast.makeText(getApplicationContext(),"yourActivity is not founded",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "yourActivity is not founded", Toast.LENGTH_SHORT).show();
         }
     }
 
     public void onsend_sms() {
-        LocalData localData=new LocalData(this);
+        LocalData localData = new LocalData(this);
         String phon = getIntent().getStringExtra("phone");
 
 //        Uri uri = Uri.parse("smsto:0800000123");
-//        Intent it = new Intent(Intent.ACTION_SENDTO, uri);
-//        it.putExtra("sms_body", "The SMS text");
-//        startActivity(it);
+        Intent it = new Intent(Intent.ACTION_SEND);
+        it.setType("text/plain");
 
-//        Intent smsIntent = new Intent(android.content.Intent.ACTION_VIEW);
+        it.putExtra(Intent.EXTRA_TEXT, localData.get_cutomer_text());
+        it.putExtra("address", phon);
+        startActivity(it);
+
+//        Intent smsIntent = new Intent(Intent.ACTION_VIEW);
 //        smsIntent.setType("vnd.android-dir/mms-sms");
 //        smsIntent.putExtra("address",phon);
 //        smsIntent.putExtra("sms_body",localData.get_cutomer_text());
 //        startActivity(smsIntent);
 
         //Get the SmsManager instance and call the sendTextMessage method to send message
-        SmsManager sms=SmsManager.getDefault();
-        sms.sendTextMessage(phon, null, localData.get_cutomer_text(), null,null);
+//        SmsManager sms=SmsManager.getDefault();
+//        sms.sendTextMessage(phon, null, localData.get_cutomer_text(), null,null);
 
         Toast.makeText(getApplicationContext(), "Message Sent successfully!",
                 Toast.LENGTH_LONG).show();
+    }
+
+    public void onsendsms(View view) {
+
+
+
+        String phon = getIntent().getStringExtra("phone");
+
+
+        Intent it = new Intent(Intent.ACTION_SEND);
+        it.setType("text/plain");
+
+
+        it.putExtra("address", phon);
+        startActivity(it);
+
+
     }
 }
