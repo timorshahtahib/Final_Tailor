@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.hmdapp.finaltailor.Activity.Report_Dashbord.EveryRemainderActivity;
 import com.hmdapp.finaltailor.Adapter.Adaptar_model;
 import com.hmdapp.finaltailor.Models.Model;
 import com.hmdapp.finaltailor.R;
@@ -30,12 +31,16 @@ public class Profile_Activity extends AppCompatActivity {
 
     private TextView tx_f_name, tx_job, tx_phone;
 
-    private TextView tx_qad, tx_shana, tx_baqal, tx_daman, tx_shalwar,
-            tx_pacha, tx_bar_shalwar, tx_model, tx_model_dam_astin,
-            tx_model_qot_astin, tx_qad_paty, tx_astin, tx_yakhan,
-            tx_model_yaqa, tx_dam_astin, tx_model_astin;
-    String dliverDate;
-    TextView txt_show_date;
+//    private TextView tx_qad, tx_shana, tx_baqal, tx_daman, tx_shalwar,
+//            tx_pacha, tx_bar_shalwar, tx_model, tx_model_dam_astin,
+//            tx_model_qot_astin, tx_qad_paty, tx_astin, tx_yakhan,
+//            tx_model_yaqa, tx_dam_astin, tx_model_astin;
+//    String dliverDate;
+//    TextView txt_show_date;
+
+    TextView reminder;
+    View reminder_lyt;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +74,26 @@ public class Profile_Activity extends AppCompatActivity {
                 finish();
             }
         });
+        int remind = db_acsess.getRemainderCuctomer(id_cu);
+
+
+        reminder = findViewById(R.id.textView2);
+        reminder_lyt = findViewById(R.id.reminder_lyt);
+        if (remind > 0) {
+            reminder.setText("" + remind);
+
+            reminder.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getApplicationContext(), EveryRemainderActivity.class);
+                    intent.putExtra("id", id_cu); 
+                    startActivity(intent);
+                }
+            });
+        } else {
+            reminder_lyt.setVisibility(View.INVISIBLE);
+        }
+
 
         ////Cloth cl = db_acsess.getCloth(id_cu);
 
@@ -197,7 +222,7 @@ public class Profile_Activity extends AppCompatActivity {
     public void call(View view) {
         String phon = getIntent().getStringExtra("phone");
 
-        Intent callIntent = new Intent(Intent.ACTION_CALL);
+        Intent callIntent = new Intent(Intent.ACTION_DIAL);
         callIntent.setData(Uri.parse("tel:" + phon));//change the number
 
         try {

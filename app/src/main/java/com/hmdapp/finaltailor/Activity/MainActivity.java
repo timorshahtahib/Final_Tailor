@@ -24,6 +24,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.telephony.TelephonyManager;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -40,9 +41,17 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.model.Document;
 import com.hmdapp.finaltailor.Activity.Customer.Person_Activity;
 import com.hmdapp.finaltailor.Activity.Order.Tasks_Activity;
 import com.hmdapp.finaltailor.Activity.Report_Dashbord.DashboradReportActivity;
@@ -59,7 +68,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import javax.annotation.Nullable;
+
 public class MainActivity extends AppCompatActivity {
+
+    private String version_code;
+
     public static final int MULTIPLE_PERMISSIONS = 10; // code you want.
     String[] permissions = new String[]{
 
@@ -109,6 +123,9 @@ public class MainActivity extends AppCompatActivity {
 
         Locale locale = new Locale("En");
         Locale.setDefault(locale);
+
+        checkVersion();
+
         try {
 
             Configuration configuration = new Configuration();
@@ -124,8 +141,92 @@ public class MainActivity extends AppCompatActivity {
         setUpToolbar();
         setUpNavigationView();
         initComponent();
+        TelephonyManager tManager = (TelephonyManager) getApplication().getSystemService(Context.TELEPHONY_SERVICE);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        final String uid = tManager.getDeviceId();
+
+        FirebaseFirestore.getInstance().collection("users").addSnapshotListener(this, new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                if (!queryDocumentSnapshots.isEmpty()) {
 
 
+                    //  DocumentSnapshot doc = queryDocumentSnapshots.getDocuments().get(0);
+
+                    for (DocumentSnapshot doc : queryDocumentSnapshots.getDocuments()) {
+                        if (uid.contains(String.valueOf(doc.getLong("serial")))) {
+                            boolean b = doc.getBoolean("isactive");
+                            // Toast.makeText(MainActivity.this, "b = "+ b, Toast.LENGTH_SHORT).show();
+                            if (!b) {
+
+                                Toast.makeText(MainActivity.this, "مشتری عزیز حساب شما بسته شده است  ۰۷۹۳۲۴۰۱۷۸", Toast.LENGTH_SHORT).show();
+                                finish();
+                            } else {
+
+                            }
+                        } else {
+                        }
+                    }
+
+
+                } else {
+                    Toast.makeText(MainActivity.this, "null", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+
+    }
+
+    private void checkVersion() {
+
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("version");
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                version_code = (String) dataSnapshot.getValue();
+                String appVersion = "";
+                try {
+                    appVersion = getApplicationContext().getPackageManager().getPackageInfo(getApplicationContext().getPackageName(), 0).versionName;
+
+                    appVersion = appVersion.replaceAll("a-zA-Z|-", "");
+                } catch (PackageManager.NameNotFoundException e) {
+                    e.printStackTrace();
+                }
+
+                checkPoint(version_code, appVersion);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+    private void checkPoint(String version_code, String appVersion) {
+
+
+        if (!TextUtils.equals(version_code, appVersion)) {
+            updateDialog();
+        }
+
+    }
+
+    private void updateDialog() {
+        startActivity(new Intent(this, UPDATE.class));
+        Toast.makeText(this, "plz update", Toast.LENGTH_SHORT).show();
     }
 
 
@@ -367,7 +468,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void gallary(View view) {
 
-        startActivity(new Intent(this,Gallary.class));
+        startActivity(new Intent(this, Gallary.class));
     }
 
     private static class AdapterImageSlider extends PagerAdapter {
@@ -442,9 +543,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-
-
     private boolean checkPermissions() {
         int result;
         List<String> listPermissionsNeeded = new ArrayList<>();
@@ -479,6 +577,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
     private void isAvalible_user() {
 
         TelephonyManager tManager = (TelephonyManager) getApplication().getSystemService(Context.TELEPHONY_SERVICE);
@@ -506,13 +605,13 @@ public class MainActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
 
 
-                        Log.d("TAG_e",task.getResult().toString());
+                        Log.d("TAG_e", task.getResult().toString());
                         if (!task.isSuccessful()) {
 
 
                             Toast.makeText(MainActivity.this, task.getResult().toString(), Toast.LENGTH_SHORT).show();
                             if (task.getResult().equals("")) {
-                                startActivity(new Intent(getApplicationContext(),Activity_No_Permesion_use.class));
+                                startActivity(new Intent(getApplicationContext(), Activity_No_Permesion_use.class));
                                 finish();
                             }
 //                            for (DocumentSnapshot document : task.getResult()) {
@@ -522,7 +621,7 @@ public class MainActivity extends AppCompatActivity {
 //                                }else {
 //                                   ;
 //                                }
-                               Log.d("TAG_e", task.getResult().toString());
+                            Log.d("TAG_e", task.getResult().toString());
 //                         }
                         } else {
 
@@ -537,6 +636,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-       // isAvalible_user();
+        // isAvalible_user();
     }
 }

@@ -22,7 +22,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.google.firebase:firebase-firestore:17.1.0'
+    implementation 'com.google.firebase:firebase-firestore:18.2.0'
     configurations {
         all*.exclude group: 'com.android.support', module: 'support-v13'
     }
@@ -44,13 +44,15 @@ dependencies {
 
 
 
-    implementation 'com.google.firebase:firebase-core:16.0.1'
+    implementation 'com.google.firebase:firebase-core:16.0.8'
 
 
     implementation 'com.android.support:multidex:1.0.3'
     implementation 'com.balysv:material-ripple:1.0.2'                  // ripple effect
 
     implementation 'com.rom4ek:arcnavigationview:1.0.3'
+
+    implementation 'com.google.firebase:firebase-database:16.1.0'
 
 }
 

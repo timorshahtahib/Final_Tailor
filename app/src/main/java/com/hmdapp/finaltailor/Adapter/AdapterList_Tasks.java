@@ -40,6 +40,7 @@ public class AdapterList_Tasks extends RecyclerView.Adapter<RecyclerView.ViewHol
         public TextView name;
         public TextView date;
         public TextView model;
+        TextView fac_;
         public View lyt_parent;
 
         public OriginalViewHolder(View v) {
@@ -47,6 +48,8 @@ public class AdapterList_Tasks extends RecyclerView.Adapter<RecyclerView.ViewHol
             image = v.findViewById(R.id.img_status);
             name = v.findViewById(R.id.txt_namee);
             date = v.findViewById(R.id.txt_date);
+            fac_=v.findViewById(R.id.fac_number);
+
             model = v.findViewById(R.id.txt_model);
             lyt_parent = v.findViewById(R.id.lyt_parent);
         }
@@ -70,6 +73,8 @@ public class AdapterList_Tasks extends RecyclerView.Adapter<RecyclerView.ViewHol
             view.name.setText(order.getCloth().getCustomer().getName() + "   ");
             view.date.setText(order.getDeliverDate());
             view.model.setText(order.getCloth().getDes());
+            int id=order.getId()+1;
+            view.fac_.setText(""+id);
             if (order.getCom_state() == 0) {
                 Tools.displayImageRound(ctx, view.image, R.drawable.delet);
             } else {

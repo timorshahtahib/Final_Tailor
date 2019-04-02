@@ -6,8 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-import android.widget.Toast;
-
 
 import com.hmdapp.finaltailor.Models.Cloth;
 import com.hmdapp.finaltailor.Models.Customer;
@@ -382,22 +380,22 @@ public class DB_Acsess {
         c.moveToNext();
         Cloth con = new Cloth();
         con.setId(c.getInt(0));
-        con.setQad(c.getInt(1));
-        con.setShana(c.getInt(2));
-        con.setBaqal(c.getInt(3));
-        con.setDaman(c.getInt(4));
-        con.setShalwar(c.getInt(5));
-        con.setPacha(c.getInt(6));
-        con.setBar_shalwar(c.getInt(7));
+        con.setQad(c.getDouble(1));
+        con.setShana(c.getDouble(2));
+        con.setBaqal(c.getDouble(3));
+        con.setDaman(c.getDouble(4));
+        con.setShalwar(c.getDouble(5));
+        con.setPacha(c.getDouble(6));
+        con.setBar_shalwar(c.getDouble(7));
         con.setModel(c.getString(8));
         con.setModel_dam_astin(c.getString(9));
         con.setModel_qot_astin(c.getString(10));
         con.setQad_paty(c.getString(11));
         con.setModel_astin(c.getString(12));
-        con.setYakhan(c.getInt(13));
-        con.setDam_astin(c.getInt(14));
+        con.setYakhan(c.getDouble(13));
+        con.setDam_astin(c.getDouble(14));
         con.setModel_yaqa(c.getString(15));
-        con.setAstin(c.getInt(16));
+        con.setAstin(c.getDouble(16));
         Customer customer = getCustomer(c.getInt(17));
         con.setDes(c.getString(18));
         con.setCustomer(customer);
@@ -415,22 +413,22 @@ public class DB_Acsess {
             c.moveToNext();
 
             con.setId(c.getInt(0));
-            con.setQad(c.getInt(1));
-            con.setShana(c.getInt(2));
-            con.setBaqal(c.getInt(3));
-            con.setDaman(c.getInt(4));
-            con.setShalwar(c.getInt(5));
-            con.setPacha(c.getInt(6));
-            con.setBar_shalwar(c.getInt(7));
+            con.setQad(c.getDouble(1));
+            con.setShana(c.getDouble(2));
+            con.setBaqal(c.getDouble(3));
+            con.setDaman(c.getDouble(4));
+            con.setShalwar(c.getDouble(5));
+            con.setPacha(c.getDouble(6));
+            con.setBar_shalwar(c.getDouble(7));
             con.setModel(c.getString(8));
             con.setModel_dam_astin(c.getString(9));
             con.setModel_qot_astin(c.getString(10));
             con.setQad_paty(c.getString(11));
             con.setModel_astin(c.getString(12));
-            con.setYakhan(c.getInt(13));
-            con.setDam_astin(c.getInt(14));
+            con.setYakhan(c.getDouble(13));
+            con.setDam_astin(c.getDouble(14));
             con.setModel_yaqa(c.getString(15));
-            con.setAstin(c.getInt(16));
+            con.setAstin(c.getDouble(16));
             Customer customer = getCustomer(c.getInt(17));
             con.setDes(c.getString(18));
             con.setCustomer(customer);
@@ -940,6 +938,8 @@ public class DB_Acsess {
     public Collection<? extends Order> searchTask(String query) {
 
 
+
+
         Customer customer = getCustomerByname(query);
 
 
@@ -948,6 +948,34 @@ public class DB_Acsess {
         ArrayList<Order> list = new ArrayList<>();
         //ORDER BY deliver_date DESC
         Cursor d = db.rawQuery("select * from 'order'  where fk_cu_cl_info= " + cl.getId(), new String[]{});
+
+        Log.d("Get All order : size", d.getCount() + "");
+        while (d.moveToNext()) {
+            Order order = new Order();
+            order.setId(d.getInt(0));
+            order.setCount(d.getInt(1));
+            order.setColor(d.getString(2));
+            order.setPrice(d.getFloat(3));
+            order.setOrder_Date(d.getString(4));
+            order.setDeliverDate(d.getString(5));
+            order.setIsExist(d.getInt(6));
+            order.setCom_state(d.getInt(7));
+            Cloth cloth = getCloth(d.getInt(8));
+            // Cloth cloth = getCloth(1);
+            order.setCloth(cloth);
+            list.add(order);
+            Log.d("Get Order ....  id : ", order.getId() + "");
+        }
+        return list;
+    }
+    public Collection<? extends Order> searchTask(double query) {
+
+
+
+
+        ArrayList<Order> list = new ArrayList<>();
+        //ORDER BY deliver_date DESC
+        Cursor d = db.rawQuery("select * from 'order'  where id= " + query, new String[]{});
 
         Log.d("Get All order : size", d.getCount() + "");
         while (d.moveToNext()) {
@@ -1021,5 +1049,11 @@ public class DB_Acsess {
         return list;
 
 
+    }
+
+    public int getRemainderCuctomer(int id) {
+        c = db.rawQuery("select SUM(amount) as Total from payment_report where customer_id="+id, new String[]{});
+        c.moveToFirst();
+        return c.getInt(c.getColumnIndex("Total"));
     }
 }

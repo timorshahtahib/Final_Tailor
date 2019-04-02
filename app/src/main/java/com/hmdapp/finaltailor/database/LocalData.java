@@ -38,6 +38,16 @@ public class LocalData {
 
     }
 
+
+    public void setFisrt(boolean t){
+        prefsEditor.putBoolean("first_", t);
+        prefsEditor.commit();
+    }
+
+    public boolean getFiers(){
+      return   appSharedPrefs.getBoolean("first_",false);
+    }
+
     public void set_customer_reply(boolean v) {
         prefsEditor.putBoolean("reply", v);
         prefsEditor.commit();

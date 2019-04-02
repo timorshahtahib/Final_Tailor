@@ -1,35 +1,66 @@
 {
   "project_info": {
-    "project_number": "993892082197",
-    "firebase_url": "https://taior-server.firebaseio.com",
-    "project_id": "taior-server",
-    "storage_bucket": "taior-server.appspot.com"
+    "project_number": "404005107639",
+    "firebase_url": "https://tailor-appp.firebaseio.com",
+    "project_id": "tailor-appp",
+    "storage_bucket": "tailor-appp.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:993892082197:android:563d0312e1de6f57",
+        "mobilesdk_app_id": "1:404005107639:android:563d0312e1de6f57",
         "android_client_info": {
           "package_name": "com.hmdapp.finaltailor"
         }
       },
       "oauth_client": [
         {
-          "client_id": "993892082197-so5hhv77qihdh6hcul81dgr77o9f8ikd.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.hmdapp.finaltailor",
-            "certificate_hash": "7f2d13e6af0c1e82bd9f117b4089690e5de3eb89"
-          }
-        },
-        {
-          "client_id": "993892082197-581qos4qv1rlvdl44dsptvrhcjlqnl5l.apps.googleusercontent.com",
+          "client_id": "404005107639-ulbblsrs0fj78rv6ni8vb389ns2h601r.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCGeBPqy_nY6gqVzADFFBA01ofnz2yJAms"
+          "current_key": "AIzaSyCb5ybFzuGaJZOqUXCD9pc2g9S11ihvi3U"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:404005107639:android:fcdc94bb657120b8",
+        "android_client_info": {
+          "package_name": "com.poraan.tailor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "404005107639-ndb76djmi6jhrl758596ph27gdhs25h7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.poraan.tailor",
+            "certificate_hash": "7f2d13e6af0c1e82bd9f117b4089690e5de3eb89"
+          }
+        },
+        {
+          "client_id": "404005107639-ulbblsrs0fj78rv6ni8vb389ns2h601r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCb5ybFzuGaJZOqUXCD9pc2g9S11ihvi3U"
         }
       ],
       "services": {
@@ -40,7 +71,7 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "993892082197-581qos4qv1rlvdl44dsptvrhcjlqnl5l.apps.googleusercontent.com",
+              "client_id": "404005107639-ulbblsrs0fj78rv6ni8vb389ns2h601r.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

@@ -30,7 +30,7 @@ public class Regester_cloth_Activity extends AppCompatActivity {
     private EditText ed_qad, ed_shana, ed_baqal, ed_daman, ed_shalwar, ed_pacha, ed_bar_shalwar, ed_yakhan, ed_astin, ed_dam_astin;
     private RadioGroup rg_model, rg_model_astin, rg_qot_astin, rg_model_yaqa, rg_qad_paty, rg_model_dam_astin;
     //    private String full_name, job, phone;
-    private int qad, shana, baghal, daman, shalwar, pacha, bar_shalwar, yakhan, astin, dam_astin;
+    private double qad, shana, baghal, daman, shalwar, pacha, bar_shalwar, yakhan, astin, dam_astin;
     private String model, model_astin, qot_astin, model_yaqa, qad_paty, model_dam_astn;
 
     private EditText ed_desc;
@@ -432,14 +432,14 @@ public class Regester_cloth_Activity extends AppCompatActivity {
     }
 
 
-    private int getText(EditText ed) {
+    private double getText(EditText ed) {
 
         String tx = ed.getText().toString().trim();
 
         if (TextUtils.isEmpty(tx)) {
             return -1;
         }
-        return Integer.parseInt(tx);
+        return Double.parseDouble(tx);
 
     }
 

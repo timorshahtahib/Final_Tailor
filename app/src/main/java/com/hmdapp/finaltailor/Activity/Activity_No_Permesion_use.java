@@ -1,5 +1,6 @@
 package com.hmdapp.finaltailor.Activity;
 
+import android.Manifest;
 import android.Manifest.permission;
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -16,6 +17,7 @@ import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -26,6 +28,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import com.hmdapp.finaltailor.R;
+import com.hmdapp.finaltailor.database.LocalData;
 
 
 import java.security.Permission;
@@ -40,13 +43,14 @@ public class Activity_No_Permesion_use extends AppCompatActivity {
 
 
     public static final int MULTIPLE_PERMISSIONS = 10; // code you want.
+    private static final int READ_PHONE_REQUEST_CODE = 65;
     String[] permissions = new String[]{
 
             permission.READ_PHONE_STATE,
             permission.SEND_SMS,
-            permission.CALL_PHONE,
-            permission.READ_SMS,
-            permission.RECEIVE_SMS,
+            permission.WRITE_EXTERNAL_STORAGE,
+            permission.READ_EXTERNAL_STORAGE
+
 
     };
 
@@ -61,7 +65,7 @@ public class Activity_No_Permesion_use extends AppCompatActivity {
      * user interaction before hiding the system UI.
      */
     private static final int AUTO_HIDE_DELAY_MILLIS = 3000;
-
+    LocalData localData;
     /**
      * Some older devices needs a small delay between UI widget updates
      * and a change of the status and navigation bar.
@@ -120,17 +124,24 @@ public class Activity_No_Permesion_use extends AppCompatActivity {
         }
     };
 
+
+    ProgressBar progressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity__no__permesion_use);
+        progressBar = findViewById(R.id.progressBar);
+
+        progressBar.setVisibility(View.INVISIBLE);
+
         FirebaseApp.initializeApp(this);
         mVisible = true;
         mControlsView = findViewById(R.id.fullscreen_content_controls);
         mContentView = findViewById(R.id.fullscreen_content);
 
-
+        FirebaseApp.initializeApp(this);
+        localData = new LocalData(this);
         // Set up the user interaction to manually show or hide the system UI.
         mContentView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -143,7 +154,6 @@ public class Activity_No_Permesion_use extends AppCompatActivity {
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
         findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
-
 
 
     }
@@ -206,20 +216,25 @@ public class Activity_No_Permesion_use extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        if (checkPermissions()){
-           isAvalible_user();
-               } else {
+        if (checkPermissions()) {
 
-            // show dialog informing them that we lack certain permissions
 
+            if (!localData.getFiers()) {
+                isAvalible_user();
+            } else {
+                startActivity(new Intent(this, MainActivity.class));
+                finish();
+            }
+
+        } else {
             Toast.makeText(this, "We Dont Have App Permission", Toast.LENGTH_SHORT).show();
-             }
+        }
 
 
     }
 
     private void isAvalible_user() {
-
+        progressBar.setVisibility(View.VISIBLE);
         TelephonyManager tManager = (TelephonyManager) getApplication().getSystemService(Context.TELEPHONY_SERVICE);
         if (ActivityCompat.checkSelfPermission(this, permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
@@ -237,30 +252,46 @@ public class Activity_No_Permesion_use extends AppCompatActivity {
         FirebaseApp.initializeApp(this);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("users")
-                .whereEqualTo("serial", uid) // <-- This line
+//                .whereEqualTo("serial", uid) // <-- This line
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
 
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (!task.isSuccessful()) {
+                        progressBar.setVisibility(View.INVISIBLE);
 
-                            if (!task.getResult().isEmpty()) {
-                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                                finish();
-                            }
-                            for (DocumentSnapshot document : task.getResult()) {
-                                if( uid.equalsIgnoreCase(String.valueOf(document.getData()))){
+                        // Toast.makeText(Activity_No_Permesion_use.this, ""+task.getResult().toString(), Toast.LENGTH_SHORT).show();
+
+                        if (task.isSuccessful()) {
+
+
+//                            if (!task.getResult().isEmpty()) {
+//
+//                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+//
+//                            }
+                            for (DocumentSnapshot document : task.getResult().getDocuments()) {
+
+
+                                Log.d(TAG, document.getId() + " => " + document.getData());
+                                Log.d(TAG, uid + " => ");
+
+                                if (uid.contains(String.valueOf(document.getLong("serial")))) {
+
                                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
                                     finish();
-                                }else {
+
+                                    localData.setFisrt(true);
+                                } else {
+
+                                    Toast.makeText(Activity_No_Permesion_use.this, "cant use", Toast.LENGTH_SHORT).show();
 
                                 }
-                                Log.d(TAG, document.getId() + " => " + document.getData());
                             }
                         } else {
 
-                            Log.d(TAG, "Error getting documents: ", task.getException());
+                            Toast.makeText(Activity_No_Permesion_use.this, " " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            Log.d(TAG, "Error getting documents: " + task.getException());
                         }
                     }
                 });
@@ -276,36 +307,34 @@ public class Activity_No_Permesion_use extends AppCompatActivity {
     private boolean checkPermissions() {
         int result;
         List<String> listPermissionsNeeded = new ArrayList<>();
-        for (String p : permissions) {
-            result = ContextCompat.checkSelfPermission(getApplicationContext(), p);
-            if (result != PackageManager.PERMISSION_GRANTED) {
-                listPermissionsNeeded.add(p);
-            }
+        if (ContextCompat.checkSelfPermission(getApplicationContext(), permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{permission.READ_EXTERNAL_STORAGE, permission.WRITE_EXTERNAL_STORAGE, permission.READ_PHONE_STATE}, 455);
+
+            return true;
+        } else {
+            return true;
         }
-        if (!listPermissionsNeeded.isEmpty()) {
-            ActivityCompat.requestPermissions(this, listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]), MULTIPLE_PERMISSIONS);
-            return false;
-        }
-        return true;
+
+
+//        for (String p : permissions) {
+//            result = ContextCompat.checkSelfPermission(getApplicationContext(), p);
+//            if (result != PackageManager.PERMISSION_GRANTED) {
+//                listPermissionsNeeded.add(p);
+//
+//
+//            }
+//        }
+//        if (!listPermissionsNeeded.isEmpty()) {
+//            ActivityCompat.requestPermissions(this, listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]), MULTIPLE_PERMISSIONS);
+//            return false;
+//        }
+
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case MULTIPLE_PERMISSIONS: {
 
 
-                    if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-                    } else {
-
-
-                    }
-
-
-                return;
-            }
-        }
     }
 
 }

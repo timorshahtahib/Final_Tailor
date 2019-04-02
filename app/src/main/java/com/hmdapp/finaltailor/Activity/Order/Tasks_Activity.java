@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -42,6 +43,7 @@ public class Tasks_Activity extends AppCompatActivity {
         initToolbar();
         initComponent();
     }
+
     private void initComponent() {
         recyclerView = findViewById(R.id.task_recy);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -50,13 +52,13 @@ public class Tasks_Activity extends AppCompatActivity {
 
         DB_Acsess db_acsess = DB_Acsess.getInstans(this);
         db_acsess.open();
-         items = db_acsess.getAllTask();
+        items = db_acsess.getAllTask();
 
-        Log.d("order_siz_task_activity",items.size()+"");
+        Log.d("order_siz_task_activity", items.size() + "");
 
         adapterList_tasks = new AdapterList_Tasks(this, items);
         recyclerView.setAdapter(adapterList_tasks);
-       // Toast.makeText(this, "size" + items.size(), Toast.LENGTH_SHORT).show();
+        // Toast.makeText(this, "size" + items.size(), Toast.LENGTH_SHORT).show();
 
         // on item list clicked
         adapterList_tasks.setOnItemClickListener(new AdapterList_Tasks.OnItemClickListener() {
@@ -64,14 +66,15 @@ public class Tasks_Activity extends AppCompatActivity {
             public void onItemClick(View view, Order obj, int position) {
                 Intent intent = new Intent(getApplicationContext(), show_Order_Info.class);
                 intent.putExtra("id", obj.getId());
-                intent.putExtra("phone",obj.getCloth().getCustomer().getPhone());
+                intent.putExtra("phone", obj.getCloth().getCustomer().getPhone());
                 startActivity(intent);
                 finish();
-               // Snackbar.make(parent_view, "Item " + obj.getCustomer().getPhone() + " clicked", Snackbar.LENGTH_SHORT).show();
+                // Snackbar.make(parent_view, "Item " + obj.getCustomer().getPhone() + " clicked", Snackbar.LENGTH_SHORT).show();
             }
         });
 
     }
+
     private void initToolbar() {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -83,8 +86,6 @@ public class Tasks_Activity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_search_setting, menu);
-
-
 
 
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
@@ -115,7 +116,7 @@ public class Tasks_Activity extends AppCompatActivity {
                 DB_Acsess db_acsess = DB_Acsess.getInstans(getApplicationContext());
                 db_acsess.open();
                 items = db_acsess.getAllTask();
-               // Toast.makeText(Tasks_Activity.this, "close", Toast.LENGTH_SHORT).show();
+                // Toast.makeText(Tasks_Activity.this, "close", Toast.LENGTH_SHORT).show();
                 adapterList_tasks = new AdapterList_Tasks(getApplicationContext(), items);
                 recyclerView.setAdapter(adapterList_tasks);
                 return true;
@@ -153,7 +154,16 @@ public class Tasks_Activity extends AppCompatActivity {
 
         if (!query.trim().equals("")) {
 
-            items.addAll(db_acsess.searchTask(query));
+            if (TextUtils.isDigitsOnly(query)) {
+
+                double i=Integer.parseInt(query)-1;
+                items.addAll(db_acsess.searchTask(i));
+            }else{
+                items.addAll(db_acsess.searchTask(query));
+
+            }
+
+
             if (items.size() > 0) {
                 //  lyt_result.setVisibility(View.VISIBLE);
                 recyclerView.setAdapter(adapterList_tasks);

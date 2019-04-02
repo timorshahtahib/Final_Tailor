@@ -347,7 +347,7 @@ public class show_Order_Info extends AppCompatActivity {
 
         String phon = getIntent().getStringExtra("phone");
 
-        Intent callIntent = new Intent(Intent.ACTION_CALL);
+        Intent callIntent = new Intent(Intent.ACTION_DIAL);
         callIntent.setData(Uri.parse("tel:" + phon));//change the number
 
         try {
