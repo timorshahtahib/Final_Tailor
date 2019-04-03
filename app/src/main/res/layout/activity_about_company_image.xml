@@ -117,6 +117,44 @@
                     android:orientation="vertical">
 
                     <com.mikhaellopez.circularimageview.CircularImageView
+                        android:id="@+id/img_timor"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:onClick="OnShowInfo"
+                        android:src="@drawable/tahb"
+                        app:civ_border="true"
+                        app:civ_border_color="@color/grey_10"
+                        app:civ_border_width="2dp"
+                        app:civ_shadow="true"
+                        app:civ_shadow_radius="0" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="18dp"
+                        android:layout_marginTop="@dimen/spacing_medium"
+                        android:text="تیمورشاه تایب "
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
+                        android:textColor="@color/grey_90"
+                        app:fontFamily="sans-serif-medium" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="App Developer"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
+                        android:textColor="@color/grey_60"
+                        app:fontFamily="sans-serif-light" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <com.mikhaellopez.circularimageview.CircularImageView
                         android:id="@+id/img_aziz"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
@@ -158,49 +196,11 @@
                     android:orientation="vertical">
 
                     <com.mikhaellopez.circularimageview.CircularImageView
-                        android:id="@+id/img_timor"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:onClick="OnShowInfo"
-                        android:src="@drawable/tahb"
-                        app:civ_border="true"
-                        app:civ_border_color="@color/grey_10"
-                        app:civ_border_width="2dp"
-                        app:civ_shadow="true"
-                        app:civ_shadow_radius="0" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="18dp"
-                        android:layout_marginTop="@dimen/spacing_medium"
-                        android:text="تیمورشاه تایب "
-                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
-                        android:textColor="@color/grey_90"
-                        app:fontFamily="sans-serif-medium" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="App Developer"
-                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
-                        android:textColor="@color/grey_60"
-                        app:fontFamily="sans-serif-light" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <com.mikhaellopez.circularimageview.CircularImageView
                         android:id="@+id/img_wahid"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:onClick="OnShowInfo"
-                        android:src="@drawable/wasi"
+                        android:src="@drawable/mortaza"
                         app:civ_border="true"
                         app:civ_border_color="@color/grey_10"
                         app:civ_border_width="2dp"
@@ -221,7 +221,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="App Developer"
+                        android:text="DataBase Designer"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
                         android:textColor="@color/grey_60"
                         app:fontFamily="sans-serif-light" />

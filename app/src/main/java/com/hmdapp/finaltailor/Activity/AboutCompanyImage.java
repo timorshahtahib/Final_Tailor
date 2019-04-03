@@ -114,7 +114,7 @@ public class AboutCompanyImage extends AppCompatActivity {
                 break;
 
             case R.id.img_wahid:
-                showDialogImageCenter(getString(R.string.wasi), getString(R.string.wasimail), R.drawable.wasi);
+                showDialogImageCenter(getString(R.string.wasi), getString(R.string.wasimail), R.drawable.mortaza);
 
                 break;
                 case R.id.saraj:

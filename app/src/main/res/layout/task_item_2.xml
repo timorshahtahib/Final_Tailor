@@ -123,7 +123,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginRight="10dp"
+                android:layout_marginRight="5dp"
 
                 android:orientation="vertical">
 
@@ -134,7 +134,7 @@
                     android:layout_weight="1"
                     android:text="شماره فاکتور"
                     android:textAlignment="center"
-                    android:textSize="18sp"
+                    android:textSize="14sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -144,7 +144,7 @@
                     android:layout_weight="1"
                     android:text="۱۵"
                     android:textAlignment="center"
-                    android:textSize="18sp" />
+                    android:textSize="14sp" />
             </LinearLayout>
 
         </LinearLayout>

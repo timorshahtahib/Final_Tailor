@@ -124,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
         Locale locale = new Locale("En");
         Locale.setDefault(locale);
 
-        checkVersion();
+     //   checkVersion();
 
         try {
 
@@ -141,48 +141,48 @@ public class MainActivity extends AppCompatActivity {
         setUpToolbar();
         setUpNavigationView();
         initComponent();
-        TelephonyManager tManager = (TelephonyManager) getApplication().getSystemService(Context.TELEPHONY_SERVICE);
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-        final String uid = tManager.getDeviceId();
-
-        FirebaseFirestore.getInstance().collection("users").addSnapshotListener(this, new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                if (!queryDocumentSnapshots.isEmpty()) {
-
-
-                    //  DocumentSnapshot doc = queryDocumentSnapshots.getDocuments().get(0);
-
-                    for (DocumentSnapshot doc : queryDocumentSnapshots.getDocuments()) {
-                        if (uid.contains(String.valueOf(doc.getLong("serial")))) {
-                            boolean b = doc.getBoolean("isactive");
-                            // Toast.makeText(MainActivity.this, "b = "+ b, Toast.LENGTH_SHORT).show();
-                            if (!b) {
-
-                                Toast.makeText(MainActivity.this, "مشتری عزیز حساب شما بسته شده است  ۰۷۹۳۲۴۰۱۷۸", Toast.LENGTH_SHORT).show();
-                                finish();
-                            } else {
-
-                            }
-                        } else {
-                        }
-                    }
-
-
-                } else {
-                    Toast.makeText(MainActivity.this, "null", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+//        TelephonyManager tManager = (TelephonyManager) getApplication().getSystemService(Context.TELEPHONY_SERVICE);
+//        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+//            // TODO: Consider calling
+//            //    ActivityCompat#requestPermissions
+//            // here to request the missing permissions, and then overriding
+//            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+//            //                                          int[] grantResults)
+//            // to handle the case where the user grants the permission. See the documentation
+//            // for ActivityCompat#requestPermissions for more details.
+//            return;
+//        }
+//        final String uid = tManager.getDeviceId();
+//
+//        FirebaseFirestore.getInstance().collection("users").addSnapshotListener(this, new EventListener<QuerySnapshot>() {
+//            @Override
+//            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+//                if (!queryDocumentSnapshots.isEmpty()) {
+//
+//
+//                    //  DocumentSnapshot doc = queryDocumentSnapshots.getDocuments().get(0);
+//
+//                    for (DocumentSnapshot doc : queryDocumentSnapshots.getDocuments()) {
+//                        if (uid.contains(String.valueOf(doc.getLong("serial")))) {
+//                            boolean b = doc.getBoolean("isactive");
+//                            // Toast.makeText(MainActivity.this, "b = "+ b, Toast.LENGTH_SHORT).show();
+//                            if (!b) {
+//
+//                                Toast.makeText(MainActivity.this, "مشتری عزیز حساب شما بسته شده است  ۰۷۹۳۲۴۰۱۷۸", Toast.LENGTH_SHORT).show();
+//                                finish();
+//                            } else {
+//
+//                            }
+//                        } else {
+//                        }
+//                    }
+//
+//
+//                } else {
+//                    Toast.makeText(MainActivity.this, "null", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
 
 
     }

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/fullscreen_content"
-    android:background="@drawable/side_nav_bar"
+
     tools:context=".Activity.Activity_No_Permesion_use">
 
     <!-- The primary full-screen view. This can be replaced with whatever view
@@ -26,7 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center_horizontal"
-            android:background="@color/black_overlay"
+
             android:orientation="horizontal"
             tools:ignore="UselessParent">
 
@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:onClick="OnCall"
-                android:textColor="#ffffff"
+                android:textColor="#000000"
                 android:text="@string/dummy_button" />
 
         </LinearLayout>
@@ -45,11 +45,20 @@
     </FrameLayout>
 
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <com.mikhaellopez.circularimageview.CircularImageView
+        android:layout_width="330dp"
+        android:layout_height="300dp"
+
         android:layout_gravity="top|center"
-        app:srcCompat="@drawable/hhmd" />
+        android:layout_marginLeft="20dp"
+        app:civ_border="true"
+        app:civ_border_color="@color/grey_10"
+        app:civ_border_width="2dp"
+        app:civ_shadow="true"
+        app:civ_shadow_radius="0"
+
+        app:srcCompat="@drawable/pooran" />
+
 
     <LinearLayout
         android:layout_marginTop="20dp"
@@ -71,7 +80,7 @@
         <TextView
             android:layout_gravity="center"
             android:textSize="30sp"
-            android:textColor="#FFFFFF"
+            android:textColor="#000000"
             android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -81,7 +90,7 @@
         <TextView
             android:layout_marginTop="10dp"
             android:textSize="20sp"
-            android:textColor="#FFFFFF"
+            android:textColor="#000000"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 

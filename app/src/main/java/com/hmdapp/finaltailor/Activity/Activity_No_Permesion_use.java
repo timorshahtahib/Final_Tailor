@@ -265,27 +265,15 @@ public class Activity_No_Permesion_use extends AppCompatActivity {
                         if (task.isSuccessful()) {
 
 
-//                            if (!task.getResult().isEmpty()) {
-//
-//                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
-//
-//                            }
                             for (DocumentSnapshot document : task.getResult().getDocuments()) {
-
-
                                 Log.d(TAG, document.getId() + " => " + document.getData());
                                 Log.d(TAG, uid + " => ");
-
                                 if (uid.contains(String.valueOf(document.getLong("serial")))) {
-
                                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
                                     finish();
-
                                     localData.setFisrt(true);
                                 } else {
-
                                     Toast.makeText(Activity_No_Permesion_use.this, "cant use", Toast.LENGTH_SHORT).show();
-
                                 }
                             }
                         } else {
