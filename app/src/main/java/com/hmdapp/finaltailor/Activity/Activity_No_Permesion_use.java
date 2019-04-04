@@ -222,7 +222,7 @@ public class Activity_No_Permesion_use extends AppCompatActivity {
             if (!localData.getFiers()) {
                 isAvalible_user();
             } else {
-                startActivity(new Intent(this, MainActivity.class));
+                startActivity(new Intent(this, Splash.class));
                 finish();
             }
 
@@ -269,7 +269,7 @@ public class Activity_No_Permesion_use extends AppCompatActivity {
                                 Log.d(TAG, document.getId() + " => " + document.getData());
                                 Log.d(TAG, uid + " => ");
                                 if (uid.contains(String.valueOf(document.getLong("serial")))) {
-                                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                    startActivity(new Intent(getApplicationContext(), Splash.class));
                                     finish();
                                     localData.setFisrt(true);
                                 } else {

@@ -66,7 +66,10 @@ public class Tasks_Activity extends AppCompatActivity {
             public void onItemClick(View view, Order obj, int position) {
                 Intent intent = new Intent(getApplicationContext(), show_Order_Info.class);
                 intent.putExtra("id", obj.getId());
+                intent.putExtra("data", obj.getCloth().getCustomer().getName());
                 intent.putExtra("phone", obj.getCloth().getCustomer().getPhone());
+
+                intent.putExtra("state",0);
                 startActivity(intent);
                 finish();
                 // Snackbar.make(parent_view, "Item " + obj.getCustomer().getPhone() + " clicked", Snackbar.LENGTH_SHORT).show();

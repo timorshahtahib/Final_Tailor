@@ -64,9 +64,6 @@ public class RemainderActivity extends AppCompatActivity {
             public void onItemClick(View view, payment_report obj, int position) {
                 Intent intent = new Intent(getApplicationContext(), EveryRemainderActivity.class);
                 intent.putExtra("id", obj.getId());
-
-
-
                 startActivity(intent);
               //  Snackbar.make(parent_view, "Item " + obj.getCustomer().getPhone() + " clicked", Snackbar.LENGTH_SHORT).show();
             }
@@ -136,6 +133,9 @@ public class RemainderActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 
+        startActivity(new Intent(this,DashboradReportActivity.class));
+        finish();
+
     }
 
     private void searchAction(String query) {
@@ -158,5 +158,7 @@ public class RemainderActivity extends AppCompatActivity {
             Toast.makeText(this, "Please fill search input", Toast.LENGTH_SHORT).show();
         }
     }
+
+
 }
 

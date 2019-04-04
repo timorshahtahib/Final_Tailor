@@ -16,7 +16,7 @@
         android:layout_width="64dp"
         android:layout_height="64dp"
         android:layout_margin="@dimen/spacing_large"
-        android:src="@drawable/hmdlogo"
+        android:src="@drawable/pooran"
         app:civ_shadow="true"
         app:civ_shadow_radius="0"
         app:civ_border_width="2dp" />
@@ -38,7 +38,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="hmdictapp@gmail.com"
+            android:text="tahib2020@gmail.com"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     </LinearLayout>

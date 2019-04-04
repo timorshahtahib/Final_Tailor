@@ -50,7 +50,7 @@ public class Profile_Activity extends AppCompatActivity {
         initComponent_t();
         String phon = getIntent().getStringExtra("phone");
 
-        Toast.makeText(this, phon, Toast.LENGTH_SHORT).show();
+        //  Toast.makeText(this, phon, Toast.LENGTH_SHORT).show();
 
     }
 
@@ -58,8 +58,8 @@ public class Profile_Activity extends AppCompatActivity {
         DB_Acsess db_acsess = DB_Acsess.getInstans(this);
         db_acsess.open();
         final int id_cu = getIntent().getIntExtra("id_cu", 0);
-        String name = getIntent().getStringExtra("date");
-        String job = getIntent().getStringExtra("job");
+        final String name = getIntent().getStringExtra("date");
+        final String job = getIntent().getStringExtra("job");
         tx_f_name = findViewById(R.id.tx_f_name);
         tx_job = findViewById(R.id.tx_job);
         tx_f_name.setText(name);
@@ -70,6 +70,9 @@ public class Profile_Activity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), Regester_cloth_Activity.class);
                 intent.putExtra("id_cu", id_cu);
+                intent.putExtra("date", name);
+                intent.putExtra("job", job);
+                intent.putExtra("phone", getIntent().getStringExtra("phone"));
                 startActivity(intent);
                 finish();
             }
@@ -86,7 +89,7 @@ public class Profile_Activity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getApplicationContext(), EveryRemainderActivity.class);
-                    intent.putExtra("id", id_cu); 
+                    intent.putExtra("id", id_cu);
                     startActivity(intent);
                 }
             });
@@ -123,6 +126,7 @@ public class Profile_Activity extends AppCompatActivity {
 
                 intent.putExtra("id_cl", obj.getId());
                 intent.putExtra("id_cu", id_cu);
+                intent.putExtra("cu_name", getIntent().getStringExtra("date"));
                 intent.putExtra("date", obj.getName());
                 startActivity(intent);
                 finish();
@@ -248,5 +252,10 @@ public class Profile_Activity extends AppCompatActivity {
         startActivity(it);
 
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 }

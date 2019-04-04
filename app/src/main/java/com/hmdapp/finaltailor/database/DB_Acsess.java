@@ -74,7 +74,7 @@ public class DB_Acsess {
     public List<Customer> searchCustomer(String name) {
 
         ArrayList<Customer> list = new ArrayList<>();
-        c = db.rawQuery("select * from customer where full_name like '%" + name + "%'", new String[]{});
+        c = db.rawQuery("select * from customer where full_name like '%" + name + "%' or phon like '%" + name + "%' or job like '%" + name + "%'  ", new String[]{});
         Log.d("size", c.getCount() + "");
         while (c.moveToNext()) {
             Customer con = new Customer();
@@ -84,7 +84,7 @@ public class DB_Acsess {
             con.setJob(c.getString(3));
 
             list.add(con);
-            Log.d("idddddddddddddddddd", con.getId() + "");
+
         }
         return list;
     }
@@ -637,7 +637,16 @@ public class DB_Acsess {
 
     public int getLastId() {
 
-        c = db.rawQuery("select id from cloth", new String[]{});
+        c = db.rawQuery("select id from cu_cl_info", new String[]{});
+
+        c.moveToLast();
+
+        return c.getInt(0);
+    }
+
+    public int getLastId_customer() {
+
+        Cursor c = db.rawQuery("select id from customer", new String[]{});
 
         c.moveToLast();
 
@@ -938,8 +947,6 @@ public class DB_Acsess {
     public Collection<? extends Order> searchTask(String query) {
 
 
-
-
         Customer customer = getCustomerByname(query);
 
 
@@ -968,9 +975,8 @@ public class DB_Acsess {
         }
         return list;
     }
+
     public Collection<? extends Order> searchTask(double query) {
-
-
 
 
         ArrayList<Order> list = new ArrayList<>();
@@ -1052,8 +1058,17 @@ public class DB_Acsess {
     }
 
     public int getRemainderCuctomer(int id) {
-        c = db.rawQuery("select SUM(amount) as Total from payment_report where customer_id="+id, new String[]{});
+        c = db.rawQuery("select SUM(amount) as Total from payment_report where customer_id=" + id, new String[]{});
         c.moveToFirst();
         return c.getInt(c.getColumnIndex("Total"));
+    }
+
+    public int getTaskSize() {
+
+        c = db.rawQuery("select id from 'order'  where com_state=0", new String[]{});
+        Log.d("size", c.getCount() + "");
+
+
+        return c.getCount();
     }
 }

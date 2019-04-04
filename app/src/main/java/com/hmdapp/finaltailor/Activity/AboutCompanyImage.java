@@ -119,7 +119,6 @@ public class AboutCompanyImage extends AppCompatActivity {
                 break;
                 case R.id.saraj:
                 showDialogImageCenter(getString(R.string.saraj), getString(R.string.saraj_email), R.drawable.saraj);
-
                 break;
 
         }

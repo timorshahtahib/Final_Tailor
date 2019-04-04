@@ -25,6 +25,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.api.Control;
+import com.hmdapp.finaltailor.Activity.Customer.Show_Model_Activity;
+import com.hmdapp.finaltailor.Activity.Report_Dashbord.EveryRemainderActivity;
+import com.hmdapp.finaltailor.Activity.Report_Dashbord.ReportActivity;
 import com.hmdapp.finaltailor.Models.Cloth;
 import com.hmdapp.finaltailor.Models.Customer;
 import com.hmdapp.finaltailor.Models.Order;
@@ -40,6 +43,10 @@ public class show_Order_Info extends AppCompatActivity {
     private TextView customerName, customerJob, deliveryDate, tvColor,
             tvCount, tvPrice, tvPayment, tvRemainder, tvRegDate;
     private CheckBox checkState, checkIsExist;
+
+    Order order;
+    Cloth cloth;
+    Customer customer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,9 +73,9 @@ public class show_Order_Info extends AppCompatActivity {
         int id = getIntent().getIntExtra("id", 1);
 
 
-        Order order = db_acsess.getOrder(id);
-        Cloth cloth = order.getCloth();
-        Customer customer = cloth.getCustomer();
+        order = db_acsess.getOrder(id);
+        cloth = order.getCloth();
+        customer = cloth.getCustomer();
 
         Log.d("order_id", "id:  " + id);
         Payment payment = null;
@@ -216,8 +223,25 @@ public class show_Order_Info extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
 
-            startActivity(new Intent(this, Tasks_Activity.class));
-            finish();
+
+            if (getIntent().getIntExtra("state", 0) == 0) {
+                startActivity(new Intent(this, Tasks_Activity.class));
+                finish();
+            } else if (getIntent().getIntExtra("state", 0) == 1) {
+
+                Intent intent = new Intent(this, ReportActivity.class);
+
+                intent.putExtra("myKey", getIntent().getStringExtra("myKey"));
+                startActivity(intent);
+                finish();
+            } else if (getIntent().getIntExtra("state", 0) == 2) {
+
+                Intent intent = new Intent(this, EveryRemainderActivity.class);
+                intent.putExtra("id", getIntent().getIntExtra("cu_id", 1));
+
+                startActivity(intent);
+                finish();
+            }
 
         } else if (item.getItemId() == R.id.action_pay_task) {
 
@@ -277,6 +301,11 @@ public class show_Order_Info extends AppCompatActivity {
         lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
         final EditText edPayment;
 
+        TextView text_cu = dialog.findViewById(R.id.text_customer);
+
+        String cuName = getIntent().getStringExtra("data");
+
+        text_cu.setText(cuName);
         edPayment = dialog.findViewById(R.id.txt_payment_after_work);
 
 
@@ -294,7 +323,6 @@ public class show_Order_Info extends AppCompatActivity {
                 DB_Acsess db_acsess = DB_Acsess.getInstans(show_Order_Info.this);
                 db_acsess.open();
 
-                // String cuName = getIntent().getStringExtra("date");
 
                 float remainder = Float.parseFloat(tvRemainder.getText().toString());
 
@@ -388,7 +416,6 @@ public class show_Order_Info extends AppCompatActivity {
     public void onsendsms(View view) {
 
 
-
         String phon = getIntent().getStringExtra("phone");
 
 
@@ -399,6 +426,46 @@ public class show_Order_Info extends AppCompatActivity {
         it.putExtra("address", phon);
         startActivity(it);
 
+
+    }
+
+    public void onproperty(View view) {
+
+        Intent intent = new Intent(getApplicationContext(), Show_Model_Activity.class);
+
+        intent.putExtra("id_cl", cloth.getId());
+        intent.putExtra("id_cu", customer.getId());
+        intent.putExtra("cu_name", customer.getName());
+        intent.putExtra("date", cloth.getDes());
+        startActivity(intent);
+
+    }
+
+    @Override
+    public void onBackPressed() {
+
+
+        if (getIntent().getIntExtra("state", 0) == 0) {
+            startActivity(new Intent(this, Tasks_Activity.class));
+            finish();
+        } else if (getIntent().getIntExtra("state", 0) == 1) {
+
+            Intent intent = new Intent(this, ReportActivity.class);
+
+            intent.putExtra("myKey", getIntent().getStringExtra("myKey"));
+            startActivity(intent);
+            finish();
+        } else if (getIntent().getIntExtra("state", 0) == 2) {
+
+            Intent intent = new Intent(this, EveryRemainderActivity.class);
+
+            intent.putExtra("myKey", getIntent().getStringExtra("myKey"));
+
+            intent.putExtra("id", getIntent().getIntExtra("cu_id", 1));
+
+            startActivity(intent);
+            finish();
+        }
 
     }
 }

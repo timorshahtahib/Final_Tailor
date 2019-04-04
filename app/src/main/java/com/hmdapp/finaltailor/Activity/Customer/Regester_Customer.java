@@ -1,6 +1,8 @@
 package com.hmdapp.finaltailor.Activity.Customer;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -59,8 +61,8 @@ public class Regester_Customer extends AppCompatActivity {
                     } else {
                         if (insert(customer)) {
                             Toast.makeText(Regester_Customer.this, "added ", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(getApplicationContext(), Person_Activity.class));
-                            finish();
+                            showAlertDialog();
+
                         } else {
                             Toast.makeText(Regester_Customer.this, "not aded", Toast.LENGTH_SHORT).show();
                         }
@@ -164,13 +166,13 @@ public class Regester_Customer extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            startActivity(new Intent(this,Person_Activity.class));
+            startActivity(new Intent(this, Person_Activity.class));
             finish();
-        }else{
+        } else {
 
         }
 
-            // Toast.makeText(getApplicationContext(), item.getTitle(), Toast.LENGTH_SHORT).show()
+        // Toast.makeText(getApplicationContext(), item.getTitle(), Toast.LENGTH_SHORT).show()
 
 
         return super.onOptionsItemSelected(item);
@@ -179,8 +181,43 @@ public class Regester_Customer extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 
-        startActivity(new Intent(this,Person_Activity.class));
+        startActivity(new Intent(this, Person_Activity.class));
         finish();
 
+    }
+
+
+    private void showAlertDialog() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("آیا میخواهید لباس به  مشتری اضافه کنید ؟");
+        builder.setPositiveButton("بلی", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+                Intent intent = new Intent(getApplicationContext(), Regester_cloth_Activity.class);
+
+                DB_Acsess db_acsess = DB_Acsess.getInstans(getApplicationContext());
+                db_acsess.open();
+                ;
+                Customer customer = db_acsess.getCustomer(db_acsess.getLastId_customer());
+                intent.putExtra("id_cu", customer.getId());
+                intent.putExtra("date", customer.getName());
+                intent.putExtra("job", customer.getJob());
+                intent.putExtra("phone", customer.getPhone());
+                startActivity(intent);
+                finish();
+                //Toast.makeText(Profile_Activity.this, "بلی", Toast.LENGTH_SHORT).show();
+            }
+        });
+        builder.setNegativeButton("نخیر", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                // Toast.makeText(Profile_Activity.this, "نخیر", Toast.LENGTH_SHORT).show();
+                dialogInterface.dismiss();
+                finish();
+
+            }
+        });
+        builder.show();
     }
 }

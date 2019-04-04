@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/side_nav_bar"
-    >
+    android:background="@drawable/side_nav_bar">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar_payment"
-            android:layoutDirection="ltr"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
+            android:layoutDirection="ltr"
 
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:contentInsetStartWithNavigation="0dp"
@@ -24,10 +23,10 @@
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.widget.NestedScrollView
-        android:layoutDirection="rtl"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
+        android:layoutDirection="rtl"
         android:scrollbars="none"
         android:scrollingCache="true"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
@@ -71,8 +70,8 @@
                     android:layout_height="?attr/actionBarSize"
                     android:layout_margin="@dimen/spacing_middle"
 
-                    android:onClick="onsendsms"
                     android:background="?attr/selectableItemBackgroundBorderless"
+                    android:onClick="onsendsms"
                     android:tint="@color/light_green_600"
                     app:srcCompat="@drawable/ic_chat" />
 
@@ -91,13 +90,12 @@
                     android:layout_width="?attr/actionBarSize"
                     android:layout_height="?attr/actionBarSize"
                     android:layout_margin="@dimen/spacing_middle"
-                    android:onClick="caa"
                     android:background="?attr/selectableItemBackgroundBorderless"
+                    android:onClick="caa"
                     android:tint="@color/light_green_600"
                     app:srcCompat="@drawable/ic_call" />
 
             </LinearLayout>
-
 
 
             <View
@@ -107,10 +105,9 @@
                 android:background="@color/grey_10"
                 android:visibility="visible" />
 
-            <android.support.constraint.ConstraintLayout
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns="http://schemas.android.com/apk/res-auto"
+            <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools"
+                xmlns="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:layout_editor_absoluteY="25dp">
@@ -141,23 +138,24 @@
 
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginRight="@dimen/stander_margin"
                             android:text="وضعیت"
                             android:textColor="@color/white2"
-                            android:layout_marginRight="@dimen/stander_margin"
                             android:textSize="18sp"
                             android:textStyle="bold"
                             tools:layout_editor_absoluteX="282dp"
                             tools:layout_editor_absoluteY="26dp" />
+
                         <TextView
 
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="لباس تحویل شده"
-                            android:layout_marginRight="@dimen/stander_margin"
                             android:layout_marginTop="@dimen/stander_margin"
+                            android:layout_marginRight="@dimen/stander_margin"
+                            android:text="لباس تحویل شده"
+                            android:textColor="@color/white2"
                             android:textSize="18sp"
                             android:textStyle="bold"
-                            android:textColor="@color/white2"
                             tools:layout_editor_absoluteX="282dp"
                             tools:layout_editor_absoluteY="26dp" />
 
@@ -165,11 +163,11 @@
 
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:text="تاریخ تحویل"
-                            android:layout_marginRight="@dimen/stander_margin"
                             android:layout_marginTop="@dimen/stander_margin"
-                            android:textSize="18sp"
+                            android:layout_marginRight="@dimen/stander_margin"
+                            android:text="تاریخ تحویل"
                             android:textColor="@color/white2"
+                            android:textSize="18sp"
                             android:textStyle="bold" />
 
                     </LinearLayout>
@@ -186,46 +184,42 @@
                             android:id="@+id/task_check_state"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="16sp"
-
-
-                            tools:layout_editor_absoluteX="172dp"
-                            tools:layout_editor_absoluteY="28dp"
                             android:layout_marginRight="@dimen/stander_margin_x4"
-                            />
+
+
+                            android:textSize="16sp"
+                            tools:layout_editor_absoluteX="172dp"
+                            tools:layout_editor_absoluteY="28dp" />
 
                         <CheckBox
                             android:id="@+id/task_check_is_exist"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginRight="@dimen/stander_margin_x4"
                             android:textSize="16sp"
                             tools:layout_editor_absoluteX="172dp"
-                            tools:layout_editor_absoluteY="28dp"
-                            android:layout_marginRight="@dimen/stander_margin_x4"
-                            />
+                            tools:layout_editor_absoluteY="28dp" />
 
                         <TextView
                             android:id="@+id/task_date_payment"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginRight="@dimen/stander_margin_x4"
                             android:text="234"
                             android:textColor="@color/white2"
                             tools:layout_editor_absoluteX="172dp"
-                            tools:layout_editor_absoluteY="28dp"
-                            android:layout_marginRight="@dimen/stander_margin_x4" />
+                            tools:layout_editor_absoluteY="28dp" />
 
                     </LinearLayout>
-
-
 
 
                 </LinearLayout>
 
             </android.support.constraint.ConstraintLayout>
-            <android.support.constraint.ConstraintLayout
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns="http://schemas.android.com/apk/res-auto"
+
+            <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools"
+                xmlns="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:layout_editor_absoluteY="25dp">
@@ -255,10 +249,10 @@
 
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="رنگ"
                             android:layout_marginRight="@dimen/stander_margin"
-                            android:textSize="18sp"
+                            android:text="رنگ"
                             android:textColor="@color/white2"
+                            android:textSize="18sp"
                             android:textStyle="bold"
                             tools:layout_editor_absoluteX="282dp"
                             tools:layout_editor_absoluteY="26dp" />
@@ -267,14 +261,13 @@
 
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:text="تعداد"
                             android:layout_marginRight="@dimen/stander_margin"
-                            android:textSize="18sp"
+                            android:text="تعداد"
                             android:textColor="@color/white2"
+                            android:textSize="18sp"
                             android:textStyle="bold" />
 
                     </LinearLayout>
-
 
 
                     <LinearLayout
@@ -288,39 +281,36 @@
                             android:id="@+id/task_color_payment"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="16sp"
+                            android:layout_marginRight="@dimen/stander_margin_x4"
                             android:text="سبز"
                             android:textColor="@color/white2"
+                            android:textSize="16sp"
                             tools:layout_editor_absoluteX="172dp"
-                            tools:layout_editor_absoluteY="28dp"
-                            android:layout_marginRight="@dimen/stander_margin_x4"
-                            />
+                            tools:layout_editor_absoluteY="28dp" />
 
 
                         <TextView
                             android:id="@+id/task_count_payment"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="16sp"
+                            android:layout_marginRight="@dimen/stander_margin_x4"
                             android:text="234"
                             android:textColor="@color/white2"
+                            android:textSize="16sp"
                             tools:layout_editor_absoluteX="172dp"
-                            tools:layout_editor_absoluteY="28dp"
-                            android:layout_marginRight="@dimen/stander_margin_x4"
-                            />
+                            tools:layout_editor_absoluteY="28dp" />
 
                     </LinearLayout>
-
 
 
                 </LinearLayout>
 
 
             </android.support.constraint.ConstraintLayout>
-            <android.support.constraint.ConstraintLayout
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns="http://schemas.android.com/apk/res-auto"
+
+            <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools"
+                xmlns="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:layout_editor_absoluteY="25dp">
@@ -352,9 +342,9 @@
                             android:layout_height="wrap_content"
                             android:layout_marginRight="@dimen/stander_margin"
                             android:text="کل قیمت "
+                            android:textColor="@color/white2"
                             android:textSize="18sp"
                             android:textStyle="bold"
-                            android:textColor="@color/white2"
                             tools:layout_editor_absoluteX="282dp"
                             tools:layout_editor_absoluteY="26dp" />
 
@@ -362,14 +352,13 @@
 
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:layout_marginRight="@dimen/stander_margin"
                             android:text="رسیدات "
                             android:textColor="@color/white2"
-                            android:layout_marginRight="@dimen/stander_margin"
                             android:textSize="18sp"
                             android:textStyle="bold" />
 
                     </LinearLayout>
-
 
 
                     <LinearLayout
@@ -383,13 +372,12 @@
                             android:id="@+id/task_price_state"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="16sp"
+                            android:layout_marginRight="@dimen/stander_margin_x4"
                             android:text="234"
                             android:textColor="@color/white2"
+                            android:textSize="16sp"
                             tools:layout_editor_absoluteX="172dp"
-                            tools:layout_editor_absoluteY="28dp"
-                            android:layout_marginRight="@dimen/stander_margin_x4"
-                            />
+                            tools:layout_editor_absoluteY="28dp" />
 
                         <TextView
                             android:id="@+id/task_payment_payment"
@@ -404,15 +392,14 @@
                     </LinearLayout>
 
 
-
                 </LinearLayout>
 
 
             </android.support.constraint.ConstraintLayout>
-            <android.support.constraint.ConstraintLayout
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns="http://schemas.android.com/apk/res-auto"
+
+            <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools"
+                xmlns="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:layout_editor_absoluteY="25dp">
@@ -442,10 +429,10 @@
 
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="باقی مانده"
                             android:layout_marginRight="@dimen/stander_margin"
-                            android:textSize="18sp"
+                            android:text="باقی مانده"
                             android:textColor="@color/white2"
+                            android:textSize="18sp"
                             android:textStyle="bold"
                             tools:layout_editor_absoluteX="282dp"
                             tools:layout_editor_absoluteY="26dp" />
@@ -454,8 +441,8 @@
 
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:text="تاریخ ثبت"
                             android:layout_marginRight="@dimen/stander_margin"
+                            android:text="تاریخ ثبت"
                             android:textColor="@color/white2"
                             android:textSize="18sp"
                             android:textStyle="bold" />
@@ -474,26 +461,24 @@
                             android:id="@+id/task_remainder_pay"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="16sp"
+                            android:layout_marginRight="@dimen/stander_margin_x4"
                             android:text="300"
                             android:textColor="@color/white2"
+                            android:textSize="16sp"
                             tools:layout_editor_absoluteX="172dp"
-                            tools:layout_editor_absoluteY="28dp"
-                            android:layout_marginRight="@dimen/stander_margin_x4"
-                            />
+                            tools:layout_editor_absoluteY="28dp" />
 
                         <TextView
                             android:id="@+id/task_reg_date_payment"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginRight="@dimen/stander_margin_x4"
                             android:text="۱۳۹۷-۱۰-۱۲"
                             android:textColor="@color/white2"
                             tools:layout_editor_absoluteX="172dp"
-                            tools:layout_editor_absoluteY="28dp"
-                            android:layout_marginRight="@dimen/stander_margin_x4" />
+                            tools:layout_editor_absoluteY="28dp" />
 
                     </LinearLayout>
-
 
 
                 </LinearLayout>
@@ -501,11 +486,21 @@
 
             </android.support.constraint.ConstraintLayout>
 
+            <Button
+                android:id="@+id/button2"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content"
+
+                android:layout_margin="10dp"
+                android:onClick="onproperty"
+                android:text="مشخصات لباس" />
+
 
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
-
 
 
 </android.support.design.widget.CoordinatorLayout>

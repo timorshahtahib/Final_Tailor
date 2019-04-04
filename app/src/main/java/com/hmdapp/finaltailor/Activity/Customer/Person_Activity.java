@@ -181,5 +181,9 @@ public class Person_Activity extends AppCompatActivity {
         }
     }
 
-
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
+    }
 }

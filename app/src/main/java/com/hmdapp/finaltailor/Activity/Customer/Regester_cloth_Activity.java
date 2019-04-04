@@ -1,22 +1,35 @@
 package com.hmdapp.finaltailor.Activity.Customer;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
 import com.hmdapp.finaltailor.Models.Cloth;
 import com.hmdapp.finaltailor.Models.Customer;
+import com.hmdapp.finaltailor.Models.Order;
+import com.hmdapp.finaltailor.Models.Payment;
 import com.hmdapp.finaltailor.R;
+import com.hmdapp.finaltailor.Utlity.Tools;
 import com.hmdapp.finaltailor.database.DB_Acsess;
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
+
+import java.util.Calendar;
 
 public class Regester_cloth_Activity extends AppCompatActivity {
 
@@ -37,6 +50,10 @@ public class Regester_cloth_Activity extends AppCompatActivity {
     String des;
     int id_cl;
     int id_per;
+
+    TextView  txt_show_date;
+
+    String dliverDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +87,7 @@ public class Regester_cloth_Activity extends AppCompatActivity {
         fb_insert = findViewById(R.id.fab_insert_cloth);
 
 
-        id_cl = getIntent().getIntExtra("id_cl", 1);
+        id_cl = getIntent().getIntExtra("id_cl", 0);
         id_per = getIntent().getIntExtra("id_cu", 1);
         customer.setId(id_per);
 
@@ -86,14 +103,22 @@ public class Regester_cloth_Activity extends AppCompatActivity {
                         cloth.setId(id_cl);
 
                         update(cloth);
+                        Intent intent = new Intent(getApplicationContext(), Profile_Activity.class);
+
+                        intent.putExtra("id_cu", getIntent().getIntExtra("id_cu", 0));
+                        intent.putExtra("date", getIntent().getStringExtra("date"));
+                        intent.putExtra("job", getIntent().getStringExtra("job"));
+                        intent.putExtra("phone", getIntent().getStringExtra("phone"));
+                        startActivity(intent);
                         finish();
                     } else {
                         if (insert(cloth)) {
-                            Toast.makeText(Regester_cloth_Activity.this, "added ", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(getApplicationContext(), Person_Activity.class));
-                            finish();
+                            Toast.makeText(Regester_cloth_Activity.this, "اضافه شد ", Toast.LENGTH_SHORT).show();
+
+
+                            showAlertDialog();
                         } else {
-                            Toast.makeText(Regester_cloth_Activity.this, "not aded", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Regester_cloth_Activity.this, "اضافه نشد", Toast.LENGTH_LONG).show();
                         }
 
                     }
@@ -149,63 +174,61 @@ public class Regester_cloth_Activity extends AppCompatActivity {
         String qad_paty = cl.getQad_paty();
 
 
-        if(model.trim().equals("ساده")){
+        if (model.trim().equals("ساده")) {
 
             rg_model.check(R.id.rb_model_sada);
-        }else if(model.equals("شهبازی")){
+        } else if (model.equals("شهبازی")) {
 
             rg_model.check(R.id.rb_model_shabazi);
 
-        }else if(model.equals("پاکستانی")){
+        } else if (model.equals("پاکستانی")) {
 
             rg_model.check(R.id.rb_model_pakistani);
 
-        }else if(model.equals("چپیه بخن")){
+        } else if (model.equals("چپیه بخن")) {
             rg_model.check(R.id.rb_model_chapayakhan);
 
 
-        }else if(model.trim().equals("خامک")){
+        } else if (model.trim().equals("خامک")) {
             rg_model.check(R.id.rb_model_khamak);
 
 
-        }else if(model.trim().equals("دیگر ...")){
+        } else if (model.trim().equals("دیگر ...")) {
             rg_model.check(R.id.rb_model_another);
 
 
         }
 
 
-
-        if(dam_astin.trim().equalsIgnoreCase("ساده ")){
+        if (dam_astin.trim().equalsIgnoreCase("ساده ")) {
             rg_model_dam_astin.check(R.id.rb_model_dam_astin_sada);
-        }else if(dam_astin.trim().equalsIgnoreCase("مرابی ")){
+        } else if (dam_astin.trim().equalsIgnoreCase("مرابی ")) {
             rg_model_dam_astin.check(R.id.rb_model_dam_astin_mehrabi);
 
-        }else if(dam_astin.trim().equalsIgnoreCase("کفک دار")){
+        } else if (dam_astin.trim().equalsIgnoreCase("کفک دار")) {
             rg_model_dam_astin.check(R.id.rb_model_dam_astin_kaphak);
 
-        }else if(dam_astin.trim().equalsIgnoreCase("دیگر ...")){
+        } else if (dam_astin.trim().equalsIgnoreCase("دیگر ...")) {
             rg_model_dam_astin.check(R.id.rb_model_dam_astin_another);
 
         }
 
 
-        if(model_astin.trim().equals("ساده")){
+        if (model_astin.trim().equals("ساده")) {
             rg_model_astin.check(R.id.rb_model_astin_sada);
-        }else if(model_astin.trim().equals("کف")){
+        } else if (model_astin.trim().equals("کف")) {
             rg_model_astin.check(R.id.rb_model_astin_kaf);
         }
 
 
-        if (model_yaqa.trim().equals("یق خامک")){
+        if (model_yaqa.trim().equals("یق خامک")) {
             rg_model_yaqa.check(R.id.rb_model_yaqa_khamak);
 
-        }else if(model_yaqa.trim().equals("یقه پاکستانی")){
+        } else if (model_yaqa.trim().equals("یقه پاکستانی")) {
             rg_model_yaqa.check(R.id.rb_model_yaqa_pak);
 
 
-
-        }else if(model.trim().equals("دیگر ...")){
+        } else if (model.trim().equals("دیگر ...")) {
             rg_model_yaqa.check(R.id.rb_model_yaqa_another);
 
         }
@@ -461,13 +484,23 @@ public class Regester_cloth_Activity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-      //  getMenuInflater().inflate(R.menu.menu_search_setting, menu);
+        //  getMenuInflater().inflate(R.menu.menu_search_setting, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
+
+            Intent intent = new Intent(this, Profile_Activity.class);
+
+            intent.putExtra("id_cu", getIntent().getIntExtra("id_cu", 0));
+            intent.putExtra("date", getIntent().getStringExtra("date"));
+            intent.putExtra("job", getIntent().getStringExtra("job"));
+            intent.putExtra("phone", getIntent().getStringExtra("phone"));
+
+           startActivity(intent);
+
             finish();
         } else {
             Toast.makeText(getApplicationContext(), item.getTitle(), Toast.LENGTH_SHORT).show();
@@ -485,6 +518,223 @@ public class Regester_cloth_Activity extends AppCompatActivity {
         }
 
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, Profile_Activity.class);
+
+        intent.putExtra("id_cu", getIntent().getIntExtra("id_cu", 0));
+        intent.putExtra("date", getIntent().getStringExtra("date"));
+        intent.putExtra("job", getIntent().getStringExtra("job"));
+        intent.putExtra("phone", getIntent().getStringExtra("phone"));
+        startActivity(intent);
+        finish();
+    }
+
+
+    private void showCustomDialog_to_cart() {
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); // before
+        dialog.setContentView(R.layout.dialog_add_review);
+        dialog.setCancelable(true);
+
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(dialog.getWindow().getAttributes());
+        lp.width = WindowManager.LayoutParams.WRAP_CONTENT;
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        final EditText ed_mony, ed_payment, edColor, edCount;
+
+        ed_mony = dialog.findViewById(R.id.txt_mony);
+        ed_payment = dialog.findViewById(R.id.txt_pay);
+        txt_show_date = dialog.findViewById(R.id.deliver_date);
+        edColor = dialog.findViewById(R.id.txt_color);
+        edCount = dialog.findViewById(R.id.txt_count);
+
+
+        final TextView textna = dialog.findViewById(R.id.txt_customer);
+
+
+        String cuName = getIntent().getStringExtra("cu_name");
+
+        textna.setText(cuName);
+        txt_show_date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogDatePickerDark();
+                //Toast.makeText(Profile_Activity.this,"Instead of date picker",Toast.LENGTH_LONG).show();
+            }
+        });
+
+        dialog.findViewById(R.id.bt_cancel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+
+        dialog.findViewById(R.id.bt_submit).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DB_Acsess db_acsess = DB_Acsess.getInstans(getApplicationContext());
+                db_acsess.open();
+
+
+                String review = txt_show_date.getText().toString().trim();
+                float price = Float.parseFloat(ed_mony.getText().toString());
+                float payment = 0;
+                try {
+                    payment = Float.parseFloat(ed_payment.getText().toString());
+
+                } catch (Exception e) {
+                    payment = 0;
+
+                }
+                String color = edColor.getText().toString();
+                int count = Integer.parseInt(edCount.getText().toString());
+
+
+                if (review.isEmpty()) {
+
+                    Toast.makeText(getApplicationContext(), "لطفا تاریخ  تحویل را وارد کنید", Toast.LENGTH_SHORT).show();
+                } else if (price < 50) {
+                    Toast.makeText(getApplicationContext(), "لطفا قیمت دوخت را وارد کنید", Toast.LENGTH_SHORT).show();
+
+
+                } else if (color.trim().isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "لطفا رنگ را وارد کنید", Toast.LENGTH_SHORT).show();
+
+                } else if (count <= 0) {
+                    Toast.makeText(getApplicationContext(), "لطفا تعداد جوره لباس را وارد کنید", Toast.LENGTH_SHORT).show();
+
+                } else {
+
+                    Order order = new Order();
+
+
+                    float totalPrice = price * count;
+                    long time = System.currentTimeMillis();
+                    String regDate = Tools.getFormattedDateSimple(time);
+                    // String regDate = android.text.format.DateFormat.format("yyy-mm-dd", new Date(time)).toString();
+
+                    order.setCount(count);
+                    order.setColor(color);
+                    order.setCom_state(0);
+                    order.setPrice(totalPrice);
+
+                    order.setOrder_Date(regDate);
+                    order.setDeliverDate(dliverDate);
+                    DB_Acsess db_acsess1=DB_Acsess.getInstans(getApplicationContext());
+                    db_acsess.open();
+                    final int id_cl = db_acsess.getLastId();
+                    final int id_cu = getIntent().getIntExtra("id_cu", 0);
+                    Cloth cl = db_acsess.getCloth(id_cu, id_cl);
+                    order.setCloth(cl);
+                    Payment payment_ = new Payment();
+
+                    payment_.setAmount((int) payment);
+                    payment_.setDate(regDate);
+                    payment_.setOrder(order);
+                    payment_.setDes("p");
+
+                    //Toast.makeText(getApplicationContext(), "Hi "+regDate, Toast.LENGTH_SHORT).show();
+                    dialog.dismiss();
+                    addTask(order, payment_);
+                }
+
+            }
+        });
+
+        dialog.show();
+        dialog.getWindow().setAttributes(lp);
+    }
+
+    private void addTask(Order order, Payment payment_) {
+
+        DB_Acsess db_acsess = DB_Acsess.getInstans(this);
+        db_acsess.open();
+        long s = db_acsess.add_task(order, payment_);
+
+        if (s > 0) {
+            Intent intent = new Intent(getApplicationContext(), Profile_Activity.class);
+            intent.putExtra("id_cu", getIntent().getIntExtra("id_cu", 0));
+            intent.putExtra("date", getIntent().getStringExtra("date"));
+            intent.putExtra("job", getIntent().getStringExtra("job"));
+            intent.putExtra("phone", getIntent().getStringExtra("phone"));
+            Toast.makeText(this, "تسک اضافه شد", Toast.LENGTH_LONG).show();
+
+            startActivity(intent);
+            finish();
+        } else {
+            Toast.makeText(this, "تسک اضافه نشد", Toast.LENGTH_LONG).show();
+
+        }
+    }
+
+    private void dialogDatePickerDark() {
+        Calendar cur_calender = Calendar.getInstance();
+
+        DatePickerDialog datePicker = DatePickerDialog.newInstance(
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.set(Calendar.YEAR, year);
+                        calendar.set(Calendar.MONTH, monthOfYear);
+                        calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                        long date_ship_millis = calendar.getTimeInMillis();
+                        // ((TextView) findViewById(R.id.result)).setText(Tools.getFormattedDateSimple(date_ship_millis));
+
+                        // long date = new Date(date_ship_millis).getTime();
+                        //  String dd = android.text.format.DateFormat.format("yyy-mm-dd", new Date(date_ship_millis)).toString();
+                        // dliverDate = dd + "";
+                        dliverDate = Tools.getFormattedDateSimple(date_ship_millis);
+                        //Toast.makeText(Show_Model_Activity.this, "" + d, Toast.LENGTH_SHORT).show();
+                        txt_show_date.setText("" + dliverDate);
+
+                        // Toast.makeText(Profile_Activity.this, date, Toast.LENGTH_SHORT).show();
+
+                    }
+                },
+                cur_calender.get(Calendar.YEAR),
+                cur_calender.get(Calendar.MONTH),
+                cur_calender.get(Calendar.DAY_OF_MONTH)
+        );
+
+
+        //set dark theme
+        // datePicker.setThemeDark(true);
+        datePicker.setAccentColor(getResources().getColor(R.color.colorPrimary));
+        datePicker.setMinDate(cur_calender);
+        datePicker.show(getFragmentManager(), "Datepickerdialog");
+        // datePicker.show(getFragmentManager(),"Datepickerdialog");
+
+
+    }
+
+
+    private void showAlertDialog() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("آیا میخواهید لباس دوخته شود ؟");
+        builder.setPositiveButton("بلی", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+                showCustomDialog_to_cart();
+                //Toast.makeText(Profile_Activity.this, "بلی", Toast.LENGTH_SHORT).show();
+            }
+        });
+        builder.setNegativeButton("نخیر", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                // Toast.makeText(Profile_Activity.this, "نخیر", Toast.LENGTH_SHORT).show();
+                dialogInterface.dismiss();
+                finish();
+
+            }
+        });
+        builder.show();
     }
 
 }

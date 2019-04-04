@@ -59,6 +59,7 @@ import com.hmdapp.finaltailor.Models.Image;
 import com.hmdapp.finaltailor.R;
 import com.hmdapp.finaltailor.Seting_Activity;
 import com.hmdapp.finaltailor.Utlity.Tools;
+import com.hmdapp.finaltailor.database.DB_Acsess;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -137,52 +138,71 @@ public class MainActivity extends AppCompatActivity {
         } catch (Exception w) {
 
         }
+        TextView task_siz=findViewById(R.id.task_size);
+        DB_Acsess D=DB_Acsess.getInstans(this);
+        D.open();
+        int s=D.getTaskSize();
 
+        if (s>0){
+            task_siz.setText(s+"");
+        }
         setUpToolbar();
         setUpNavigationView();
         initComponent();
-//        TelephonyManager tManager = (TelephonyManager) getApplication().getSystemService(Context.TELEPHONY_SERVICE);
-//        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
-//            // TODO: Consider calling
-//            //    ActivityCompat#requestPermissions
-//            // here to request the missing permissions, and then overriding
-//            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-//            //                                          int[] grantResults)
-//            // to handle the case where the user grants the permission. See the documentation
-//            // for ActivityCompat#requestPermissions for more details.
-//            return;
-//        }
-//        final String uid = tManager.getDeviceId();
-//
-//        FirebaseFirestore.getInstance().collection("users").addSnapshotListener(this, new EventListener<QuerySnapshot>() {
-//            @Override
-//            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-//                if (!queryDocumentSnapshots.isEmpty()) {
-//
-//
-//                    //  DocumentSnapshot doc = queryDocumentSnapshots.getDocuments().get(0);
-//
-//                    for (DocumentSnapshot doc : queryDocumentSnapshots.getDocuments()) {
-//                        if (uid.contains(String.valueOf(doc.getLong("serial")))) {
-//                            boolean b = doc.getBoolean("isactive");
-//                            // Toast.makeText(MainActivity.this, "b = "+ b, Toast.LENGTH_SHORT).show();
-//                            if (!b) {
-//
-//                                Toast.makeText(MainActivity.this, "مشتری عزیز حساب شما بسته شده است  ۰۷۹۳۲۴۰۱۷۸", Toast.LENGTH_SHORT).show();
-//                                finish();
-//                            } else {
-//
-//                            }
-//                        } else {
-//                        }
-//                    }
-//
-//
-//                } else {
-//                    Toast.makeText(MainActivity.this, "null", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        });
+
+        try {
+            TelephonyManager tManager = (TelephonyManager) getApplication().getSystemService(Context.TELEPHONY_SERVICE);
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                return;
+            }
+            final String uid = tManager.getDeviceId();
+
+            FirebaseFirestore.getInstance().collection("users").addSnapshotListener(this, new EventListener<QuerySnapshot>() {
+                @Override
+                public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                    if (!queryDocumentSnapshots.isEmpty()) {
+
+
+                        //  DocumentSnapshot doc = queryDocumentSnapshots.getDocuments().get(0);
+
+                        for (DocumentSnapshot doc : queryDocumentSnapshots.getDocuments()) {
+                            if (uid.contains(String.valueOf(doc.getLong("serial")))) {
+                                boolean b = doc.getBoolean("isactive");
+                                // Toast.makeText(MainActivity.this, "b = "+ b, Toast.LENGTH_SHORT).show();
+                                if (!b) {
+
+                                    Toast.makeText(MainActivity.this, "مشتری عزیز حساب شما بسته شده است  ۰۷۹۳۲۴۰۱۷۸", Toast.LENGTH_SHORT).show();
+                                    finish();
+                                } else {
+
+                                }
+                            } else {
+                            }
+                        }
+
+
+                    } else {
+                        Toast.makeText(MainActivity.this, "null", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+
+        }catch (Exception e){
+
+        }
+
+       try{
+           checkVersion();
+       }catch (Exception e){
+
+       }
 
 
     }
@@ -231,6 +251,9 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void initComponent() {
+
+
+
         layout_dots = findViewById(R.id.layout_dots);
         viewPager = findViewById(R.id.pager);
         adapterImageSlider = new AdapterImageSlider(this, new ArrayList<Image>());

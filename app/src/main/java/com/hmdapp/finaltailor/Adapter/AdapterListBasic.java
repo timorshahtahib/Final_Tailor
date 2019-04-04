@@ -75,7 +75,7 @@ public class AdapterListBasic extends RecyclerView.Adapter<RecyclerView.ViewHold
     public class OriginalViewHolder extends RecyclerView.ViewHolder {
         public ImageView image;
         public TextView name;
-        public TextView job;
+        public TextView job, phone;
 
         public View lyt_parent;
 
@@ -84,7 +84,7 @@ public class AdapterListBasic extends RecyclerView.Adapter<RecyclerView.ViewHold
             image = v.findViewById(R.id.image);
             name = v.findViewById(R.id.name);
             job = v.findViewById(R.id.description);
-
+            phone = v.findViewById(R.id.txt_phone);
             lyt_parent = v.findViewById(R.id.lyt_parent);
         }
     }
@@ -106,7 +106,7 @@ public class AdapterListBasic extends RecyclerView.Adapter<RecyclerView.ViewHold
             Customer customer = items.get(position);
             view.name.setText(customer.getName());
             view.job.setText(customer.getJob());
-
+            view.phone.setText(customer.getPhone());
             view.lyt_parent.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

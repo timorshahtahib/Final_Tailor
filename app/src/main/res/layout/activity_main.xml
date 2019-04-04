@@ -306,7 +306,7 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
                                         android:layout_centerInParent="true"
-                                        android:tint="@color/red_300"
+                                        android:tint="@color/color_blue"
                                         app:srcCompat="@drawable/shape_circle" />
 
                                     <ImageView
@@ -316,6 +316,17 @@
                                         android:tint="@android:color/white"
                                         app:srcCompat="@drawable/ic_shopping_basket"
                                         tools:ignore="VectorDrawableCompat" />
+
+                                    <TextView
+                                        android:id="@+id/task_size"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginRight="20dp"
+
+                                        android:textStyle="bold"
+                                        android:layout_marginTop="10dp"
+                                        android:textColor="@color/red_800"
+                                        android:textSize="28sp" />
 
                                 </RelativeLayout>
 

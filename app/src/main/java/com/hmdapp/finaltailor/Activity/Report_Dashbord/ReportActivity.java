@@ -63,11 +63,11 @@ public class ReportActivity extends AppCompatActivity {
             @Override
             public void onItemClick(View view, Payment obj, int position) {
                 Intent intent = new Intent(getApplicationContext(), show_Order_Info.class);
-
                 intent.putExtra("id", obj.getOrder().getId());
 
+                intent.putExtra("state", 1);
 
-
+                intent.putExtra("myKey", getIntent().getStringExtra("myKey"));
                 startActivity(intent);
                 // Snackbar.make(parent_view, "Item " + obj.getCustomer().getPhone() + " clicked", Snackbar.LENGTH_SHORT).show();
             }
@@ -107,7 +107,7 @@ public class ReportActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
 
-            startActivity(new Intent(this,DashboradReportActivity.class));
+            startActivity(new Intent(this, DashboradReportActivity.class));
             finish();
         } else if (item.getItemId() == R.id.app_bar_delete_all) {
             //  Toast.makeText(getApplicationContext(), item.getTitle(), Toast.LENGTH_SHORT).show();
@@ -151,6 +151,9 @@ public class ReportActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+
+        startActivity(new Intent(this, DashboradReportActivity.class));
+        finish();
 
     }
 }

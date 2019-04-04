@@ -52,7 +52,7 @@ public class EveryRemainderActivity extends AppCompatActivity {
 
         DB_Acsess db_acsess = DB_Acsess.getInstans(this);
         db_acsess.open();
-        List<Order> items = db_acsess.getreminder_customer_order(this,Id);
+        List<Order> items = db_acsess.getreminder_customer_order(this, Id);
 
 
         adapterListPayment = new AdapterList_Tasks(this, items);
@@ -63,6 +63,8 @@ public class EveryRemainderActivity extends AppCompatActivity {
             public void onItemClick(View view, Order obj, int position) {
                 Intent intent = new Intent(getApplicationContext(), show_Order_Info.class);
                 intent.putExtra("id", obj.getId());
+                intent.putExtra("state", 2);
+                intent.putExtra("cu_id", getIntent().getIntExtra("id", 1));
                 startActivity(intent);
             }
         });
@@ -102,10 +104,18 @@ public class EveryRemainderActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
+
+            startActivity(new Intent(this,RemainderActivity.class));
             finish();
         } else {
             Toast.makeText(getApplicationContext(), item.getTitle(), Toast.LENGTH_SHORT).show();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(this,RemainderActivity.class));
+        finish();
     }
 }

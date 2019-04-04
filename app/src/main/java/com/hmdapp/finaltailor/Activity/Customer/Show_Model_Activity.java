@@ -55,7 +55,7 @@ public class Show_Model_Activity extends AppCompatActivity {
 //
         RecyclerView recyclerView = findViewById(R.id.recyclerView2);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-     //   recyclerView.addItemDecoration(new SpacingItemDecoration(3, Tools.dpToPx(this, 3), true));
+        //   recyclerView.addItemDecoration(new SpacingItemDecoration(3, Tools.dpToPx(this, 3), true));
         recyclerView.setHasFixedSize(true);
 
         AdapterGridSingleLine adapterGridSingleLine = new AdapterGridSingleLine(this, names, value);
@@ -162,6 +162,13 @@ public class Show_Model_Activity extends AppCompatActivity {
         edColor = dialog.findViewById(R.id.txt_color);
         edCount = dialog.findViewById(R.id.txt_count);
 
+
+        final TextView textna = dialog.findViewById(R.id.txt_customer);
+
+
+        String cuName = getIntent().getStringExtra("cu_name");
+
+        textna.setText(cuName);
         txt_show_date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -184,17 +191,15 @@ public class Show_Model_Activity extends AppCompatActivity {
                 DB_Acsess db_acsess = DB_Acsess.getInstans(getApplicationContext());
                 db_acsess.open();
 
-                String cuName = getIntent().getStringExtra("date");
-
 
                 String review = txt_show_date.getText().toString().trim();
                 float price = Float.parseFloat(ed_mony.getText().toString());
-                float payment=0;
-                try{
-                   payment = Float.parseFloat(ed_payment.getText().toString());
+                float payment = 0;
+                try {
+                    payment = Float.parseFloat(ed_payment.getText().toString());
 
-                }catch (Exception e){
-                  payment = 0;
+                } catch (Exception e) {
+                    payment = 0;
 
                 }
                 String color = edColor.getText().toString();
@@ -221,8 +226,8 @@ public class Show_Model_Activity extends AppCompatActivity {
 
                     float totalPrice = price * count;
                     long time = System.currentTimeMillis();
-                   String regDate = Tools.getFormattedDateSimple(time);
-                   // String regDate = android.text.format.DateFormat.format("yyy-mm-dd", new Date(time)).toString();
+                    String regDate = Tools.getFormattedDateSimple(time);
+                    // String regDate = android.text.format.DateFormat.format("yyy-mm-dd", new Date(time)).toString();
 
                     order.setCount(count);
                     order.setColor(color);
@@ -238,10 +243,10 @@ public class Show_Model_Activity extends AppCompatActivity {
                     order.setCloth(cl);
                     Payment payment_ = new Payment();
 
-                        payment_.setAmount((int) payment);
-                        payment_.setDate(regDate);
-                        payment_.setOrder(order);
-                        payment_.setDes("p");
+                    payment_.setAmount((int) payment);
+                    payment_.setDate(regDate);
+                    payment_.setOrder(order);
+                    payment_.setDes("p");
 
                     //Toast.makeText(getApplicationContext(), "Hi "+regDate, Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
@@ -284,9 +289,9 @@ public class Show_Model_Activity extends AppCompatActivity {
                         // ((TextView) findViewById(R.id.result)).setText(Tools.getFormattedDateSimple(date_ship_millis));
 
                         // long date = new Date(date_ship_millis).getTime();
-                      //  String dd = android.text.format.DateFormat.format("yyy-mm-dd", new Date(date_ship_millis)).toString();
-                       // dliverDate = dd + "";
-                         dliverDate=Tools.getFormattedDateSimple(date_ship_millis);
+                        //  String dd = android.text.format.DateFormat.format("yyy-mm-dd", new Date(date_ship_millis)).toString();
+                        // dliverDate = dd + "";
+                        dliverDate = Tools.getFormattedDateSimple(date_ship_millis);
                         //Toast.makeText(Show_Model_Activity.this, "" + d, Toast.LENGTH_SHORT).show();
                         txt_show_date.setText("" + dliverDate);
 
@@ -301,7 +306,7 @@ public class Show_Model_Activity extends AppCompatActivity {
 
 
         //set dark theme
-       // datePicker.setThemeDark(true);
+        // datePicker.setThemeDark(true);
         datePicker.setAccentColor(getResources().getColor(R.color.colorPrimary));
         datePicker.setMinDate(cur_calender);
         datePicker.show(getFragmentManager(), "Datepickerdialog");
