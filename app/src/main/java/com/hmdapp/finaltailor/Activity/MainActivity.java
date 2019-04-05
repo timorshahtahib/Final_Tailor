@@ -247,6 +247,7 @@ public class MainActivity extends AppCompatActivity {
     private void updateDialog() {
         startActivity(new Intent(this, UPDATE.class));
         Toast.makeText(this, "plz update", Toast.LENGTH_SHORT).show();
+        finish();
     }
 
 

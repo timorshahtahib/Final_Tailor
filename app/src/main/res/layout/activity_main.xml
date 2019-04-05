@@ -88,13 +88,7 @@
                                         android:gravity="center"
                                         android:orientation="horizontal">
 
-                                        <ImageView
-                                            android:layout_width="@dimen/spacing_large"
-                                            android:layout_height="@dimen/spacing_large"
-                                            android:layout_marginEnd="@dimen/spacing_medium"
-                                            android:layout_marginRight="@dimen/spacing_medium"
-                                            android:tint="@color/grey_10"
-                                            app:srcCompat="@drawable/ic_location" />
+
 
                                         <TextView
                                             android:id="@+id/brief"
@@ -104,7 +98,7 @@
                                             android:textAppearance="@style/TextAppearance.AppCompat.Small"
                                             android:textColor="@color/grey_10" />
 
-                                    </LinearLayout>
+                                    </LinearLayout> 
 
                                 </LinearLayout>
 
