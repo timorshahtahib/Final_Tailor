@@ -14,7 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.hmdapp.finaltailor.Models.Customer;
+
 import com.hmdapp.finaltailor.R;
 import com.hmdapp.finaltailor.database.DB_Acsess;
 
