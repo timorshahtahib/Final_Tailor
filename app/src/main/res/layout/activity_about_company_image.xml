@@ -50,44 +50,29 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
-                     />
+                  />
 
                 <View
                     android:layout_width="match_parent"
-                    android:background="@drawable/pooran"
                     android:layout_height="match_parent"
-                   />
+                    android:background="@drawable/pooran" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:gravity="center"
-                    android:orientation="vertical">
+                <Button
 
-                    <Button
-
-                        android:layout_width="wrap_content"
-                        android:layout_height="45dp"
-                        android:onClick="send_email"
-                        android:text="CONTACT US"
-                        android:textAllCaps="false"
-
-                        android:textStyle="bold"
-                        app:fontFamily="sans-serif-thin" />
-
-                    <TextView
-                        android:layout_width="300dp"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="Tailor App"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                        android:textColor="@color/grey_3"
-                        app:fontFamily="sans-serif-medium" />
-
-
-                </LinearLayout>
+                    style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="162dp"
+                    android:layout_marginEnd="161dp"
+                    android:layout_marginBottom="33dp"
+                    android:onClick="send_email"
+                    android:text="ار تباط با ما"
+                    android:textAllCaps="false"
+                    android:textStyle="bold"
+                    app:fontFamily="sans-serif-thin" />
 
             </RelativeLayout>
 
@@ -96,7 +81,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_large"
                 android:gravity="center"
-                android:text="Our Team"
+                android:text="تیم ما"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@color/colorPrimary"
                 app:fontFamily="sans-serif-medium" />
@@ -132,7 +117,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="18dp"
-                        android:layout_marginTop="@dimen/spacing_medium"
+                        android:layout_marginTop="12dp"
                         android:text="تیمورشاه تایب "
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
                         android:textColor="@color/grey_90"
@@ -171,10 +156,10 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/spacing_medium"
-                        android:text="@string/younis"
                         android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/spacing_medium"
                         android:gravity="center"
+                        android:text="@string/younis"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
                         android:textColor="@color/grey_90"
                         app:fontFamily="sans-serif-medium" />
@@ -211,12 +196,12 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
                         android:layout_marginTop="@dimen/spacing_medium"
+                        android:gravity="center"
                         android:text="@string/wasi"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
                         android:textColor="@color/grey_90"
-                        android:layout_gravity="center"
-                        android:gravity="center"
                         app:fontFamily="sans-serif-medium" />
 
                     <TextView
@@ -228,6 +213,7 @@
                         app:fontFamily="sans-serif-light" />
 
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -251,10 +237,10 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/spacing_medium"
-                        android:text="@string/saraj"
                         android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/spacing_medium"
                         android:gravity="center"
+                        android:text="@string/saraj"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
                         android:textColor="@color/grey_90"
                         app:fontFamily="sans-serif-medium" />
@@ -263,53 +249,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Business Man"
-                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
-                        android:textColor="@color/grey_60"
-                        app:fontFamily="sans-serif-light" />
-
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <com.mikhaellopez.circularimageview.CircularImageView
-                        android:id="@+id/wasi"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:onClick="OnShowInfo"
-                        android:src="@drawable/wasi"
-                        app:civ_border="true"
-                        app:civ_border_color="@color/grey_10"
-                        app:civ_border_width="2dp"
-
-                        app:civ_shadow="true"
-                        app:civ_shadow_radius="0" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="@dimen/spacing_medium"
-                        android:gravity="center"
-                        android:text="@string/wasi_2"
-                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
-                        android:textColor="@color/grey_90"
-                        app:fontFamily="sans-serif-medium" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="App Developer"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
                         android:textColor="@color/grey_60"
                         app:fontFamily="sans-serif-light" />

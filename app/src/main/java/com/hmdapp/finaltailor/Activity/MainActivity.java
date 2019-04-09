@@ -59,6 +59,7 @@ import com.hmdapp.finaltailor.Models.Image;
 import com.hmdapp.finaltailor.R;
 import com.hmdapp.finaltailor.Seting_Activity;
 import com.hmdapp.finaltailor.Utlity.Tools;
+import com.hmdapp.finaltailor.Utlity.Utilities;
 import com.hmdapp.finaltailor.database.DB_Acsess;
 
 import java.io.File;
@@ -178,7 +179,7 @@ public class MainActivity extends AppCompatActivity {
                                 // Toast.makeText(MainActivity.this, "b = "+ b, Toast.LENGTH_SHORT).show();
                                 if (!b) {
 
-                                    Toast.makeText(MainActivity.this, "مشتری عزیز حساب شما بسته شده است  ۰۷۹۳۲۴۰۱۷۸", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(MainActivity.this, "مشتری عزیز حساب شما بسته شده است  ۰۷۹۳۲۴۰۱۷۸", Toast.LENGTH_LONG).show();
                                     finish();
                                 } else {
 
@@ -203,6 +204,9 @@ public class MainActivity extends AppCompatActivity {
        }catch (Exception e){
 
        }
+
+
+        Toast.makeText(this, ""+getCurrentShamsidate(), Toast.LENGTH_LONG).show();
 
 
     }
@@ -321,11 +325,13 @@ public class MainActivity extends AppCompatActivity {
 
     public void task_action(View view) {
         startActivity(new Intent(this, Tasks_Activity.class));
+        finish();
 
     }
 
     public void onReportClick(View view) {
         startActivity(new Intent(this, DashboradReportActivity.class));
+        finish();
 
     }
 
@@ -366,15 +372,19 @@ public class MainActivity extends AppCompatActivity {
 
                     case R.id.customer_item:
                         startActivity(new Intent(MainActivity.this, Person_Activity.class));
+                        finish();
                         break;
                     case R.id.task_item:
                         startActivity(new Intent(MainActivity.this, Tasks_Activity.class));
+                        finish();
                         break;
                     case R.id.report_item:
                         startActivity(new Intent(MainActivity.this, DashboradReportActivity.class));
+                        finish();
                         break;
                     case R.id.nav_about:
                         startActivity(new Intent(MainActivity.this, AboutCompanyImage.class));
+
                         break;
                     case R.id.back_up:
                         exportDatabase();
@@ -602,64 +612,14 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void isAvalible_user() {
-
-        TelephonyManager tManager = (TelephonyManager) getApplication().getSystemService(Context.TELEPHONY_SERVICE);
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-        final String uid = tManager.getDeviceId();
-
-        FirebaseApp.initializeApp(this);
-
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("users")
-                .whereEqualTo("serial", uid) // <-- This line
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
 
 
-                        Log.d("TAG_e", task.getResult().toString());
-                        if (!task.isSuccessful()) {
 
+    public  String getCurrentShamsidate() {
 
-                            Toast.makeText(MainActivity.this, task.getResult().toString(), Toast.LENGTH_SHORT).show();
-                            if (task.getResult().equals("")) {
-                                startActivity(new Intent(getApplicationContext(), Activity_No_Permesion_use.class));
-                                finish();
-                            }
-//                            for (DocumentSnapshot document : task.getResult()) {
-//                                if( uid.equalsIgnoreCase(String.valueOf(document.getData()))){
-//                                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
-//                                    finish();
-//                                }else {
-//                                   ;
-//                                }
-                            Log.d("TAG_e", task.getResult().toString());
-//                         }
-                        } else {
+        Utilities util = new Utilities();
 
-                            Log.d("TAG_e", "Error getting documents: ", task.getException());
-                        }
-                    }
-                });
-
+        return util. getCurrentShamsidate();
     }
 
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        // isAvalible_user();
-    }
 }

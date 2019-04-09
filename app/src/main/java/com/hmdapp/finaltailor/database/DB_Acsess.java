@@ -93,9 +93,9 @@ public class DB_Acsess {
 
         ArrayList<Order> list = new ArrayList<>();
 
-        //ORDER BY deliver_date DESC
 
-        Cursor d = db.rawQuery("select * from 'order' ", new String[]{});
+
+        Cursor d = db.rawQuery("select * from 'order'   ORDER BY id DESC", new String[]{});
 
         Log.d("Get All order : size", d.getCount() + "");
         while (d.moveToNext()) {

@@ -14,7 +14,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +27,7 @@ import com.hmdapp.finaltailor.Models.Order;
 import com.hmdapp.finaltailor.Models.Payment;
 import com.hmdapp.finaltailor.R;
 import com.hmdapp.finaltailor.Utlity.Tools;
+import com.hmdapp.finaltailor.Utlity.Utilities;
 import com.hmdapp.finaltailor.database.DB_Acsess;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
@@ -33,7 +37,9 @@ public class Show_Model_Activity extends AppCompatActivity {
 
     String dliverDate;
     TextView txt_show_date;
-
+  String month[]={"ماه","حمل","ثور","جوزا","سرطان","اسد","سنبله","میزان","عقرب","قوس","جدی","دلو","حوت"};
+    String day[]={"روز","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","19","30","31"};
+int m_p=0,d_p=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -164,15 +170,64 @@ public class Show_Model_Activity extends AppCompatActivity {
 
 
         final TextView textna = dialog.findViewById(R.id.txt_customer);
+        final Spinner spin1 = dialog.findViewById(R.id.spinner1);
+        final Spinner spin2 = dialog.findViewById(R.id.spinner2);
+
+        ArrayAdapter aa = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_spinner_item, month);
+        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        ArrayAdapter bb = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_spinner_item,day);
+        bb.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //Setting the ArrayAdapter data on the Spinner
+        spin1.setAdapter(aa);
+        spin2.setAdapter(bb);
+
+ final Utilities.SolarCalendar  s=new Utilities.SolarCalendar();
 
 
+
+
+        spin1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                if (position>0){
+                    m_p=position;
+                    txt_show_date.setText(day[spin2.getSelectedItemPosition()+1]+","+month[position]+","+s.year);
+
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        spin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                if (position>0){
+                    d_p=position;
+                    txt_show_date.setText(day[position]+","+month[spin1.getSelectedItemPosition()+1]+","+s.year);
+
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
         String cuName = getIntent().getStringExtra("cu_name");
 
         textna.setText(cuName);
         txt_show_date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialogDatePickerDark();
+             //   dialogDatePickerDark();
                 //Toast.makeText(Profile_Activity.this,"Instead of date picker",Toast.LENGTH_LONG).show();
             }
         });
@@ -206,7 +261,7 @@ public class Show_Model_Activity extends AppCompatActivity {
                 int count = Integer.parseInt(edCount.getText().toString());
 
 
-                if (review.isEmpty()) {
+                if (review.isEmpty()||m_p==0||d_p==0) {
 
                     Toast.makeText(getApplicationContext(), "لطفا تاریخ  تحویل را وارد کنید", Toast.LENGTH_SHORT).show();
                 } else if (price < 50) {
@@ -235,7 +290,7 @@ public class Show_Model_Activity extends AppCompatActivity {
                     order.setPrice(totalPrice);
 
                     order.setOrder_Date(regDate);
-                    order.setDeliverDate(dliverDate);
+                    order.setDeliverDate(review);
 
                     final int id_cl = getIntent().getIntExtra("id_cl", 0);
                     final int id_cu = getIntent().getIntExtra("id_cu", 0);

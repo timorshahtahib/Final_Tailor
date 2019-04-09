@@ -65,10 +65,10 @@
 
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/txt_mony"
+                style="@style/default_edit_text_setting"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="قیمت دوخت را وارد  کنید "
-                style="@style/default_edit_text_setting"
                 android:inputType="number" />
         </android.support.design.widget.TextInputLayout>
     </LinearLayout>
@@ -85,13 +85,14 @@
 
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/txt_pay"
+                style="@style/default_edit_text_setting"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="مقدار رسید پول را وارد کنید "
-                style="@style/default_edit_text_setting"
                 android:inputType="number" />
         </android.support.design.widget.TextInputLayout>
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -104,13 +105,14 @@
 
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/txt_count"
+                style="@style/default_edit_text_setting"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="تعداد را وارد کنید "
-                style="@style/default_edit_text_setting"
                 android:inputType="number" />
         </android.support.design.widget.TextInputLayout>
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -123,10 +125,10 @@
 
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/txt_color"
+                style="@style/default_edit_text_setting"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="رنگ لباس را وارد کنید "
-                style="@style/default_edit_text_setting"
                 android:inputType="text" />
         </android.support.design.widget.TextInputLayout>
     </LinearLayout>
@@ -135,19 +137,52 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:orientation="vertical"
         android:padding="@dimen/spacing_large">
 
         <TextView
             android:id="@+id/deliver_date"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/grey_3"
-            android:gravity="top"
-
-
-            android:hint="تاریخ   تحویل را وارد کنید"
             style="@style/default_edit_text_setting"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/grey_3"
+
+
+            android:gravity="top"
+            android:hint="تاریخ   تحویل را وارد کنید"
             android:padding="@dimen/spacing_middle" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="35dp"
+            android:orientation="horizontal">
+
+            <Spinner
+
+                android:id="@+id/spinner2"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/colorAccent"
+                android:dropDownWidth="wrap_content"
+                android:padding="@dimen/spacing_middle"
+                android:spinnerMode="dropdown" />
+
+            <Spinner
+
+                android:id="@+id/spinner1"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:background="@color/colorAccent"
+                android:dropDownWidth="wrap_content"
+                android:fitsSystemWindows="true"
+                android:padding="@dimen/spacing_middle"
+                android:spinnerMode="dropdown" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -167,21 +202,20 @@
 
             android:layout_width="wrap_content"
             android:layout_height="30dp"
-            android:gravity="center"
-            android:text="تایید"
             android:layout_marginLeft="@dimen/stander_margin"
-            android:background="@drawable/selector_orange_button"/>
+            android:background="@drawable/selector_orange_button"
+            android:gravity="center"
+            android:text="تایید" />
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/bt_cancel"
 
             android:layout_width="wrap_content"
             android:layout_height="30dp"
-            android:gravity="center"
-            android:text="لغو"
             android:layout_marginLeft="@dimen/stander_margin"
             android:background="@drawable/selector_orange_button"
-            />
+            android:gravity="center"
+            android:text="لغو" />
 
 
     </LinearLayout>

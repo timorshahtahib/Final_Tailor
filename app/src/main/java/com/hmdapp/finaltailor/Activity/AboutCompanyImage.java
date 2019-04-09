@@ -33,12 +33,6 @@ public class AboutCompanyImage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about_company_image);
         initToolbar();
-//        ImageView img_t,img_a,img_h,img_w;
-//
-//        img_t=findViewById(R.id.img_timor);
-//        img_a=findViewById(R.id.img_aziz);
-//        img_h=findViewById(R.id.img_hasib);
-//        img_w=findViewById(R.id.img_wahid);
 
 
     }
@@ -100,26 +94,37 @@ public class AboutCompanyImage extends AppCompatActivity {
 
     public void OnShowInfo(View view) {
 
-        int id = view.getId();
+        int id = R.id.img_timor;
+        try {
+            id = view.getId();
+        } catch (Exception e) {
+
+        }
+
+        try {
 
 
-        switch (id) {
-            case R.id.img_timor:
+            switch (id) {
+                case R.id.img_timor:
 
-                showDialogImageCenter(getString(R.string.timor_na), getString(R.string.timor_email), R.drawable.tahb);
-                break;
-            case R.id.img_aziz:
-                showDialogImageCenter(getString(R.string.younis), getString(R.string.younis), R.drawable.yonis);
+                    showDialogImageCenter(getString(R.string.timor_na), getString(R.string.timor_email), R.drawable.tahb);
+                    break;
+                case R.id.img_aziz:
+                    showDialogImageCenter(getString(R.string.younis), getString(R.string.younis), R.drawable.yonis);
 
-                break;
+                    break;
 
-            case R.id.img_wahid:
-                showDialogImageCenter(getString(R.string.wasi), getString(R.string.wasimail), R.drawable.mortaza);
+                case R.id.img_wahid:
+                    showDialogImageCenter(getString(R.string.wasi), getString(R.string.wasimail), R.drawable.mortaza);
 
-                break;
+                    break;
                 case R.id.saraj:
-                showDialogImageCenter(getString(R.string.saraj), getString(R.string.saraj_email), R.drawable.saraj);
-                break;
+                    showDialogImageCenter(getString(R.string.saraj), getString(R.string.saraj_email), R.drawable.saraj);
+                    break;
+
+            }
+
+        } catch (Exception r) {
 
         }
     }
@@ -141,8 +146,8 @@ public class AboutCompanyImage extends AppCompatActivity {
     public void send_email(View view) {
 
 
-        final String[] dev_name = {getString(R.string.younis), getString( R.string.timor_na), getString(R.string.wasi),getString(R.string.saraj)};
-        final String[] dev_email = {getString(R.string.younisail), "tahib2020@gmail.com", getString(R.string.wasimail),getString(R.string.saraj_email)};
+        final String[] dev_name = {getString(R.string.younis), getString(R.string.timor_na), getString(R.string.wasi), getString(R.string.saraj)};
+        final String[] dev_email = {getString(R.string.younisail), "tahib2020@gmail.com", getString(R.string.wasimail), getString(R.string.saraj_email)};
 
 
         final Dialog dialog = new Dialog(this);

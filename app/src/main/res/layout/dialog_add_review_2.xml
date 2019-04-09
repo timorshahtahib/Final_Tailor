@@ -61,8 +61,12 @@
 
         <Spinner
             android:id="@+id/spinner"
+
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:background="@color/colorAccent"
+            android:dropDownWidth="wrap_content"
+            android:spinnerMode="dropdown" />
     </LinearLayout>
 
     <LinearLayout

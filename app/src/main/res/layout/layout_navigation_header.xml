@@ -13,8 +13,8 @@
         android:src="@drawable/material_bg_1" />
 
     <com.mikhaellopez.circularimageview.CircularImageView
-        android:layout_width="64dp"
-        android:layout_height="64dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_margin="@dimen/spacing_large"
         android:src="@drawable/pooran"
         app:civ_shadow="true"
@@ -32,14 +32,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/spacing_medium"
-            android:text="خیاط"
+            android:text=" حسابداری خیاطی"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="tahib2020@gmail.com"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     </LinearLayout>
 
